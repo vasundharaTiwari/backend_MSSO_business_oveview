@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.*;
 public class MssoAdvancesController {
     @Autowired
     RepoMssoAdvances repoMssoAdvances;
+
     @GetMapping("/msso-advances")
-    public MssoAdvancesDto getBusiness(
+    public MssoAdvancesDto getAdvances(
             @RequestParam String branchCode,
 
             @RequestParam String roname,
@@ -24,12 +25,11 @@ public class MssoAdvancesController {
         if (u_loc.equalsIgnoreCase("HO")) {
             mssoAdvancesDto = this.repoMssoAdvances.getAdvancesHo(report_date);
 
-        }
-        else if (u_loc.equalsIgnoreCase("BR")) {
-            mssoAdvancesDto=this.repoMssoAdvances.getAdvancesBranch(branchCode, report_date);
+        } else if (u_loc.equalsIgnoreCase("BR")) {
+            mssoAdvancesDto = this.repoMssoAdvances.getAdvancesBranch(branchCode, report_date);
 
         } else {
-            mssoAdvancesDto=this.repoMssoAdvances.getAdvancesRO(roname, report_date);
+            mssoAdvancesDto = this.repoMssoAdvances.getAdvancesRO(roname, report_date);
         }
 
 

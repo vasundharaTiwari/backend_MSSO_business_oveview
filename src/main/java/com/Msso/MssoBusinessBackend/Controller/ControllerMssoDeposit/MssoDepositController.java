@@ -18,7 +18,7 @@ public class MssoDepositController {
 
 
     @GetMapping("/msso-deposit")
-    public MssoDepositDto getBusiness(
+    public MssoDepositDto getDeposit(
             @RequestParam String branchCode,
 
             @RequestParam String roname,
