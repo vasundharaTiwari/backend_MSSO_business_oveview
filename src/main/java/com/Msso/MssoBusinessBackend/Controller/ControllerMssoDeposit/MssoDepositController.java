@@ -1,12 +1,18 @@
 package com.Msso.MssoBusinessBackend.Controller.ControllerMssoDeposit;
 
+import com.Msso.MssoBusinessBackend.Model.MssoBusinessModel.DtoMssoBusinessBranchwise;
+import com.Msso.MssoBusinessBackend.Model.MssoBusinessModel.DtoMssoBusinessRegionwise;
 import com.Msso.MssoBusinessBackend.Model.MssoBusinessModel.MssoBusinessDto;
+import com.Msso.MssoBusinessBackend.Model.MssoDepositModel.DtoMssoDepositBranchwise;
+import com.Msso.MssoBusinessBackend.Model.MssoDepositModel.DtoMssoDepositRegionwise;
 import com.Msso.MssoBusinessBackend.Model.MssoDepositModel.MssoDepositDto;
 import com.Msso.MssoBusinessBackend.Repository.RepoMssoDeposit.RepoMssoDeposit;
 import com.Msso.MssoBusinessBackend.Repository.RepoMssoOverview.RepoMssoOverview;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @CrossOrigin
 @RequiredArgsConstructor
@@ -37,6 +43,18 @@ public class MssoDepositController {
 
 
         return mssoDepositDto;
+    }
+
+    @GetMapping("/regionwise")
+    public List<DtoMssoDepositRegionwise> getDepositRegionwise(@RequestParam String report_date) {
+
+        return repoMssoDeposit.getDepositHORegionwise(report_date);
+    }
+
+    @GetMapping("/branchwise")
+    public List<DtoMssoDepositBranchwise> getDepositBranchwise(@RequestParam String roname , @RequestParam String report_date) {
+
+        return repoMssoDeposit.getDepositHOBranchwise(roname, report_date);
     }
 }
 
