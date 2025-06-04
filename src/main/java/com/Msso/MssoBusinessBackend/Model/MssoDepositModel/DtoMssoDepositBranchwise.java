@@ -1,25 +1,29 @@
 package com.Msso.MssoBusinessBackend.Model.MssoDepositModel;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class MssoDepositDto {
-
+public class DtoMssoDepositBranchwise {
+private String branch_code;
+    private Date report_date;
     private BigDecimal sb;
-    private BigDecimal ca;
+    private java.math.BigDecimal ca;
     private BigDecimal td;
     private BigDecimal deposit;
-    private Date report_date;
 
-    public MssoDepositDto(BigDecimal sb, BigDecimal ca, BigDecimal td, BigDecimal deposit, Date report_date) {
-        this.sb = sb;
-        this.ca = ca;
-        this.td = td;
-        this.deposit = deposit;
+    public String getBranch_code() {
+        return branch_code;
+    }
+
+    public void setBranch_code(String branch_code) {
+        this.branch_code = branch_code;
+    }
+
+    public Date getReport_date() {
+        return report_date;
+    }
+
+    public void setReport_date(Date report_date) {
         this.report_date = report_date;
     }
 
@@ -55,14 +59,12 @@ public class MssoDepositDto {
         this.deposit = deposit;
     }
 
-    public Date getReport_date() {
-        return report_date;
-    }
-
-    public void setReport_date(Date report_date) {
+    public DtoMssoDepositBranchwise(String branch_code, Date report_date, BigDecimal sb, BigDecimal ca, BigDecimal td, BigDecimal deposit) {
+        this.branch_code = branch_code;
         this.report_date = report_date;
+        this.sb = sb;
+        this.ca = ca;
+        this.td = td;
+        this.deposit = deposit;
     }
-
-
-
 }

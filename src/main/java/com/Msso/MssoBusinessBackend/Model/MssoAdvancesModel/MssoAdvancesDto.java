@@ -4,58 +4,58 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class MssoAdvancesDto {
-    public BigDecimal getADVANCES() {
-        return ADVANCES;
+
+    private BigDecimal advances;
+    private BigDecimal reg_adv;
+    private BigDecimal total_npa;
+    private BigDecimal freez_npa;
+    private Date report_date;
+
+    public BigDecimal getAdvances() {
+        return advances;
     }
 
-    public MssoAdvancesDto(BigDecimal ADVANCES, BigDecimal REG_ADV, BigDecimal TOTAL_NPA, BigDecimal FREEZ_NPA, Date REPORT_DATE) {
-        this.ADVANCES = ADVANCES;
-        this.REG_ADV = REG_ADV;
-        this.TOTAL_NPA = TOTAL_NPA;
-        this.FREEZ_NPA = FREEZ_NPA;
-        this.REPORT_DATE = REPORT_DATE;
+    public void setAdvances(BigDecimal advances) {
+        this.advances = advances;
     }
 
-    public void setADVANCES(BigDecimal ADVANCES) {
-        this.ADVANCES = ADVANCES;
+    public BigDecimal getReg_adv() {
+        return reg_adv;
     }
 
-    public BigDecimal getREG_ADV() {
-        return REG_ADV;
+    public void setReg_adv(BigDecimal reg_adv) {
+        this.reg_adv = reg_adv;
     }
 
-    public void setREG_ADV(BigDecimal REG_ADV) {
-        this.REG_ADV = REG_ADV;
+    public BigDecimal getTotal_npa() {
+        return total_npa;
     }
 
-    public BigDecimal getTOTAL_NPA() {
-        return TOTAL_NPA;
+    public void setTotal_npa(BigDecimal total_npa) {
+        this.total_npa = total_npa;
     }
 
-    public void setTOTAL_NPA(BigDecimal TOTAL_NPA) {
-        this.TOTAL_NPA = TOTAL_NPA;
+    public BigDecimal getFreez_npa() {
+        return freez_npa;
     }
 
-    public BigDecimal getFREEZ_NPA() {
-        return FREEZ_NPA;
+    public void setFreez_npa(BigDecimal freez_npa) {
+        this.freez_npa = freez_npa;
     }
 
-    public void setFREEZ_NPA(BigDecimal FREEZ_NPA) {
-        this.FREEZ_NPA = FREEZ_NPA;
+    public Date getReport_date() {
+        return report_date;
     }
 
-    public Date getREPORT_DATE() {
-        return REPORT_DATE;
+    public void setReport_date(Date report_date) {
+        this.report_date = report_date;
     }
 
-    public void setREPORT_DATE(Date REPORT_DATE) {
-        this.REPORT_DATE = REPORT_DATE;
+    public MssoAdvancesDto(BigDecimal advances, BigDecimal reg_adv, BigDecimal total_npa, BigDecimal freez_npa, Date report_date) {
+        this.advances = advances;
+        this.reg_adv = reg_adv;
+        this.total_npa = total_npa;
+        this.freez_npa = freez_npa;
+        this.report_date = report_date;
     }
-
-    private BigDecimal ADVANCES;
-    private BigDecimal REG_ADV;
-    private BigDecimal TOTAL_NPA;
-    private BigDecimal FREEZ_NPA;
-    private Date REPORT_DATE;
-
 }

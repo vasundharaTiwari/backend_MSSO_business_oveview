@@ -20,16 +20,16 @@ public class MssoOverview {
 
 
     private Date report_date;
-    private String BRANCH_CODE;
+    private String branch_code;
     private String branch_name;
-    private String REGION;
-    private Double SB;
-    private Double CA;
-    private Double TD;
-    private Double DEPOSIT;
-    private Double ADVANCES;
-    private Double TOTAL_BUSINESS;
-    private Double CASA;
+    private String region;
+    private Double sb;
+    private Double ca;
+    private Double td;
+    private Double deposit;
+    private Double advances;
+    private Double total_business;
+    private Double casa;
 
 
 }

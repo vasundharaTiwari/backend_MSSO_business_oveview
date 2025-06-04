@@ -18,12 +18,13 @@ public class MssoAdvances {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Date REPORT_DATE;
-    private String BRANCH_CODE;
-    private String BRANCH_NAME;
-    private String REGION;
-    private BigDecimal ADVANCES;
-    private BigDecimal REG_ADV;
-    private BigDecimal TOTAL_NPA;
-    private BigDecimal FREEZ_NPA;
+    private Date report_date;
+    private String branch_code;
+    private String branch_name;
+    private String region;
+    private BigDecimal advances;
+    private BigDecimal reg_adv;
+    private BigDecimal total_npa;
+    private BigDecimal freez_npa;
+
 }
