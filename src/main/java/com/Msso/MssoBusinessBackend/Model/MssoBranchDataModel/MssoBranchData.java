@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class MssoBranchData {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String region;
     private String branchCode;
@@ -26,14 +26,14 @@ public class MssoBranchData {
     private String uId;
     private String designationCode;
     private String uType;
-    private int gm_count;
-    private int dgm_count;
-    private int agm_count;
-    private int cm_count;
-    private int srmanager_count;
-    private int manager_count;
-    private int dymanager_count;
-    private int clerk_count;
-    private int substaff_count;
+    private int gmCount;
+    private int dgmCount;
+    private int agmCount;
+    private int cmCount;
+    private int srmanagerCount;
+    private int managerCount;
+    private int dymanagerCount;
+    private int clerkCount;
+    private int substaffCount;
 
 }
