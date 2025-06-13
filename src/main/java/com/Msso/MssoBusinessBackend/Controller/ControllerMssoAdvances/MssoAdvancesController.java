@@ -26,30 +26,30 @@ public class MssoAdvancesController {
             @RequestParam String branchCode,
 
             @RequestParam String roname,
-            @RequestParam String u_loc, @RequestParam String report_date) {
+            @RequestParam String u_loc) {
         MssoAdvancesDto mssoAdvancesDto = null;
         if (u_loc.equalsIgnoreCase("HO")) {
-            mssoAdvancesDto = this.repoMssoAdvances.getAdvancesHo(report_date);
+            mssoAdvancesDto = this.repoMssoAdvances.getAdvancesHo();
 
         } else if (u_loc.equalsIgnoreCase("BR")) {
-            mssoAdvancesDto = this.repoMssoAdvances.getAdvancesBranch(branchCode, report_date);
+            mssoAdvancesDto = this.repoMssoAdvances.getAdvancesBranch(branchCode);
 
         } else {
-            mssoAdvancesDto = this.repoMssoAdvances.getAdvancesRO(roname, report_date);
+            mssoAdvancesDto = this.repoMssoAdvances.getAdvancesRO(roname );
         }
 
 
         return mssoAdvancesDto;
     }
     @GetMapping("/regionwise")
-    public List<DtoMssoAdvancesRegionwise> getAdvancesRegionwise(@RequestParam String report_date) {
+    public List<DtoMssoAdvancesRegionwise> getAdvancesRegionwise() {
 
-        return repoMssoAdvances.getAdvancesHORegionwise(report_date);
+        return repoMssoAdvances.getAdvancesHORegionwise();
     }
 
     @GetMapping("/branchwise")
-    public List<DtoMssoAdvancesBranchwise> getAdvancesBranchwise(@RequestParam String roname , @RequestParam String report_date) {
+    public List<DtoMssoAdvancesBranchwise> getAdvancesBranchwise(@RequestParam String roname) {
 
-        return repoMssoAdvances.getAdvancesHOBranchwise(roname, report_date);
+        return repoMssoAdvances.getAdvancesHOBranchwise(roname);
     }
 }
