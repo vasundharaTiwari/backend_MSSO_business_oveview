@@ -20,7 +20,10 @@ public class MssoBusinessBackendApplication {
 		marchEndDates.forEach(System.out::println);
 		LocalDate quarterEnd = getCurrentQuarterEndDate();
 		System.out.println("Current Quarter End Date: " + quarterEnd);
+		int currentYear = LocalDate.now().getYear();
 
+		LocalDate marchEndLatest = LocalDate.of(currentYear - 0, Month.MARCH, 31);
+		System.out.println("last march date :-"+marchEndLatest);
 	}
 	public static List<LocalDate> getLastThreeMarchEndDates() {
 		int currentYear = LocalDate.now().getYear();

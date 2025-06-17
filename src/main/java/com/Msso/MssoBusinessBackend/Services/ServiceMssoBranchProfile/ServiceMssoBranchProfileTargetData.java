@@ -1,6 +1,8 @@
 package com.Msso.MssoBusinessBackend.Services.ServiceMssoBranchProfile;
 
+import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileModel.MssoBranchProfileActualDataDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileModel.MssoBranchProfileTargetDataDto;
+import com.Msso.MssoBusinessBackend.Repository.RepoMssoBranchProfile.RepoMssoBranchProfileActualData;
 import com.Msso.MssoBusinessBackend.Repository.RepoMssoBranchProfile.RepoMssoBranchProfileTargetData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,11 +14,13 @@ import java.time.YearMonth;
 public class ServiceMssoBranchProfileTargetData {
     @Autowired
     RepoMssoBranchProfileTargetData repoMssoBranchProfileTargetData;
-    public MssoBranchProfileTargetDataDto  getMssoBranchProfileTargetData( String branchCode,
+    @Autowired
+    RepoMssoBranchProfileActualData repoMssoBranchProfilePreviousData;
+
+    public MssoBranchProfileTargetDataDto getMssoBranchProfileTargetData(String branchCode,
 
                                                                          String roname,
-                                                                          String u_loc)
-    {
+                                                                         String u_loc) {
         LocalDate quarterEndDate = getCurrentquarterEndDateDate();
         System.out.println("Current Quarter End Date: " + quarterEndDate);
         System.out.println("Current Quarter End Date: " + quarterEndDate);
@@ -25,16 +29,38 @@ public class ServiceMssoBranchProfileTargetData {
             mssoBranchProfileTargetDataDto = this.repoMssoBranchProfileTargetData.getBranchTargetHo(quarterEndDate);
 
         } else if (u_loc.equalsIgnoreCase("BR")) {
-            mssoBranchProfileTargetDataDto = this.repoMssoBranchProfileTargetData.getBranchTargetBranch(branchCode,quarterEndDate);
+            mssoBranchProfileTargetDataDto = this.repoMssoBranchProfileTargetData.getBranchTargetBranch(branchCode, quarterEndDate);
 
         } else {
-            mssoBranchProfileTargetDataDto = this.repoMssoBranchProfileTargetData.getBranchTargetRO(roname,quarterEndDate);
+            mssoBranchProfileTargetDataDto = this.repoMssoBranchProfileTargetData.getBranchTargetRO(roname, quarterEndDate);
         }
 
 
         return mssoBranchProfileTargetDataDto;
 
     }
+
+    public MssoBranchProfileTargetDataDto getMssoBranchProfileGapQuarter(String branchCode,
+
+                                                                         String roname,
+                                                                         String u_loc) {
+        LocalDate quarterEndDate = getCurrentquarterEndDateDate();
+
+        MssoBranchProfileTargetDataDto mssoBranchProfileTargetDataDto = null;
+        if (u_loc.equalsIgnoreCase("HO")) {
+            mssoBranchProfileTargetDataDto = this.repoMssoBranchProfileTargetData.getBranchProfileHoGap(quarterEndDate);
+            return mssoBranchProfileTargetDataDto;
+        } else if (u_loc.equalsIgnoreCase("BR")) {
+            mssoBranchProfileTargetDataDto = this.repoMssoBranchProfileTargetData.getBranchProfileBranchGap(branchCode, quarterEndDate);
+            return mssoBranchProfileTargetDataDto;
+        } else {
+            mssoBranchProfileTargetDataDto = this.repoMssoBranchProfileTargetData.getBranchProfileRoGap(roname, quarterEndDate);
+            return mssoBranchProfileTargetDataDto;
+        }
+
+
+    }
+
     public static LocalDate getCurrentquarterEndDateDate() {
         LocalDate today = LocalDate.now();
         int year = today.getYear();

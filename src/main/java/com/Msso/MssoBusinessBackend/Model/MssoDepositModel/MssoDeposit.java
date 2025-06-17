@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 @Data
 @AllArgsConstructor
@@ -17,8 +18,8 @@ public class MssoDeposit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private Date report_date;
+    @Column(columnDefinition = "DATE")
+    private LocalDate report_date;
     private String branch_code;
     private String br_name;
 

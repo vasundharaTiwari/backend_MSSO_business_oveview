@@ -39,16 +39,63 @@ public class ServiceBranchProfileLast3Year {
 
         }
 
+    public MssoBranchProfileActualDataDto getMssoBranchProfileGapMarch(String branchCode,
+
+                                                                              String roname,
+                                                                              String u_loc) {
+        LocalDate marchEndDates = getLastMarchEndDates();
+
+        MssoBranchProfileActualDataDto mssoBranchProfileActualDataDto = null;
+        if (u_loc.equalsIgnoreCase("HO")) {
+            mssoBranchProfileActualDataDto = this.repoMssoBranchProfilePreviousData.getBranchProfileHoGap(marchEndDates);
+            return mssoBranchProfileActualDataDto;
+        } else if (u_loc.equalsIgnoreCase("BR")) {
+            mssoBranchProfileActualDataDto = this.repoMssoBranchProfilePreviousData.getBranchProfileBranchGap(branchCode,marchEndDates);
+            return mssoBranchProfileActualDataDto;
+        } else {
+            mssoBranchProfileActualDataDto = this.repoMssoBranchProfilePreviousData.getBranchProfileRoGap(roname,marchEndDates);
+            return mssoBranchProfileActualDataDto;
+        }
 
 
+    }
+    public MssoBranchProfileActualDataDto getMssoBranchProfileGapMarchPercentage(String branchCode,
+
+                                                                       String roname,
+                                                                       String u_loc) {
+        LocalDate marchEndDates = getLastMarchEndDates();
+
+        MssoBranchProfileActualDataDto mssoBranchProfileActualDataDto = null;
+        if (u_loc.equalsIgnoreCase("HO")) {
+            mssoBranchProfileActualDataDto = this.repoMssoBranchProfilePreviousData.getBranchProfileHoGapPercentage(marchEndDates);
+            return mssoBranchProfileActualDataDto;
+        } else if (u_loc.equalsIgnoreCase("BR")) {
+            mssoBranchProfileActualDataDto = this.repoMssoBranchProfilePreviousData.getBranchProfileBranchGapPercentage(branchCode,marchEndDates);
+            return mssoBranchProfileActualDataDto;
+        } else {
+            mssoBranchProfileActualDataDto = this.repoMssoBranchProfilePreviousData.getBranchProfileRoGapPercentage(roname,marchEndDates);
+            return mssoBranchProfileActualDataDto;
+        }
+
+
+    }
     public static List<LocalDate> getLastThreeMarchEndDates() {
         int currentYear = LocalDate.now().getYear();
         List<LocalDate> marchEnds = new ArrayList<>();
+
 
         for (int i = 0; i < 3; i++) {
             LocalDate marchEnd = LocalDate.of(currentYear - i, Month.MARCH, 31);
             marchEnds.add(marchEnd);
         }
         return marchEnds;
+    }
+    public static LocalDate getLastMarchEndDates() {
+        int currentYear = LocalDate.now().getYear();
+
+        LocalDate marchEndLatest = LocalDate.of(currentYear - 0, Month.MARCH, 31);
+
+
+        return marchEndLatest;
     }
 }

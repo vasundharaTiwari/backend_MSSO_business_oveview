@@ -69,4 +69,45 @@ public class MssoBranchProfileController {
 
         return mssoBranchProfileTargetData;
     }
+
+    @GetMapping("/dep-adv-npa-mar-gap")
+    public MssoBranchProfileActualDataDto getBranchProfilemarchGap(
+            @RequestParam String branchCode,
+
+            @RequestParam String roname,
+            @RequestParam String u_loc) {
+
+        MssoBranchProfileActualDataDto mssoBranchProfileActualDataDto = serviceBranchProfileLast3Year.getMssoBranchProfileGapMarch(branchCode, roname, u_loc);
+
+
+        return mssoBranchProfileActualDataDto;
+    }
+
+    @GetMapping("/mar-gap-percentage")
+    public MssoBranchProfileActualDataDto getBranchProfilemarchGapPercentage(
+            @RequestParam String branchCode,
+
+            @RequestParam String roname,
+            @RequestParam String u_loc) {
+
+        MssoBranchProfileActualDataDto mssoBranchProfileActualDataDto = serviceBranchProfileLast3Year.getMssoBranchProfileGapMarchPercentage(branchCode, roname, u_loc);
+
+
+        return mssoBranchProfileActualDataDto;
+    }
+
+    @GetMapping("/dep-adv-npa-quarter-gap")
+    public MssoBranchProfileTargetDataDto getBranchProfileQuarterGap(
+            @RequestParam String branchCode,
+
+            @RequestParam String roname,
+            @RequestParam String u_loc) {
+
+        MssoBranchProfileTargetDataDto mssoBranchProfileTargetDataDto = serviceMssoBranchProfileTargetData.getMssoBranchProfileGapQuarter(branchCode, roname, u_loc);
+
+
+        return mssoBranchProfileTargetDataDto;
+    }
+
+
 }

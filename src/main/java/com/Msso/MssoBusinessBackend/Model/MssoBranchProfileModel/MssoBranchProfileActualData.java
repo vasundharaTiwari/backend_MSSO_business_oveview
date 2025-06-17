@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 @Data
 @AllArgsConstructor
@@ -17,8 +18,8 @@ public class MssoBranchProfileActualData {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
-    private Date report_date;
+    @Column(columnDefinition = "DATE")
+    private LocalDate report_date;
     private String branch_code;
     private String branch_name;
     private String region;

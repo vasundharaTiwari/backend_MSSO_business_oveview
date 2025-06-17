@@ -1,8 +1,7 @@
 package com.Msso.MssoBusinessBackend.Service.ServiceMssoBranchData;
 
-import com.Msso.MssoBusinessBackend.Model.MssoBranchDataModel.MssoBranchData;
-import com.Msso.MssoBusinessBackend.Model.MssoBranchDataModel.MssoBranchDataDto;
-import com.Msso.MssoBusinessBackend.Repository.RepoMssoBranchData.RepoMssoBranchData;
+import com.Msso.MssoBusinessBackend.Model.MssoBranchDataModel.MssoBranchEmployeeDataDto;
+import com.Msso.MssoBusinessBackend.Repository.RepoMssoBranchEmployeeData.RepoMssoBranchEmployeData;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,9 +13,9 @@ import java.util.List;
 public class MssoBranchDataServiceImpl implements MssoBranchDataService{
 
     @Autowired
-    private RepoMssoBranchData repoMssoBranchData;
+    private RepoMssoBranchEmployeData repoMssoBranchData;
     @Override
-    public List<MssoBranchDataDto> getMssoBranchData(String uLoc, String uId) {
+    public MssoBranchEmployeeDataDto getMssoBranchData(String branchCode , String uLoc,String uId,String roname) {
         System.out.println( " Get for branch summary service..User id: "+uId+" userLocation: "+uLoc);
         String uType="";
         if(uLoc.equals("BR")){
@@ -35,10 +34,10 @@ public class MssoBranchDataServiceImpl implements MssoBranchDataService{
         else{
             throw new IllegalArgumentException("Invalid Location: "+uLoc);
         }
-        System.out.println("location, UID AND  UTYPE: "+uLoc+"--"+uId+"--"+uType);
+        System.out.println("location, UID AND  UTYPE: "+uLoc+"----"+uType);
 
-        List<MssoBranchDataDto> BranchSummary= repoMssoBranchData.getBranchSummary(uLoc, uId, uType);
-        if (BranchSummary.isEmpty()) {
+        MssoBranchEmployeeDataDto BranchSummary= repoMssoBranchData.getBranchSummary(uType,branchCode,roname);
+        if (BranchSummary==null) {
             throw new RuntimeException("No data found");
         }
 
