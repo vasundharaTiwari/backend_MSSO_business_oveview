@@ -1,10 +1,12 @@
 package com.Msso.MssoBusinessBackend.Controller.ControllerBranchProfile;
 
+import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileDisbursement.MssoProfileDailyDisburseDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileModel.MssoBranchProfileActualDataDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileModel.MssoBranchProfileTargetDataDto;
 import com.Msso.MssoBusinessBackend.Repository.RepoMssoBranchProfile.RepoMssoBranchProfileActualData;
 import com.Msso.MssoBusinessBackend.Services.ServiceMssoBranchProfile.ServiceBranchProfileLast3Year;
 import com.Msso.MssoBusinessBackend.Services.ServiceMssoBranchProfile.ServiceMssoBranchProfileTargetData;
+import com.Msso.MssoBusinessBackend.Services.ServiceMssoBranchProfile.ServiceMssoDailyDisbursement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +25,11 @@ public class MssoBranchProfileController {
 @Autowired
     ServiceBranchProfileLast3Year serviceBranchProfileLast3Year;
 
-    @GetMapping("/dep-adv-npa")
+@Autowired
+    ServiceMssoDailyDisbursement serviceMssoDailyDisbursement;
+
+
+@GetMapping("/dep-adv-npa")
     public MssoBranchProfileActualDataDto getBranchProfileActual(
             @RequestParam String branchCode,
 
@@ -108,6 +114,19 @@ public class MssoBranchProfileController {
 
         return mssoBranchProfileTargetDataDto;
     }
+    @GetMapping("/daily-disbursement")
+    public MssoProfileDailyDisburseDto getDailyDisbursement(
 
+
+            @RequestParam String roname,
+            @RequestParam String branchCode,
+            @RequestParam String u_loc) {
+
+        MssoProfileDailyDisburseDto mssoProfileDailyDisburseDto =serviceMssoDailyDisbursement.getMssoDailyDisbursement(branchCode, roname, u_loc);
+
+
+        System.out.println("mssoProfileDailyDisburseDto "+mssoProfileDailyDisburseDto);
+        return mssoProfileDailyDisburseDto;
+    }
 
 }
