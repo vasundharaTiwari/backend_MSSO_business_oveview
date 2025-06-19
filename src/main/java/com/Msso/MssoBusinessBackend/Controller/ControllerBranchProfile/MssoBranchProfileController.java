@@ -3,8 +3,10 @@ package com.Msso.MssoBusinessBackend.Controller.ControllerBranchProfile;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileDisbursement.MssoProfileDailyDisburseDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileModel.MssoBranchProfileActualDataDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileModel.MssoBranchProfileTargetDataDto;
+import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileSma.MssoBranchProfileSmaDto;
 import com.Msso.MssoBusinessBackend.Repository.RepoMssoBranchProfile.RepoMssoBranchProfileActualData;
 import com.Msso.MssoBusinessBackend.Services.ServiceMssoBranchProfile.ServiceBranchProfileLast3Year;
+import com.Msso.MssoBusinessBackend.Services.ServiceMssoBranchProfile.ServiceMssoBranchProfileSma;
 import com.Msso.MssoBusinessBackend.Services.ServiceMssoBranchProfile.ServiceMssoBranchProfileTargetData;
 import com.Msso.MssoBusinessBackend.Services.ServiceMssoBranchProfile.ServiceMssoDailyDisbursement;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +29,8 @@ public class MssoBranchProfileController {
 
 @Autowired
     ServiceMssoDailyDisbursement serviceMssoDailyDisbursement;
+@Autowired
+    ServiceMssoBranchProfileSma serviceMssoBranchProfileSma;
 
 
 @GetMapping("/dep-adv-npa")
@@ -127,6 +131,20 @@ public class MssoBranchProfileController {
 
         System.out.println("mssoProfileDailyDisburseDto "+mssoProfileDailyDisburseDto);
         return mssoProfileDailyDisburseDto;
+    }
+    @GetMapping("/daily-sma")
+    public MssoBranchProfileSmaDto getMssoDailySma(
+
+
+            @RequestParam String roname,
+            @RequestParam String branchCode,
+            @RequestParam String u_loc) {
+
+        MssoBranchProfileSmaDto mssoBranchProfileSmaDto =serviceMssoBranchProfileSma.getMssoDailySma(branchCode, roname, u_loc);
+
+
+        System.out.println("mssoBranchProfileSmaDto "+mssoBranchProfileSmaDto);
+        return mssoBranchProfileSmaDto;
     }
 
 }

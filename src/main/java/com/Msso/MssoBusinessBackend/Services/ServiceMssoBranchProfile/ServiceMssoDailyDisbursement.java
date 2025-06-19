@@ -1,18 +1,14 @@
 package com.Msso.MssoBusinessBackend.Services.ServiceMssoBranchProfile;
 
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileDisbursement.MssoProfileDailyDisburseDto;
-import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileDisbursement.MssoProfileDailyDisbursement;
-import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileModel.MssoBranchProfileActualDataDto;
-import com.Msso.MssoBusinessBackend.Repository.RepoMssoDailyDisbursement.RepoMssoDailyDisbursement;
+import com.Msso.MssoBusinessBackend.Repository.RepoMssoBranchProfileDailyDisbursement.RepoMssoBranchProfileDailyDisbursement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
 
 @Service
 public class ServiceMssoDailyDisbursement {
     @Autowired
-    RepoMssoDailyDisbursement repoMssoDailyDisbursement;
+    RepoMssoBranchProfileDailyDisbursement repoMssoDailyDisbursement;
 
     public MssoProfileDailyDisburseDto getMssoDailyDisbursement(String branchCode,
 

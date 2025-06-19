@@ -1,14 +1,12 @@
-package com.Msso.MssoBusinessBackend.Repository.RepoMssoDailyDisbursement;
+package com.Msso.MssoBusinessBackend.Repository.RepoMssoBranchProfileDailyDisbursement;
 
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileDisbursement.MssoProfileDailyDisburseDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileDisbursement.MssoProfileDailyDisbursement;
-import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileModel.MssoBranchProfileActualDataDto;
-import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileModel.MssoBranchProfileTargetData;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface RepoMssoDailyDisbursement extends JpaRepository<MssoProfileDailyDisbursement, Long> {
+public interface RepoMssoBranchProfileDailyDisbursement extends JpaRepository<MssoProfileDailyDisbursement, Long> {
     //*******************************************************Daily Disbursement data ******************************************************
 
     @Query(value = """
