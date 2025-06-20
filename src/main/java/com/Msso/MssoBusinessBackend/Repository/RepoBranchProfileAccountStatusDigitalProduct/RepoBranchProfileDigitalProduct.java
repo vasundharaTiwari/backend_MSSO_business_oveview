@@ -1,0 +1,7 @@
+package com.Msso.MssoBusinessBackend.Repository.RepoBranchProfileAccountStatusDigitalProduct;
+
+import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileAccountStatusDigitalProduct.MssoBranchProfileDigitalProduct;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface RepoBranchProfileDigitalProduct extends JpaRepository<MssoBranchProfileDigitalProduct, Long> {
+}

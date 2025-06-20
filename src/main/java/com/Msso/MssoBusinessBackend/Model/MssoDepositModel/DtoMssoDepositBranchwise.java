@@ -5,6 +5,26 @@ import java.util.Date;
 
 public class DtoMssoDepositBranchwise {
 private String branch_code;
+
+    public DtoMssoDepositBranchwise(String branch_code, String branch_name, Date report_date, BigDecimal sb, BigDecimal ca, BigDecimal td, BigDecimal deposit) {
+        this.branch_code = branch_code;
+        this.branch_name = branch_name;
+        this.report_date = report_date;
+        this.sb = sb;
+        this.ca = ca;
+        this.td = td;
+        this.deposit = deposit;
+    }
+
+    public String getBranch_name() {
+        return branch_name;
+    }
+
+    public void setBranch_name(String branch_name) {
+        this.branch_name = branch_name;
+    }
+
+    private String branch_name;
     private Date report_date;
     private BigDecimal sb;
     private java.math.BigDecimal ca;
@@ -59,12 +79,5 @@ private String branch_code;
         this.deposit = deposit;
     }
 
-    public DtoMssoDepositBranchwise(String branch_code, Date report_date, BigDecimal sb, BigDecimal ca, BigDecimal td, BigDecimal deposit) {
-        this.branch_code = branch_code;
-        this.report_date = report_date;
-        this.sb = sb;
-        this.ca = ca;
-        this.td = td;
-        this.deposit = deposit;
-    }
+    
 }

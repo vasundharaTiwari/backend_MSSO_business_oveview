@@ -1,14 +1,12 @@
 package com.Msso.MssoBusinessBackend.Controller.ControllerBranchProfile;
 
+import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileAccountStatusDigitalProduct.MssoBranchProfileAccountStatusDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileDisbursement.MssoProfileDailyDisburseDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileModel.MssoBranchProfileActualDataDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileModel.MssoBranchProfileTargetDataDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileSma.MssoBranchProfileSmaDto;
 import com.Msso.MssoBusinessBackend.Repository.RepoMssoBranchProfile.RepoMssoBranchProfileActualData;
-import com.Msso.MssoBusinessBackend.Services.ServiceMssoBranchProfile.ServiceBranchProfileLast3Year;
-import com.Msso.MssoBusinessBackend.Services.ServiceMssoBranchProfile.ServiceMssoBranchProfileSma;
-import com.Msso.MssoBusinessBackend.Services.ServiceMssoBranchProfile.ServiceMssoBranchProfileTargetData;
-import com.Msso.MssoBusinessBackend.Services.ServiceMssoBranchProfile.ServiceMssoDailyDisbursement;
+import com.Msso.MssoBusinessBackend.Services.ServiceMssoBranchProfile.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +29,8 @@ public class MssoBranchProfileController {
     ServiceMssoDailyDisbursement serviceMssoDailyDisbursement;
 @Autowired
     ServiceMssoBranchProfileSma serviceMssoBranchProfileSma;
-
+@Autowired
+    ServiceBranchProfileAccountStatusDigitalProduct serviceaccountStatusDigitalProduct;
 
 @GetMapping("/dep-adv-npa")
     public MssoBranchProfileActualDataDto getBranchProfileActual(
@@ -145,6 +144,20 @@ public class MssoBranchProfileController {
 
         System.out.println("mssoBranchProfileSmaDto "+mssoBranchProfileSmaDto);
         return mssoBranchProfileSmaDto;
+    }
+    @GetMapping("/account-status")
+    public MssoBranchProfileAccountStatusDto getMssoAccountStatus(
+
+
+            @RequestParam String roname,
+            @RequestParam String branchCode,
+            @RequestParam String u_loc) {
+
+        MssoBranchProfileAccountStatusDto mssoBranchProfileAccountStatusDto =serviceaccountStatusDigitalProduct.getMssoAccountStatus(branchCode, roname, u_loc);
+
+
+        System.out.println("mssoBranchProfileAccountStatusDto "+mssoBranchProfileAccountStatusDto);
+        return mssoBranchProfileAccountStatusDto;
     }
 
 }

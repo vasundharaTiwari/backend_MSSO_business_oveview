@@ -34,7 +34,7 @@ public interface RepoMssoAdvances extends JpaRepository<MssoAdvances, Long> {
     MssoAdvancesDto getAdvancesRO(@Param("roname") String roname);
 
     @Query(
-            value = "Select branch_code,report_date,round((advances)::numeric,2) AS ADVANCES,round((advances - total_npa)::numeric,2) as Reg_Adv,round((total_npa)::numeric,2) as TOTAL_NPA,\n             round((freez_npa)::numeric,2)as FREEZ_NPA from advances.MSSO_ADVANCES where report_date =(select max(report_date) from  advances.MSSO_ADVANCES)  and region=:roname order by branch_code\n",
+            value = "Select branch_code,branch_name,report_date,round((advances)::numeric,2) AS ADVANCES,round((advances - total_npa)::numeric,2) as Reg_Adv,round((total_npa)::numeric,2) as TOTAL_NPA,\n             round((freez_npa)::numeric,2)as FREEZ_NPA from advances.MSSO_ADVANCES where report_date =(select max(report_date) from  advances.MSSO_ADVANCES)  and region=:roname order by branch_code\n",
             nativeQuery = true
     )
     List<DtoMssoAdvancesBranchwise> getAdvancesHOBranchwise(@Param("roname") String roname);

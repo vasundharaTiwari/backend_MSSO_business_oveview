@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface RepoMssoBranchProfileSma extends JpaRepository<MssoBranchProfileSma, Long> {
 
-    //*******************************************************Daily Disbursement data ******************************************************
+    //*******************************************************Daily sma data ******************************************************
 
     @Query(value = """
             SELECT report_date,sum( total_count)as total_count ,round(sum( total_amount::numeric), 2) as total_amount ,sum(sma0_count)as sma0_count,round(sum( sma0_amount::numeric), 2) as sma0_amount ,

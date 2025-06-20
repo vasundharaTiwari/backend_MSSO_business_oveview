@@ -5,6 +5,7 @@ import java.util.Date;
 
 public class DtoMssoAdvancesBranchwise {
     private String branch_code;
+    private String branch_name;
     private Date report_date;
     private BigDecimal advances;
     private BigDecimal reg_adv;
@@ -59,12 +60,21 @@ public class DtoMssoAdvancesBranchwise {
         this.advances = advances;
     }
 
-    public DtoMssoAdvancesBranchwise(String branch_code, Date report_date, BigDecimal advances, BigDecimal reg_adv, BigDecimal total_npa, BigDecimal freez_npa) {
+    public DtoMssoAdvancesBranchwise(String branch_code, String branchName, Date report_date, BigDecimal advances, BigDecimal reg_adv, BigDecimal total_npa, BigDecimal freez_npa) {
         this.branch_code = branch_code;
+        this.branch_name = branchName;
         this.report_date = report_date;
         this.advances = advances;
         this.reg_adv = reg_adv;
         this.total_npa = total_npa;
         this.freez_npa = freez_npa;
+    }
+
+    public String getBranch_name() {
+        return branch_name;
+    }
+
+    public void setBranch_name(String branch_name) {
+        this.branch_name = branch_name;
     }
 }

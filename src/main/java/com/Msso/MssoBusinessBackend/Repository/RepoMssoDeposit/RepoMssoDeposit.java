@@ -33,7 +33,7 @@ public interface RepoMssoDeposit extends JpaRepository<MssoDeposit, Long> {
             """, nativeQuery = true)
     public MssoDepositDto getDepositRO(@Param("roname") String roname);
     @Query(value = """
-             Select branch_code,report_date, round((sb)::numeric,2) as sb,round((Ca)::numeric,2) as Ca,round((td)::numeric,2) as td, round((deposit)::numeric,2) as deposit\s
+             Select branch_code,branch_name,report_date, round((sb)::numeric,2) as sb,round((Ca)::numeric,2) as Ca,round((td)::numeric,2) as td, round((deposit)::numeric,2) as deposit\s
              from advances.MSSO_DEPOSIT where report_date= (select max(report_date) from advances.MSSO_DEPOSIT) AND REGION=:roname  ORDER BY branch_code
             """, nativeQuery = true)
     public List<DtoMssoDepositBranchwise> getDepositHOBranchwise(@Param("roname") String roname);
