@@ -1,4 +1,4 @@
-package com.Msso.MssoBusinessBackend.Model.MssoBranchProfileAccountStatusDigitalProduct;
+package com.Msso.MssoBusinessBackend.Model.MssoProfileAccountStatusDigitalProduct;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

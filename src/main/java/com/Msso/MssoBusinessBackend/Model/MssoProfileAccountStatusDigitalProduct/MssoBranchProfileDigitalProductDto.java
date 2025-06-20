@@ -1,17 +1,18 @@
-package com.Msso.MssoBusinessBackend.Model.MssoBranchProfileAccountStatusDigitalProduct;
+package com.Msso.MssoBusinessBackend.Model.MssoProfileAccountStatusDigitalProduct;
 
 import java.util.Date;
 
 public class MssoBranchProfileDigitalProductDto {
     private Date report_date;
 
-    private int internet_banking ;
-    private int mobile_banking ;
-    private int  atm_card ;
+    private Long internet_banking ;
+    private Long mobile_banking ;
+    private Long  atm_card ;
 
-    public MssoBranchProfileDigitalProductDto(int internet_banking, Date report_date, int mobile_banking, int atm_card) {
-        this.internet_banking = internet_banking;
+    public MssoBranchProfileDigitalProductDto( Date report_date, Long internet_banking,Long mobile_banking, Long atm_card) {
         this.report_date = report_date;
+        this.internet_banking = internet_banking;
+
         this.mobile_banking = mobile_banking;
         this.atm_card = atm_card;
     }
@@ -24,27 +25,27 @@ public class MssoBranchProfileDigitalProductDto {
         this.report_date = report_date;
     }
 
-    public int getInternet_banking() {
+    public Long getinternet_banking() {
         return internet_banking;
     }
 
-    public void setInternet_banking(int internet_banking) {
+    public void setinternet_banking(Long internet_banking) {
         this.internet_banking = internet_banking;
     }
 
-    public int getMobile_banking() {
+    public Long getMobile_banking() {
         return mobile_banking;
     }
 
-    public void setMobile_banking(int mobile_banking) {
+    public void setMobile_banking(Long mobile_banking) {
         this.mobile_banking = mobile_banking;
     }
 
-    public int getAtm_card() {
+    public Long getAtm_card() {
         return atm_card;
     }
 
-    public void setAtm_card(int atm_card) {
+    public void setAtm_card(Long atm_card) {
         this.atm_card = atm_card;
     }
 }

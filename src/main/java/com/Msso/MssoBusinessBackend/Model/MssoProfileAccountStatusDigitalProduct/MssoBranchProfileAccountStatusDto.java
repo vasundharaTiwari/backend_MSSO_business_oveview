@@ -1,4 +1,4 @@
-package com.Msso.MssoBusinessBackend.Model.MssoBranchProfileAccountStatusDigitalProduct;
+package com.Msso.MssoBusinessBackend.Model.MssoProfileAccountStatusDigitalProduct;
 
 import java.math.BigDecimal;
 import java.util.Date;

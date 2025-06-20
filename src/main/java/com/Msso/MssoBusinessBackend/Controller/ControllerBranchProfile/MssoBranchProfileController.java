@@ -1,6 +1,8 @@
 package com.Msso.MssoBusinessBackend.Controller.ControllerBranchProfile;
 
-import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileAccountStatusDigitalProduct.MssoBranchProfileAccountStatusDto;
+import com.Msso.MssoBusinessBackend.Model.MssoProfileAccountStatusDigitalProduct.MssoAccountStatusDigitalTargetDto;
+import com.Msso.MssoBusinessBackend.Model.MssoProfileAccountStatusDigitalProduct.MssoBranchProfileAccountStatusDto;
+import com.Msso.MssoBusinessBackend.Model.MssoProfileAccountStatusDigitalProduct.MssoBranchProfileDigitalProductDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileDisbursement.MssoProfileDailyDisburseDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileModel.MssoBranchProfileActualDataDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileModel.MssoBranchProfileTargetDataDto;
@@ -20,19 +22,20 @@ import java.util.List;
 public class MssoBranchProfileController {
     @Autowired
     RepoMssoBranchProfileActualData repoMssoBranchProfile;
-@Autowired
+    @Autowired
     ServiceMssoBranchProfileTargetData serviceMssoBranchProfileTargetData;
-@Autowired
+    @Autowired
     ServiceBranchProfileLast3Year serviceBranchProfileLast3Year;
 
-@Autowired
+    @Autowired
     ServiceMssoDailyDisbursement serviceMssoDailyDisbursement;
-@Autowired
+    @Autowired
     ServiceMssoBranchProfileSma serviceMssoBranchProfileSma;
-@Autowired
-    ServiceBranchProfileAccountStatusDigitalProduct serviceaccountStatusDigitalProduct;
+    @Autowired
+    ServiceAccountStatusDigitalProduct serviceaccountStatusDigitalProduct;
 
-@GetMapping("/dep-adv-npa")
+
+    @GetMapping("/dep-adv-npa")
     public MssoBranchProfileActualDataDto getBranchProfileActual(
             @RequestParam String branchCode,
 
@@ -48,10 +51,11 @@ public class MssoBranchProfileController {
         } else {
             mssoBranchProfileDto = this.repoMssoBranchProfile.getBranchProfileRO(roname);
         }
-
+        System.out.println("inside dep-adv-npa");
 
         return mssoBranchProfileDto;
     }
+
     @GetMapping("/dep-adv-npa-march")
 
     public List<MssoBranchProfileActualDataDto> getBranchProfileTarget(
@@ -62,7 +66,7 @@ public class MssoBranchProfileController {
 
         List<MssoBranchProfileActualDataDto> mssoBranchProfileMarchData = serviceBranchProfileLast3Year.getMssoBranchProfileMarchData(branchCode, roname, u_loc);
 
-
+        System.out.println("inside dep-adv-npa-march");
         return mssoBranchProfileMarchData;
     }
 
@@ -75,7 +79,7 @@ public class MssoBranchProfileController {
 
         MssoBranchProfileTargetDataDto mssoBranchProfileTargetData = serviceMssoBranchProfileTargetData.getMssoBranchProfileTargetData(branchCode, roname, u_loc);
 
-
+        System.out.println("inside dep-adv-npa-target");
         return mssoBranchProfileTargetData;
     }
 
@@ -88,7 +92,7 @@ public class MssoBranchProfileController {
 
         MssoBranchProfileActualDataDto mssoBranchProfileActualDataDto = serviceBranchProfileLast3Year.getMssoBranchProfileGapMarch(branchCode, roname, u_loc);
 
-
+        System.out.println("inside dep-adv-npa-mar-gap");
         return mssoBranchProfileActualDataDto;
     }
 
@@ -101,7 +105,7 @@ public class MssoBranchProfileController {
 
         MssoBranchProfileActualDataDto mssoBranchProfileActualDataDto = serviceBranchProfileLast3Year.getMssoBranchProfileGapMarchPercentage(branchCode, roname, u_loc);
 
-
+        System.out.println("inside mar-gap-percentage");
         return mssoBranchProfileActualDataDto;
     }
 
@@ -114,9 +118,10 @@ public class MssoBranchProfileController {
 
         MssoBranchProfileTargetDataDto mssoBranchProfileTargetDataDto = serviceMssoBranchProfileTargetData.getMssoBranchProfileGapQuarter(branchCode, roname, u_loc);
 
-
+        System.out.println("inside dep-adv-npa-quarter-gap");
         return mssoBranchProfileTargetDataDto;
     }
+
     @GetMapping("/daily-disbursement")
     public MssoProfileDailyDisburseDto getDailyDisbursement(
 
@@ -125,12 +130,13 @@ public class MssoBranchProfileController {
             @RequestParam String branchCode,
             @RequestParam String u_loc) {
 
-        MssoProfileDailyDisburseDto mssoProfileDailyDisburseDto =serviceMssoDailyDisbursement.getMssoDailyDisbursement(branchCode, roname, u_loc);
+        MssoProfileDailyDisburseDto mssoProfileDailyDisburseDto = serviceMssoDailyDisbursement.getMssoDailyDisbursement(branchCode, roname, u_loc);
 
 
-        System.out.println("mssoProfileDailyDisburseDto "+mssoProfileDailyDisburseDto);
+        System.out.println("inside daily-disbursement");
         return mssoProfileDailyDisburseDto;
     }
+
     @GetMapping("/daily-sma")
     public MssoBranchProfileSmaDto getMssoDailySma(
 
@@ -139,12 +145,13 @@ public class MssoBranchProfileController {
             @RequestParam String branchCode,
             @RequestParam String u_loc) {
 
-        MssoBranchProfileSmaDto mssoBranchProfileSmaDto =serviceMssoBranchProfileSma.getMssoDailySma(branchCode, roname, u_loc);
+        MssoBranchProfileSmaDto mssoBranchProfileSmaDto = serviceMssoBranchProfileSma.getMssoDailySma(branchCode, roname, u_loc);
 
 
-        System.out.println("mssoBranchProfileSmaDto "+mssoBranchProfileSmaDto);
+        System.out.println("inside daily-sma");
         return mssoBranchProfileSmaDto;
     }
+
     @GetMapping("/account-status")
     public MssoBranchProfileAccountStatusDto getMssoAccountStatus(
 
@@ -153,11 +160,40 @@ public class MssoBranchProfileController {
             @RequestParam String branchCode,
             @RequestParam String u_loc) {
 
-        MssoBranchProfileAccountStatusDto mssoBranchProfileAccountStatusDto =serviceaccountStatusDigitalProduct.getMssoAccountStatus(branchCode, roname, u_loc);
+        MssoBranchProfileAccountStatusDto mssoBranchProfileAccountStatusDto = serviceaccountStatusDigitalProduct.getMssoAccountStatus(branchCode, roname, u_loc);
 
 
-        System.out.println("mssoBranchProfileAccountStatusDto "+mssoBranchProfileAccountStatusDto);
+        System.out.println("inside account-status");
         return mssoBranchProfileAccountStatusDto;
     }
 
+    @GetMapping("/digital-product")
+    public MssoBranchProfileDigitalProductDto getMssoDigitalProduct(
+
+
+            @RequestParam String roname,
+            @RequestParam String branchCode,
+            @RequestParam String u_loc) {
+
+        MssoBranchProfileDigitalProductDto mssoBranchProfileDigitalProductDto = serviceaccountStatusDigitalProduct.getMssoDigitalProduct(branchCode, roname, u_loc);
+
+
+        System.out.println("inside digital-product");
+        return mssoBranchProfileDigitalProductDto;
+    }
+
+    @GetMapping("/account-digital-target")
+    public MssoAccountStatusDigitalTargetDto getMssoAccountDigitalProductTarget(
+
+
+            @RequestParam String roname,
+            @RequestParam String branchCode,
+            @RequestParam String u_loc) {
+
+        MssoAccountStatusDigitalTargetDto mssoAccountStatusDigitalTargetDto = serviceaccountStatusDigitalProduct.getMssoAccountDigitalProductTarget(branchCode, roname, u_loc);
+
+
+        System.out.println("inside digital-product");
+        return mssoAccountStatusDigitalTargetDto;
+    }
 }
