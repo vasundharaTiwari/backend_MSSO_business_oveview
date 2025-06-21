@@ -7,6 +7,7 @@ import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileDisbursement.MssoProf
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileModel.MssoBranchProfileActualDataDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileModel.MssoBranchProfileTargetDataDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileSma.MssoBranchProfileSmaDto;
+import com.Msso.MssoBusinessBackend.Model.MssoProfileReviewRenewal.MssoProfileComplianceDto;
 import com.Msso.MssoBusinessBackend.Repository.RepoMssoBranchProfile.RepoMssoBranchProfileActualData;
 import com.Msso.MssoBusinessBackend.Services.ServiceMssoBranchProfile.*;
 import lombok.RequiredArgsConstructor;
@@ -195,5 +196,36 @@ public class MssoBranchProfileController {
 
         System.out.println("inside digital-product");
         return mssoAccountStatusDigitalTargetDto;
+    }
+
+
+    @GetMapping("/review-renewal-pending")
+    public MssoProfileComplianceDto getPendingReview(
+
+
+            @RequestParam String roname,
+            @RequestParam String branchCode,
+            @RequestParam String u_loc) {
+
+        MssoProfileComplianceDto mssoProfileReviewRenewalPending = serviceMssoBranchProfileSma.getPendingReview(branchCode, roname, u_loc);
+
+
+        System.out.println("inside review renewal pending");
+        return mssoProfileReviewRenewalPending;
+    }
+
+    @GetMapping("/timebarred")
+    public MssoProfileComplianceDto getTimebarred(
+
+
+            @RequestParam String roname,
+            @RequestParam String branchCode,
+            @RequestParam String u_loc) {
+
+        MssoProfileComplianceDto mssoProfileTimebarred = serviceMssoBranchProfileSma.getTimebarredData(branchCode, roname, u_loc);
+
+
+        System.out.println("inside timebarred");
+        return mssoProfileTimebarred;
     }
 }

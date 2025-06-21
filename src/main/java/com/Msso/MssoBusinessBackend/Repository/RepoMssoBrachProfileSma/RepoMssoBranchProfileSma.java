@@ -2,6 +2,7 @@ package com.Msso.MssoBusinessBackend.Repository.RepoMssoBrachProfileSma;
 
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileSma.MssoBranchProfileSma;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileSma.MssoBranchProfileSmaDto;
+import com.Msso.MssoBusinessBackend.Model.MssoProfileReviewRenewal.MssoProfileComplianceDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -35,4 +36,49 @@ public interface RepoMssoBranchProfileSma extends JpaRepository<MssoBranchProfil
                                  ; 
              """, nativeQuery = true)
     public MssoBranchProfileSmaDto getDailySmaRO(@Param("roname") String roname);
+    //*******************************************************Review renewal ******************************************************
+
+    @Query(value = """
+            SELECT report_date,sum( total_count)as total_count ,round(sum( total_amount::numeric), 2) as total_amount  FROM msso_branch_profile.msso_profile_pending_review_renewal
+            where  report_date=(select max(report_date)from msso_branch_profile.msso_profile_pending_review_renewal )  group by report_date; 
+            """, nativeQuery = true)
+    public MssoProfileComplianceDto getPendingRevieRenewalHo();
+
+
+    @Query(value = """
+            SELECT report_date,sum( total_count)as total_count ,round(sum( total_amount::numeric), 2) as total_amount  FROM msso_branch_profile.msso_profile_pending_review_renewal
+             where  report_date=(select max(report_date)from msso_branch_profile.msso_profile_pending_review_renewal ) and branch_code=:branchCode group by report_date;
+             """, nativeQuery = true)
+    public MssoProfileComplianceDto getPendingRevieRenewalBranch(@Param("branchCode") String branchCode);
+
+    @Query(value = """
+            SELECT report_date,sum( total_count)as total_count ,round(sum( total_amount::numeric), 2) as total_amount  FROM msso_branch_profile.msso_profile_pending_review_renewal
+            where  report_date=(select max(report_date)from msso_branch_profile.msso_profile_pending_review_renewal )  and region=:roname group by report_date;
+                                	
+                                 ; 
+             """, nativeQuery = true)
+    public MssoProfileComplianceDto getPendingRevieRenewalRO(@Param("roname") String roname);
+
+    //*******************************************************timebarred ******************************************************
+
+    @Query(value = """
+            SELECT report_date,sum( total_count)as total_count ,round(sum( total_amount::numeric), 2) as total_amount  FROM msso_branch_profile.msso_profile_timebarred
+            where  report_date=(select max(report_date)from msso_branch_profile.msso_profile_timebarred )  group by report_date; 
+            """, nativeQuery = true)
+    public MssoProfileComplianceDto getTimebarredHo();
+
+
+    @Query(value = """
+            SELECT report_date,sum( total_count)as total_count ,round(sum( total_amount::numeric), 2) as total_amount  FROM msso_branch_profile.msso_profile_timebarred
+             where  report_date=(select max(report_date)from msso_branch_profile.msso_profile_timebarred ) and branch_code=:branchCode group by report_date;
+             """, nativeQuery = true)
+    public MssoProfileComplianceDto getgetTimebarredBranch(@Param("branchCode") String branchCode);
+
+    @Query(value = """
+            SELECT report_date,sum( total_count)as total_count ,round(sum( total_amount::numeric), 2) as total_amount  FROM msso_branch_profile.msso_profile_timebarred
+            where  report_date=(select max(report_date)from msso_branch_profile.msso_profile_timebarred )  and region=:roname group by report_date;
+                                	
+                                 ; 
+             """, nativeQuery = true)
+    public MssoProfileComplianceDto getgetTimebarredRO(@Param("roname") String roname);
 }

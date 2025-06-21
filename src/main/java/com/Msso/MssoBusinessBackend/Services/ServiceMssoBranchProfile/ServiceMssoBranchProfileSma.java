@@ -1,7 +1,7 @@
 package com.Msso.MssoBusinessBackend.Services.ServiceMssoBranchProfile;
 
-import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileDisbursement.MssoProfileDailyDisburseDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileSma.MssoBranchProfileSmaDto;
+import com.Msso.MssoBusinessBackend.Model.MssoProfileReviewRenewal.MssoProfileComplianceDto;
 import com.Msso.MssoBusinessBackend.Repository.RepoMssoBrachProfileSma.RepoMssoBranchProfileSma;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +26,47 @@ public class ServiceMssoBranchProfileSma {
         } else {
             mssoBranchProfileSmaDto = this.repoMssoBranchProfileSma.getDailySmaRO(roname);
             return mssoBranchProfileSmaDto;
+        }
+
+
+    }
+    public MssoProfileComplianceDto getPendingReview(String branchCode,
+
+                                                     String roname,
+                                                     String u_loc) {
+
+
+        MssoProfileComplianceDto mssoProfileReviewRenewalPending = null;
+        if (u_loc.equalsIgnoreCase("HO")) {
+            mssoProfileReviewRenewalPending = this.repoMssoBranchProfileSma.getPendingRevieRenewalHo();
+            return mssoProfileReviewRenewalPending;
+        } else if (u_loc.equalsIgnoreCase("BR")) {
+            mssoProfileReviewRenewalPending = this.repoMssoBranchProfileSma.getPendingRevieRenewalBranch(branchCode);
+            return mssoProfileReviewRenewalPending;
+        } else {
+            mssoProfileReviewRenewalPending = this.repoMssoBranchProfileSma.getPendingRevieRenewalRO(roname);
+            return mssoProfileReviewRenewalPending;
+        }
+
+
+    }
+
+    public MssoProfileComplianceDto getTimebarredData(String branchCode,
+
+                                                     String roname,
+                                                     String u_loc) {
+
+
+        MssoProfileComplianceDto mssoProfileTimebarred = null;
+        if (u_loc.equalsIgnoreCase("HO")) {
+            mssoProfileTimebarred = this.repoMssoBranchProfileSma.getTimebarredHo();
+            return mssoProfileTimebarred;
+        } else if (u_loc.equalsIgnoreCase("BR")) {
+            mssoProfileTimebarred = this.repoMssoBranchProfileSma.getgetTimebarredBranch(branchCode);
+            return mssoProfileTimebarred;
+        } else {
+            mssoProfileTimebarred = this.repoMssoBranchProfileSma.getgetTimebarredRO(roname);
+            return mssoProfileTimebarred;
         }
 
 
