@@ -27,4 +27,6 @@ public class MssoBranchProfileDigitalProduct {
     private int internet_banking ;
     private int mobile_banking ;
     private int  atm_card ;
+    private int ckyc ;
+    private int multiple_cif ;
 }

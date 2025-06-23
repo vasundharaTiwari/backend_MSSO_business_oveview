@@ -8,13 +8,17 @@ public class MssoBranchProfileDigitalProductDto {
     private Long internet_banking ;
     private Long mobile_banking ;
     private Long  atm_card ;
+    private Long ckyc ;
+    private Long multiple_cif ;
 
-    public MssoBranchProfileDigitalProductDto( Date report_date, Long internet_banking,Long mobile_banking, Long atm_card) {
+    public MssoBranchProfileDigitalProductDto(Date report_date, Long internet_banking, Long mobile_banking, Long atm_card, Long ckyc, Long multipleCif) {
         this.report_date = report_date;
         this.internet_banking = internet_banking;
 
         this.mobile_banking = mobile_banking;
         this.atm_card = atm_card;
+        this.ckyc = ckyc;
+        this.multiple_cif = multipleCif;
     }
 
     public Date getReport_date() {
@@ -47,5 +51,21 @@ public class MssoBranchProfileDigitalProductDto {
 
     public void setAtm_card(Long atm_card) {
         this.atm_card = atm_card;
+    }
+
+    public Long getCkyc() {
+        return ckyc;
+    }
+
+    public void setCkyc(Long ckyc) {
+        this.ckyc = ckyc;
+    }
+
+    public Long getMultiple_cif() {
+        return multiple_cif;
+    }
+
+    public void setMultiple_cif(Long multiple_cif) {
+        this.multiple_cif = multiple_cif;
     }
 }
