@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.YearMonth;
 
 @Service
@@ -22,6 +23,29 @@ public class ServiceMssoBranchProfileTargetData {
                                                                          String roname,
                                                                          String u_loc) {
         LocalDate quarterEndDate = getCurrentquarterEndDateDate();
+        System.out.println("Current Quarter End Date: " + quarterEndDate);
+        System.out.println("Current Quarter End Date: " + quarterEndDate);
+        MssoBranchProfileTargetDataDto mssoBranchProfileTargetDataDto = null;
+        if (u_loc.equalsIgnoreCase("HO")) {
+            mssoBranchProfileTargetDataDto = this.repoMssoBranchProfileTargetData.getBranchTargetHo(quarterEndDate);
+
+        } else if (u_loc.equalsIgnoreCase("BR")) {
+            mssoBranchProfileTargetDataDto = this.repoMssoBranchProfileTargetData.getBranchTargetBranch(branchCode, quarterEndDate);
+
+        } else {
+            mssoBranchProfileTargetDataDto = this.repoMssoBranchProfileTargetData.getBranchTargetRO(roname, quarterEndDate);
+        }
+
+
+        return mssoBranchProfileTargetDataDto;
+
+    }
+
+    public MssoBranchProfileTargetDataDto getMssoTargetMarch(String branchCode,
+
+                                                                         String roname,
+                                                                         String u_loc) {
+        LocalDate quarterEndDate = getFinancialYearEndDate();
         System.out.println("Current Quarter End Date: " + quarterEndDate);
         System.out.println("Current Quarter End Date: " + quarterEndDate);
         MssoBranchProfileTargetDataDto mssoBranchProfileTargetDataDto = null;
@@ -81,6 +105,17 @@ public class ServiceMssoBranchProfileTargetData {
         YearMonth ym = YearMonth.of(year, quarterEndDateMonth);
         return ym.atEndOfMonth();
     }
+    public LocalDate getFinancialYearEndDate() {
+        LocalDate today = LocalDate.now();
+        int year = today.getYear();
 
+        if (today.isBefore(LocalDate.of(year, Month.APRIL, 1))) {
+            // Jan 1 - Mar 31 : financial year ends this year on Mar 31
+            return LocalDate.of(year, Month.MARCH, 31);
+        } else {
+            // Apr 1 - Dec 31 : financial year ends next year on Mar 31
+            return LocalDate.of(year + 1, Month.MARCH, 31);
+        }
+    }
 
 }

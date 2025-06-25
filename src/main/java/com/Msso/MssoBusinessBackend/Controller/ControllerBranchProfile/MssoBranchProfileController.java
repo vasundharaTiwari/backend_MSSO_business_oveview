@@ -59,7 +59,7 @@ public class MssoBranchProfileController {
 
     @GetMapping("/dep-adv-npa-march")
 
-    public List<MssoBranchProfileActualDataDto> getBranchProfileTarget(
+    public List<MssoBranchProfileActualDataDto> getBranchProfileLastMarch(
             @RequestParam String branchCode,
 
             @RequestParam String roname,
@@ -72,13 +72,25 @@ public class MssoBranchProfileController {
     }
 
     @GetMapping("/dep-adv-npa-target")
-    public MssoBranchProfileTargetDataDto getBranchProfilemarch(
+    public MssoBranchProfileTargetDataDto getBranchProfileQuaterTarget(
             @RequestParam String branchCode,
 
             @RequestParam String roname,
             @RequestParam String u_loc) {
 
         MssoBranchProfileTargetDataDto mssoBranchProfileTargetData = serviceMssoBranchProfileTargetData.getMssoBranchProfileTargetData(branchCode, roname, u_loc);
+
+        System.out.println("inside dep-adv-npa-target");
+        return mssoBranchProfileTargetData;
+    }
+    @GetMapping("/dep-adv-npa-target-march")
+    public MssoBranchProfileTargetDataDto getBranchProfilemarchTarget(
+            @RequestParam String branchCode,
+
+            @RequestParam String roname,
+            @RequestParam String u_loc) {
+
+        MssoBranchProfileTargetDataDto mssoBranchProfileTargetData = serviceMssoBranchProfileTargetData.getMssoTargetMarch(branchCode, roname, u_loc);
 
         System.out.println("inside dep-adv-npa-target");
         return mssoBranchProfileTargetData;
