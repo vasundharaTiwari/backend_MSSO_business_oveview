@@ -1,6 +1,7 @@
 package com.Msso.MssoBusinessBackend.Service.ServiceMssoBranchData;
 
-import com.Msso.MssoBusinessBackend.Model.MssoBranchDataModel.MssoBranchEmployeeDataDto;
+import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.ForRoBranchDto;
+import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.MssoBranchEmployeeDataDto;
 import com.Msso.MssoBusinessBackend.Repository.RepoMssoBranchEmployeeData.RepoMssoBranchEmployeData;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,5 +43,17 @@ public class MssoBranchDataServiceImpl implements MssoBranchDataService{
         }
 
         return BranchSummary;
+    }
+
+    @Override
+    public List<ForRoBranchDto> getDistinctRo() {
+        return repoMssoBranchData.getRegion() ;
+    }
+
+
+
+    @Override
+    public List<ForRoBranchDto> getDistinctbranch(String ro_name) {
+        return  repoMssoBranchData.getBranch(ro_name);
     }
 }

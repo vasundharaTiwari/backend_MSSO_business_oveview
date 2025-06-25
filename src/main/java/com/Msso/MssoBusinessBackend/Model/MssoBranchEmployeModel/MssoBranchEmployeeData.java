@@ -1,4 +1,4 @@
-package com.Msso.MssoBusinessBackend.Model.MssoBranchDataModel;
+package com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

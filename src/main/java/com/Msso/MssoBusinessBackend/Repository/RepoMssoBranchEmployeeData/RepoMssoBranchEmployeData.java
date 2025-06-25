@@ -1,7 +1,8 @@
 package com.Msso.MssoBusinessBackend.Repository.RepoMssoBranchEmployeeData;
 
-import com.Msso.MssoBusinessBackend.Model.MssoBranchDataModel.MssoBranchEmployeeData;
-import com.Msso.MssoBusinessBackend.Model.MssoBranchDataModel.MssoBranchEmployeeDataDto;
+import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.ForRoBranchDto;
+import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.MssoBranchEmployeeData;
+import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.MssoBranchEmployeeDataDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,5 +17,12 @@ public interface RepoMssoBranchEmployeData extends JpaRepository<MssoBranchEmplo
             """, nativeQuery=true)
     MssoBranchEmployeeDataDto getBranchSummary(@Param("u_type")String u_type, @Param("branchCode")String branchCode,@Param("roname") String roname);
 
+    @Query(value= """
+            SELECT DISTINCT b.REGION,b.BRANCH_CODE FROM MASTER_DATA.BRANCH_MASTER b ,HRMS.hrmsuser h\s
+            WHERE h.u_loc='RO' and b.branch_code=h.branch_code """, nativeQuery=true)
+    List<ForRoBranchDto> getRegion();
+    @Query(value= """
+            SELECT REGION,BRANCH_CODE FROM MASTER_DATA.BRANCH_MASTER WHERE REGION=:roname """, nativeQuery=true)
+    List<ForRoBranchDto> getBranch(@Param("roname") String roname);
 
 }

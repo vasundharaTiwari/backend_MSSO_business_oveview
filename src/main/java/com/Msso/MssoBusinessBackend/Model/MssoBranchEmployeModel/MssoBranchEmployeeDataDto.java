@@ -1,6 +1,4 @@
-package com.Msso.MssoBusinessBackend.Model.MssoBranchDataModel;
-
-import jakarta.persistence.Column;
+package com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel;
 
 public class MssoBranchEmployeeDataDto {
 
