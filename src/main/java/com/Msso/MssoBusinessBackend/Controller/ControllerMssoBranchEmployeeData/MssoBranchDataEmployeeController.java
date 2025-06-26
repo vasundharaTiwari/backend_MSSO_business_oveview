@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @RestController
 @CrossOrigin
-@RequestMapping("api/v1")
+@RequestMapping("api/v1/msso-branch-profile")
 public class MssoBranchDataEmployeeController {
     @Autowired
     private MssoBranchDataService mssoBranchDataService;
