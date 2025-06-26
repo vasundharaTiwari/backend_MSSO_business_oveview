@@ -1,5 +1,10 @@
 package com.Msso.MssoBusinessBackend.Reports;
 
+import com.Msso.MssoBusinessBackend.Repository.RepoMssoBrachProfileSma.RepoMssoBranchProfileSma;
+import com.Msso.MssoBusinessBackend.Repository.RepoMssoBranchProfileDailyDisbursement.RepoMssoBranchProfileDailyDisbursement;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import net.sf.jasperreports.engine.*;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
@@ -13,7 +18,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
+@AllArgsConstructor
 public class BranchProfileReport {
+
+    private final RepoMssoBranchProfileSma repoMssoBranchProfileSma;
+    private final RepoMssoBranchProfileDailyDisbursement repoMssoBranchProfileDailyDisbursement;
 
 
     public ResponseEntity<ByteArrayResource> exportAppraisalNoteSalaryReport(String referenceId, String pfNo, String u_type, String roname, String u_loc) throws JRException {
@@ -31,7 +41,9 @@ try{
 
 
             //*********************************************** Main JRXML parameter mapping ***************************************************************************
-            Map<String, Object> parameters = new HashMap<>();
+
+
+    Map<String, Object> parameters = new HashMap<>();
 
 
             //******************************** FILL THE MAIN REPORT ***********************************************************8
