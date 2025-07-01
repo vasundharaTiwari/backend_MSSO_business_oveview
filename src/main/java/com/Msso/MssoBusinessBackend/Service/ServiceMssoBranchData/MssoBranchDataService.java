@@ -19,10 +19,10 @@ public interface MssoBranchDataService {
 
 
 
-//    @Transactional
-//    public MssoEmployeeSummaryDto getMssoRegionEmployeeSummary(String branchCode, String uLoc,  String roname);
+    @Transactional
+    public MssoEmployeeSummaryDto getMssoRegionEmployeeSummary(String branchCode, String uLoc,  String roname);
 
-//    @Transactional
-//    public String getMssoRegionEmployeeSummary(String branchCode, String uLoc,  String roname);
+    @Transactional
+    public String getBranchCategory(String branchCode, String uLoc,  String roname);
 
 }

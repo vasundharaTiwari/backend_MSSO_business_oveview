@@ -58,33 +58,36 @@ public class MssoBranchDataServiceImpl implements MssoBranchDataService{
         return  repoMssoBranchData.getBranch(ro_name);
     }
 
-//    @Override
-//    public MssoEmployeeSummaryDto getMssoRegionEmployeeSummary(String branchCode , String uLoc,  String roname) {
-//
-//        MssoEmployeeSummaryDto mssoRegionEmployeeSummary;
-//        System.out.println("USER : "+uLoc);
-//
-//if(uLoc=="HO") {
-//     mssoRegionEmployeeSummary = repoMssoBranchData.getRegionEmployeeSummary();
-//}else{
-//    mssoRegionEmployeeSummary=repoMssoBranchData.getBranchEmployeeSummary(roname);
-//}
+    @Override
+    public MssoEmployeeSummaryDto getMssoRegionEmployeeSummary(String branchCode , String uLoc,  String roname) {
+
+        MssoEmployeeSummaryDto mssoRegionEmployeeSummary;
+        System.out.println("branchCode : ******"+branchCode);
+
+if(uLoc.equalsIgnoreCase("HO")) {
+     mssoRegionEmployeeSummary = repoMssoBranchData.getRegionEmployeeSummary(branchCode);
+    System.out.println("mssoRegionEmployeeSummary "+mssoRegionEmployeeSummary);
+}else{
+    mssoRegionEmployeeSummary=repoMssoBranchData.getBranchEmployeeSummary(branchCode,roname);
+    System.out.println("mssoRegionEmployeeSummary "+mssoRegionEmployeeSummary);
+
+}
 //        if (mssoRegionEmployeeSummary==null) {
 //            throw new RuntimeException("No data found");
 //        }
-//
-//        return mssoRegionEmployeeSummary;
-//    }
+
+        return mssoRegionEmployeeSummary;
+    }
 
 
-//    @Override
-//    public String  getMssoRegionEmployeeSummary(String branchCode , String uLoc,  String roname) {
-//
-//
-//           String branchCategory =repoMssoBranchData.getBranchCategory(branchCode);
-//
-//
-//        return branchCategory;
-//    }
+    @Override
+    public String  getBranchCategory(String branchCode , String uLoc,  String roname) {
+
+
+           String branchCategory =repoMssoBranchData.getBranchCategory(branchCode);
+
+
+        return branchCategory;
+    }
 
 }

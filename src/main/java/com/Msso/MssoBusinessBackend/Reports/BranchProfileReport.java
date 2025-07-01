@@ -90,6 +90,7 @@ try{
     System.out.println("SMA DATA :"+mssoProfileDailyDisburseDto);
 
     MssoBranchProfileTargetDataDto mssoBranchProfileQuarterTargetData = serviceMssoBranchProfileTargetData.getMssoBranchProfileTargetData(branch_code,region,u_loc);
+    System.out.println("mssoBranchProfileQuarterTargetData DATA :"+mssoBranchProfileQuarterTargetData);
 
     MssoBranchProfileTargetDataDto mssoBranchProfileMarchTargetData = serviceMssoBranchProfileTargetData.getMssoTargetMarch(branch_code,region,u_loc);
     MssoBranchProfileActualDataDto mssoBranchProfileActualDataDtoMarchGapPer = serviceBranchProfileLast3Year.getMssoBranchProfileGapMarchPercentage(branch_code,region,u_loc);

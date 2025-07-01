@@ -3,6 +3,7 @@ package com.Msso.MssoBusinessBackend.Repository.RepoMssoBranchEmployeeData;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.ForRoBranchDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.MssoBranchEmployeeData;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.MssoBranchEmployeeDataDto;
+import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.MssoEmployeeSummaryDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileReviewRenewal.MssoProfileComplianceDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -38,4 +39,29 @@ public interface RepoMssoBranchEmployeData extends JpaRepository<MssoBranchEmplo
              FROM msso_branch_profile.msso_employee_data WHERE REGION=:roname
               group by region """, nativeQuery = true)
     MssoProfileComplianceDto getROStaffCount(@Param("roname") String roname);
+
+
+    @Query(value= """
+              SELECT population_group_name FROM master_data.branch_master WHERE branch_code=:branchCode ;
+            """, nativeQuery=true)
+    String getBranchCategory(@Param("branchCode") String branchCode);
+
+    @Query(value= """
+              SELECT SUM(desg_agm) AS desg_agm ,SUM(desg_cm) AS desg_cm,sum(desg_srmanager) AS desg_srmanager,
+                      sum(desg_manager) AS desg_manager ,sum(desg_dymanager) AS desg_dymanager,
+                     sum(desg_clerk) AS desg_clerk,sum(substaff)AS substaff FROM msso_branch_profile.msso_employee_data where branch_code <> :branchCode  ;
+            """, nativeQuery=true)
+    MssoEmployeeSummaryDto getRegionEmployeeSummary(@Param("branchCode") String branchCode);
+
+
+
+    @Query(value= """
+              SELECT SUM(desg_agm) AS desg_agm ,SUM(desg_cm) AS desg_cm,sum(desg_srmanager) AS desg_srmanager,
+                      sum(desg_manager) AS desg_manager ,sum(desg_dymanager) AS desg_dymanager,
+                     sum(desg_clerk) AS desg_clerk,sum(substaff)AS substaff FROM msso_branch_profile.msso_employee_data where region=:roname and branch_code <> :branchCode ;
+            """, nativeQuery=true)
+    MssoEmployeeSummaryDto getBranchEmployeeSummary(@Param("roname") String roname,@Param("branchCode") String branchCode);
+
+
+
 }
