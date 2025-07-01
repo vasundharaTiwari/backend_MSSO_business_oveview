@@ -3,6 +3,7 @@ package com.Msso.MssoBusinessBackend.Repository.RepoMssoBranchEmployeeData;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.ForRoBranchDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.MssoBranchEmployeeData;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.MssoBranchEmployeeDataDto;
+import com.Msso.MssoBusinessBackend.Model.MssoProfileReviewRenewal.MssoProfileComplianceDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -11,18 +12,30 @@ import java.util.List;
 
 public interface RepoMssoBranchEmployeData extends JpaRepository<MssoBranchEmployeeData, Long> {
 
-    @Query(value= """
+    @Query(value = """
             SELECT  region, main_region, branch_code, branch_name, population_group_name, u_loc, grade_code, employee_name, emp_number, u_id, designation_code, u_type, desg_gm, desg_dgm, desg_agm, desg_cm, desg_srmanager, desg_manager, desg_dymanager, desg_clerk, substaff
             FROM msso_branch_profile.msso_employee_data WHERE branch_code=:branchCode AND region=:roname and u_type=:u_type;
-            """, nativeQuery=true)
-    MssoBranchEmployeeDataDto getBranchSummary(@Param("u_type")String u_type, @Param("branchCode")String branchCode,@Param("roname") String roname);
+            """, nativeQuery = true)
+    MssoBranchEmployeeDataDto getBranchSummary(@Param("u_type") String u_type, @Param("branchCode") String branchCode, @Param("roname") String roname);
 
-    @Query(value= """
+    @Query(value = """
             SELECT DISTINCT b.REGION,b.BRANCH_CODE,branch_name FROM MASTER_DATA.BRANCH_MASTER b ,HRMS.hrmsuser h\s
-            WHERE h.u_loc='RO' and b.branch_code=h.branch_code """, nativeQuery=true)
+            WHERE h.u_loc='RO' and b.branch_code=h.branch_code """, nativeQuery = true)
     List<ForRoBranchDto> getRegion();
-    @Query(value= """
-            SELECT REGION,BRANCH_CODE,branch_name FROM MASTER_DATA.BRANCH_MASTER WHERE REGION=:roname """, nativeQuery=true)
+
+    @Query(value = """
+            SELECT REGION,BRANCH_CODE,branch_name FROM MASTER_DATA.BRANCH_MASTER WHERE REGION=:roname """, nativeQuery = true)
     List<ForRoBranchDto> getBranch(@Param("roname") String roname);
 
+
+    @Query(value = """
+            SELECT sum(desg_gm+ desg_dgm+ desg_agm+ desg_cm+ desg_srmanager+ desg_manager+ desg_dymanager+ desg_clerk+ substaff)
+            FROM msso_branch_profile.msso_employee_data  where  Branch_code<>:branchCode """, nativeQuery = true)
+    MssoProfileComplianceDto getHoStaffCount(@Param("branchCode") String branchCode);
+
+    @Query(value = """
+            SELECT  sum(desg_gm+ desg_dgm+ desg_agm+ desg_cm+ desg_srmanager+ desg_manager+ desg_dymanager+ desg_clerk+ substaff)
+             FROM msso_branch_profile.msso_employee_data WHERE REGION=:roname
+              group by region """, nativeQuery = true)
+    MssoProfileComplianceDto getROStaffCount(@Param("roname") String roname);
 }

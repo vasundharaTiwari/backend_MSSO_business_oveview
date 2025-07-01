@@ -52,4 +52,8 @@ public class MssoProfileComplianceDto {
         this.total_count = total_count;
         this.total_amount = total_amount;
     }
+
+    public MssoProfileComplianceDto(Long total_count) {
+        this.total_count = total_count;
+    }
 }
