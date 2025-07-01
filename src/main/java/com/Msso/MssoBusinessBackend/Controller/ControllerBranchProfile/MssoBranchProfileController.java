@@ -95,6 +95,18 @@ public class MssoBranchProfileController {
         System.out.println("inside dep-adv-npa-target");
         return mssoBranchProfileTargetData;
     }
+    @GetMapping("/super-achiever-march")
+    public MssoBranchProfileTargetDataDto getSuperAchieverMarch(
+            @RequestParam String branchCode,
+
+            @RequestParam String roname,
+            @RequestParam String u_loc) {
+
+        MssoBranchProfileTargetDataDto mssoBranchProfileTargetData = serviceMssoBranchProfileTargetData.getSuperAchieverMarch(branchCode, roname, u_loc);
+
+        System.out.println("inside dep-adv-npa-target");
+        return mssoBranchProfileTargetData;
+    }
 
     @GetMapping("/dep-adv-npa-mar-gap")
     public MssoBranchProfileActualDataDto getBranchProfilemarchGap(

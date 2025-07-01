@@ -41,6 +41,28 @@ public class ServiceMssoBranchProfileTargetData {
 
     }
 
+    public MssoBranchProfileTargetDataDto getSuperAchieverMarch(String branchCode,
+
+                                                             String roname,
+                                                             String u_loc) {
+        LocalDate EndDate = getFinancialYearEndDate();
+        System.out.println("Current Quarter End Date: " + EndDate);
+        System.out.println("Current Quarter End Date: " + EndDate);
+        MssoBranchProfileTargetDataDto mssoBranchProfileTargetDataDto = null;
+        if (u_loc.equalsIgnoreCase("HO")) {
+            mssoBranchProfileTargetDataDto = this.repoMssoBranchProfileTargetData.getSuperAchieverHo(EndDate);
+
+        } else if (u_loc.equalsIgnoreCase("BR")) {
+            mssoBranchProfileTargetDataDto = this.repoMssoBranchProfileTargetData.getSuperAchieverBranch(branchCode, EndDate);
+
+        } else {
+            mssoBranchProfileTargetDataDto = this.repoMssoBranchProfileTargetData.getSuperAchieverRO(roname, EndDate);
+        }
+
+
+        return mssoBranchProfileTargetDataDto;
+
+    }
     public MssoBranchProfileTargetDataDto getMssoTargetMarch(String branchCode,
 
                                                                          String roname,

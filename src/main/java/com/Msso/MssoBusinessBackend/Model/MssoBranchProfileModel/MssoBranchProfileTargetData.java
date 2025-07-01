@@ -42,4 +42,5 @@ public class MssoBranchProfileTargetData {
     private Double shg ;
     private Double total_ram ;
     private Double npa ;
+
 }
