@@ -2,6 +2,7 @@ package com.Msso.MssoBusinessBackend.Service.ServiceMssoBranchData;
 
 import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.ForRoBranchDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.MssoBranchEmployeeDataDto;
+import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.MssoEmployeeSummaryDto;
 import com.Msso.MssoBusinessBackend.Repository.RepoMssoBranchEmployeeData.RepoMssoBranchEmployeData;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,4 +57,34 @@ public class MssoBranchDataServiceImpl implements MssoBranchDataService{
     public List<ForRoBranchDto> getDistinctbranch(String ro_name) {
         return  repoMssoBranchData.getBranch(ro_name);
     }
+
+//    @Override
+//    public MssoEmployeeSummaryDto getMssoRegionEmployeeSummary(String branchCode , String uLoc,  String roname) {
+//
+//        MssoEmployeeSummaryDto mssoRegionEmployeeSummary;
+//        System.out.println("USER : "+uLoc);
+//
+//if(uLoc=="HO") {
+//     mssoRegionEmployeeSummary = repoMssoBranchData.getRegionEmployeeSummary();
+//}else{
+//    mssoRegionEmployeeSummary=repoMssoBranchData.getBranchEmployeeSummary(roname);
+//}
+//        if (mssoRegionEmployeeSummary==null) {
+//            throw new RuntimeException("No data found");
+//        }
+//
+//        return mssoRegionEmployeeSummary;
+//    }
+
+
+//    @Override
+//    public String  getMssoRegionEmployeeSummary(String branchCode , String uLoc,  String roname) {
+//
+//
+//           String branchCategory =repoMssoBranchData.getBranchCategory(branchCode);
+//
+//
+//        return branchCategory;
+//    }
+
 }
