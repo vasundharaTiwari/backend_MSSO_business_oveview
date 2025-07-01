@@ -11,6 +11,7 @@ import com.Msso.MssoBusinessBackend.Model.MssoProfileAccountStatusDigitalProduct
 import com.Msso.MssoBusinessBackend.Model.MssoProfileReviewRenewal.MssoProfileComplianceDto;
 import com.Msso.MssoBusinessBackend.Model.ParameterDetails;
 import com.Msso.MssoBusinessBackend.Repository.RepoMssoBrachProfileSma.RepoMssoBranchProfileSma;
+import com.Msso.MssoBusinessBackend.Repository.RepoMssoBranchProfile.RepoMssoBranchProfileActualData;
 import com.Msso.MssoBusinessBackend.Repository.RepoMssoBranchProfileDailyDisbursement.RepoMssoBranchProfileDailyDisbursement;
 import com.Msso.MssoBusinessBackend.Service.ServiceMssoBranchData.MssoBranchDataService;
 import com.Msso.MssoBusinessBackend.Services.ServiceMssoBranchProfile.*;
@@ -50,6 +51,8 @@ public class BranchProfileReport {
     ServiceMssoBranchProfileTargetData serviceMssoBranchProfileTargetData;
     @Autowired
     ServiceAccountStatusDigitalProduct serviceaccountStatusDigitalProduct;
+    @Autowired
+    RepoMssoBranchProfileActualData repoMssoBranchProfile;
     public ResponseEntity<ByteArrayResource> exportBranchProfileReport(String branch_code,  String region, String u_loc) throws JRException {
 
 try{
@@ -94,7 +97,17 @@ try{
 
     MssoBranchProfileTargetDataDto mssoBranchProfileMarchTargetData = serviceMssoBranchProfileTargetData.getMssoTargetMarch(branch_code,region,u_loc);
     MssoBranchProfileActualDataDto mssoBranchProfileActualDataDtoMarchGapPer = serviceBranchProfileLast3Year.getMssoBranchProfileGapMarchPercentage(branch_code,region,u_loc);
+    MssoBranchProfileActualDataDto mssoBranchProfileCurrentData = null;
+    if (u_loc.equalsIgnoreCase("HO")) {
+        mssoBranchProfileCurrentData = this.repoMssoBranchProfile.getBranchProfileHo();
 
+    } else if (u_loc.equalsIgnoreCase("BR")) {
+        mssoBranchProfileCurrentData = this.repoMssoBranchProfile.getBranchProfileBranch(branch_code);
+
+    } else {
+        mssoBranchProfileCurrentData = this.repoMssoBranchProfile.getBranchProfileRO(region);
+    }
+    System.out.println("inside dep-adv-npa");
 
 
     List<String> branchProfileParameter = Arrays.asList(
