@@ -1,5 +1,6 @@
 package com.Msso.MssoBusinessBackend.Service.ServiceMssoBranchData;
 
+import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.BranchCategoryDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.ForRoBranchDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.MssoBranchEmployeeDataDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.MssoEmployeeSummaryDto;
@@ -23,6 +24,7 @@ public interface MssoBranchDataService {
     public MssoEmployeeSummaryDto getMssoRegionEmployeeSummary(String branchCode, String uLoc,  String roname);
 
     @Transactional
-    public String getBranchCategory(String branchCode, String uLoc,  String roname);
+    public String getBranchCategory(String branchCode, String uLoc, String roname);
 
+    BranchCategoryDto getBranchCategoryCount(String branchCode, String uLoc, String roname);
 }

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 
-@Table(schema="master_data",  name = "branch_master")
+@Table(schema="master_data",  name = "branch_master_2")
 public class BranchMasterModel {
 
     @Id

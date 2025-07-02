@@ -1,9 +1,6 @@
 package com.Msso.MssoBusinessBackend.Repository.RepoMssoBranchEmployeeData;
 
-import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.ForRoBranchDto;
-import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.MssoBranchEmployeeData;
-import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.MssoBranchEmployeeDataDto;
-import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.MssoEmployeeSummaryDto;
+import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.*;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileReviewRenewal.MssoProfileComplianceDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -62,6 +59,25 @@ public interface RepoMssoBranchEmployeData extends JpaRepository<MssoBranchEmplo
             """, nativeQuery=true)
     MssoEmployeeSummaryDto getBranchEmployeeSummary(@Param("roname") String roname,@Param("branchCode") String branchCode);
 
+//************************************************BRANCH CATAGORY COUNT********************************************************
+@Query(value= """
+              SELECT count(*),
+        count(CASE when population_group_name='URBAN' then branch_code  ELSE null  END  ) as URBAN,
+        count(CASE when population_group_name='RURAL' then branch_code  ELSE null  END  ) as RURAL,
+        count(CASE when population_group_name='METROPOLITAN' then branch_code  ELSE null  END  ) as METROPOLITAN,
+        count(CASE when population_group_name='SEMI-URBAN' then branch_code  ELSE null  END  ) as SEMI_URBAN
+        FROM master_data.branch_master   """, nativeQuery=true)
+BranchCategoryDto getCategoryCountHO();
 
+
+
+    @Query(value= """
+             SELECT count(*),
+            count(CASE when population_group_name='URBAN' then branch_code  ELSE null  END  ) as URBAN,
+            count(CASE when population_group_name='RURAL' then branch_code  ELSE null  END  ) as RURAL,
+            count(CASE when population_group_name='METROPOLITAN' then branch_code  ELSE null  END  ) as METROPOLITAN,
+            count(CASE when population_group_name='SEMI-URBAN' then branch_code  ELSE null  END  ) as SEMI_URBAN
+            FROM master_data.branch_master where region=:roname     """, nativeQuery=true)
+    BranchCategoryDto getCategoryCountRo(@Param("roname") String roname);
 
 }

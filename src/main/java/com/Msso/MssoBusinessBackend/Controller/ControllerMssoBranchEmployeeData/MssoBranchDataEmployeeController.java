@@ -1,5 +1,6 @@
 package com.Msso.MssoBusinessBackend.Controller.ControllerMssoBranchEmployeeData;
 
+import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.BranchCategoryDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.ForRoBranchDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.MssoBranchEmployeeDataDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.MssoEmployeeSummaryDto;
@@ -111,4 +112,19 @@ public class MssoBranchDataEmployeeController {
 
 
     }
+    @GetMapping("branch-category-count")
+    public BranchCategoryDto getBranchCategoryCount(@RequestParam String uLoc, @RequestParam String branchCode, @RequestParam String roname){
+
+        System.out.println("this.branch_code, this.region, this.u_loc..."+uLoc+" "+branchCode+" "+roname);
+
+        BranchCategoryDto branchCategoryDto = mssoBranchDataService.getBranchCategoryCount(branchCode,uLoc, roname);
+//        List<MssoBranchEmployeeDataDto> branchDataList= mssoBranchDataService.getMssoBranchData(branchCode,uLoc, uId,roname);
+
+
+        System.out.println("branch-category-count:- "+branchCategoryDto);
+        return branchCategoryDto;
+
+
+    }
+
 }

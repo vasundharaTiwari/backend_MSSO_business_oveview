@@ -27,5 +27,5 @@ public class hrmsuser {
     private String para_pass;
     private String epass1;
     private String ekey1;
-    private int msgread;
+    private String msgread;
 }

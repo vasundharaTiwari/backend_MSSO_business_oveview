@@ -1,5 +1,6 @@
 package com.Msso.MssoBusinessBackend.Service.ServiceMssoBranchData;
 
+import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.BranchCategoryDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.ForRoBranchDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.MssoBranchEmployeeDataDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.MssoEmployeeSummaryDto;
@@ -89,5 +90,19 @@ if(uLoc.equalsIgnoreCase("HO")) {
 
         return branchCategory;
     }
+    public BranchCategoryDto getBranchCategoryCount(String branchCode , String uLoc, String roname) {
+        BranchCategoryDto branchCategoryDto = null;
+        if (uLoc.equalsIgnoreCase("HO")) {
+            branchCategoryDto = this.repoMssoBranchData.getCategoryCountHO();
 
+        } else if (uLoc.equalsIgnoreCase("RO")) {
+            branchCategoryDto = this.repoMssoBranchData.getCategoryCountRo(roname);
+
+        }
+
+        return branchCategoryDto;
+    }
+
+        
+    
 }
