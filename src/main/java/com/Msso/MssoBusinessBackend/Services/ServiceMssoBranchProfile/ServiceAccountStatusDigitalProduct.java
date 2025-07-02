@@ -35,6 +35,25 @@ public class ServiceAccountStatusDigitalProduct {
             return mssoBranchProfileAccountStatusDto;
         }
     }
+
+    public MssoBranchProfileAccountStatusDto getMssoAccountStatusMarch(String branchCode,
+
+                                                                  String roname,
+                                                                  String u_loc) {
+
+
+        MssoBranchProfileAccountStatusDto mssoBranchProfileAccountStatusDto = null;
+        if (u_loc.equalsIgnoreCase("HO")) {
+            mssoBranchProfileAccountStatusDto = this.repoBranchprofileAccountStatus.getAccountStatusMarchHo();
+            return mssoBranchProfileAccountStatusDto;
+        } else if (u_loc.equalsIgnoreCase("BR")) {
+            mssoBranchProfileAccountStatusDto = this.repoBranchprofileAccountStatus.getAccountStatusMarchBranch(branchCode);
+            return mssoBranchProfileAccountStatusDto;
+        } else {
+            mssoBranchProfileAccountStatusDto = this.repoBranchprofileAccountStatus.getAccountStatusMarchRO(roname);
+            return mssoBranchProfileAccountStatusDto;
+        }
+    }
         public MssoBranchProfileDigitalProductDto getMssoDigitalProduct (String branchCode,
 
                 String roname,

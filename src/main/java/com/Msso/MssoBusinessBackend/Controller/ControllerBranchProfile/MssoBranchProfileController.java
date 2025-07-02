@@ -191,7 +191,20 @@ public class MssoBranchProfileController {
         System.out.println("inside account-status");
         return mssoBranchProfileAccountStatusDto;
     }
+    @GetMapping("/account-status-march")
+    public MssoBranchProfileAccountStatusDto getMssoAccountStatusMarch(
 
+
+            @RequestParam String roname,
+            @RequestParam String branchCode,
+            @RequestParam String u_loc) {
+
+        MssoBranchProfileAccountStatusDto mssoBranchProfileAccountStatusDto = serviceaccountStatusDigitalProduct.getMssoAccountStatusMarch(branchCode, roname, u_loc);
+
+
+        System.out.println("inside account-status-march");
+        return mssoBranchProfileAccountStatusDto;
+    }
     @GetMapping("/digital-product")
     public MssoBranchProfileDigitalProductDto getMssoDigitalProduct(
 
