@@ -1,4 +1,4 @@
-package com.Msso.MssoBusinessBackend.Model.MssoBranchProfileSma;
+package com.Msso.MssoBusinessBackend.Model.MssoProfileSmaNpaClassification;
 
 import java.math.BigDecimal;
 import java.util.Date;

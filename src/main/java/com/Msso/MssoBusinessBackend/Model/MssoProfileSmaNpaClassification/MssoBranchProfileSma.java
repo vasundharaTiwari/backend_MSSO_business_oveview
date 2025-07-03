@@ -1,4 +1,4 @@
-package com.Msso.MssoBusinessBackend.Model.MssoBranchProfileSma;
+package com.Msso.MssoBusinessBackend.Model.MssoProfileSmaNpaClassification;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

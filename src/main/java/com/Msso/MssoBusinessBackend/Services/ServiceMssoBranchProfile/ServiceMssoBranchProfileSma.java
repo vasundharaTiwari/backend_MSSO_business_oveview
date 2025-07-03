@@ -1,7 +1,8 @@
 package com.Msso.MssoBusinessBackend.Services.ServiceMssoBranchProfile;
 
-import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileSma.MssoBranchProfileSmaDto;
+import com.Msso.MssoBusinessBackend.Model.MssoProfileSmaNpaClassification.MssoBranchProfileSmaDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileReviewRenewal.MssoProfileComplianceDto;
+import com.Msso.MssoBusinessBackend.Model.MssoProfileSmaNpaClassification.MssoProfileNpaClassificationDto;
 import com.Msso.MssoBusinessBackend.Repository.RepoMssoBrachProfileSma.RepoMssoBranchProfileSma;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,27 @@ public class ServiceMssoBranchProfileSma {
             return mssoBranchProfileSmaDto;
         }
 
+
+    }
+
+    public MssoProfileNpaClassificationDto getMssoNpaClassification(String branchCode,
+
+                                                                    String roname,
+                                                                    String u_loc) {
+
+
+        MssoProfileNpaClassificationDto mssoProfileNpaClassificationDto = null;
+        if (u_loc.equalsIgnoreCase("HO")) {
+            mssoProfileNpaClassificationDto = this.repoMssoBranchProfileSma.getNpaClassificationHo();
+
+        } else if (u_loc.equalsIgnoreCase("BR")) {
+            mssoProfileNpaClassificationDto = this.repoMssoBranchProfileSma.getNpaClassificationBranch(branchCode);
+
+        } else {
+            mssoProfileNpaClassificationDto = this.repoMssoBranchProfileSma.getNpaClassificationRO(roname);
+
+        }
+        return mssoProfileNpaClassificationDto;
 
     }
     public MssoProfileComplianceDto getPendingReview(String branchCode,

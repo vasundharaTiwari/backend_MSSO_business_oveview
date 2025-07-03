@@ -6,8 +6,9 @@ import com.Msso.MssoBusinessBackend.Model.MssoProfileAccountStatusDigitalProduct
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileDisbursement.MssoProfileDailyDisburseDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileModel.MssoBranchProfileActualDataDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileModel.MssoBranchProfileTargetDataDto;
-import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileSma.MssoBranchProfileSmaDto;
+import com.Msso.MssoBusinessBackend.Model.MssoProfileSmaNpaClassification.MssoBranchProfileSmaDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileReviewRenewal.MssoProfileComplianceDto;
+import com.Msso.MssoBusinessBackend.Model.MssoProfileSmaNpaClassification.MssoProfileNpaClassificationDto;
 import com.Msso.MssoBusinessBackend.Repository.RepoMssoBranchProfile.RepoMssoBranchProfileActualData;
 import com.Msso.MssoBusinessBackend.Services.ServiceMssoBranchProfile.*;
 import lombok.RequiredArgsConstructor;
@@ -83,6 +84,7 @@ public class MssoBranchProfileController {
         System.out.println("inside dep-adv-npa-target");
         return mssoBranchProfileTargetData;
     }
+
     @GetMapping("/dep-adv-npa-target-march")
     public MssoBranchProfileTargetDataDto getBranchProfilemarchTarget(
             @RequestParam String branchCode,
@@ -95,6 +97,7 @@ public class MssoBranchProfileController {
         System.out.println("inside dep-adv-npa-target");
         return mssoBranchProfileTargetData;
     }
+
     @GetMapping("/super-achiever-march")
     public MssoBranchProfileTargetDataDto getSuperAchieverMarch(
             @RequestParam String branchCode,
@@ -177,6 +180,22 @@ public class MssoBranchProfileController {
         return mssoBranchProfileSmaDto;
     }
 
+
+    @GetMapping("/npa_classification")
+    public MssoProfileNpaClassificationDto getMssoNpaClassification(
+
+
+            @RequestParam String roname,
+            @RequestParam String branchCode,
+            @RequestParam String u_loc) {
+
+        MssoProfileNpaClassificationDto mssoNpaClassification = serviceMssoBranchProfileSma.getMssoNpaClassification(branchCode, roname, u_loc);
+
+
+        System.out.println("npa_classification");
+        return mssoNpaClassification;
+    }
+
     @GetMapping("/account-status")
     public MssoBranchProfileAccountStatusDto getMssoAccountStatus(
 
@@ -191,6 +210,7 @@ public class MssoBranchProfileController {
         System.out.println("inside account-status");
         return mssoBranchProfileAccountStatusDto;
     }
+
     @GetMapping("/account-status-march")
     public MssoBranchProfileAccountStatusDto getMssoAccountStatusMarch(
 
@@ -205,6 +225,7 @@ public class MssoBranchProfileController {
         System.out.println("inside account-status-march");
         return mssoBranchProfileAccountStatusDto;
     }
+
     @GetMapping("/digital-product")
     public MssoBranchProfileDigitalProductDto getMssoDigitalProduct(
 
