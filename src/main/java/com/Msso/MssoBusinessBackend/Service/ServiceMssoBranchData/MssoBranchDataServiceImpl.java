@@ -69,8 +69,13 @@ if(uLoc.equalsIgnoreCase("HO")) {
      mssoRegionEmployeeSummary = repoMssoBranchData.getRegionEmployeeSummary(branchCode);
     System.out.println("mssoRegionEmployeeSummary "+mssoRegionEmployeeSummary);
 }else{
-    mssoRegionEmployeeSummary=repoMssoBranchData.getBranchEmployeeSummary(branchCode,roname);
-    System.out.println("mssoRegionEmployeeSummary "+mssoRegionEmployeeSummary);
+    System.out.println("branchCode : ******"+branchCode);
+    System.out.println("branchCode : ******"+roname);
+    System.out.println("branchCode : ******"+uLoc);
+
+
+    mssoRegionEmployeeSummary=repoMssoBranchData.getBranchEmployeeSummary(roname,branchCode);
+    System.out.println("mssoRegionEmployeeSummary  RO "+mssoRegionEmployeeSummary);
 
 }
 //        if (mssoRegionEmployeeSummary==null) {
@@ -94,9 +99,11 @@ if(uLoc.equalsIgnoreCase("HO")) {
         BranchCategoryDto branchCategoryDto = null;
         if (uLoc.equalsIgnoreCase("HO")) {
             branchCategoryDto = this.repoMssoBranchData.getCategoryCountHO();
+            System.out.println("branchCategoryDto"+branchCategoryDto);
 
         } else if (uLoc.equalsIgnoreCase("RO")) {
             branchCategoryDto = this.repoMssoBranchData.getCategoryCountRo(roname);
+            System.out.println("branchCategoryDto"+branchCategoryDto);
 
         }
 

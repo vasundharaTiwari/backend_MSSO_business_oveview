@@ -101,7 +101,7 @@ public class MssoBranchDataEmployeeController {
     @GetMapping("employee-data-summary")
     public MssoEmployeeSummaryDto getEmployeeSummary(@RequestParam String uLoc, @RequestParam String branchCode, @RequestParam String roname){
 
-        System.out.println("this.branch_code, this.region, this.u_loc..."+uLoc+" "+branchCode+" "+roname);
+        System.out.println(" getEmployeeSummary this.branch_code, this.region, this.u_loc..."+uLoc+" "+branchCode+" "+roname);
 
         MssoEmployeeSummaryDto mssoEmployeeSummaryDto = mssoBranchDataService.getMssoRegionEmployeeSummary(branchCode,uLoc, roname);
 //        List<MssoBranchEmployeeDataDto> branchDataList= mssoBranchDataService.getMssoBranchData(branchCode,uLoc, uId,roname);

@@ -16,10 +16,10 @@ public class MssoProfileNpaClassificationDto {
     private BigDecimal d1_amount;
     private Long d2_count;
     private BigDecimal d2_amount;
-    private Long lost_count;
-    private BigDecimal lost_amount;
+    private Long loss_count;
+    private BigDecimal loss_amount;
 
-    public MssoProfileNpaClassificationDto(Date report_date, Long total_count, BigDecimal total_amount, Long subStandard_count, BigDecimal subStandard_amount, Long d0_count, BigDecimal d0_amount, Long d1_count, BigDecimal d1_amount, Long d2_count, BigDecimal d2_amount, Long lost_count, BigDecimal lost_amount) {
+    public MssoProfileNpaClassificationDto(Date report_date, Long total_count, BigDecimal total_amount, Long subStandard_count, BigDecimal subStandard_amount, Long d0_count, BigDecimal d0_amount, Long d1_count, BigDecimal d1_amount, Long d2_count, BigDecimal d2_amount, Long loss_count, BigDecimal loss_amount) {
         this.report_date = report_date;
         this.total_count = total_count;
         this.total_amount = total_amount;
@@ -31,8 +31,8 @@ public class MssoProfileNpaClassificationDto {
         this.d1_amount = d1_amount;
         this.d2_count = d2_count;
         this.d2_amount = d2_amount;
-        this.lost_count = lost_count;
-        this.lost_amount = lost_amount;
+        this.loss_count = loss_count;
+        this.loss_amount = loss_amount;
     }
 
     public Date getReport_date() {
@@ -123,19 +123,19 @@ public class MssoProfileNpaClassificationDto {
         this.d2_amount = d2_amount;
     }
 
-    public Long getLost_count() {
-        return lost_count;
+    public Long getloss_count() {
+        return loss_count;
     }
 
-    public void setLost_count(Long lost_count) {
-        this.lost_count = lost_count;
+    public void setloss_count(Long loss_count) {
+        this.loss_count = loss_count;
     }
 
-    public BigDecimal getLost_amount() {
-        return lost_amount;
+    public BigDecimal getloss_amount() {
+        return loss_amount;
     }
 
-    public void setLost_amount(BigDecimal lost_amount) {
-        this.lost_amount = lost_amount;
+    public void setloss_amount(BigDecimal loss_amount) {
+        this.loss_amount = loss_amount;
     }
 }

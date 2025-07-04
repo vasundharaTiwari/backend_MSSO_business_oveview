@@ -44,7 +44,7 @@ public interface RepoMssoBranchProfileTargetData extends JpaRepository<MssoBranc
 
 
     @Query(value = """
-            SELECT report_date, ROUND(SUM( sb*100)::numeric, 2), ROUND(SUM( ca*100)::numeric, 2), ROUND(SUM( td*100)::numeric, 2), ROUND(SUM( casa*100)::numeric, 2), ROUND(SUM( deposit*100)::numeric, 2), ROUND(SUM( advances*100)::numeric, 2), ROUND(SUM( total_business*100)::numeric, 2), ROUND(SUM( total_retail*100)::numeric, 2), ROUND(SUM(s
+            SELECT report_date, ROUND(SUM( sb*100)::numeric, 2), ROUND(SUM( ca*100)::numeric, 2), ROUND(SUM( td*100)::numeric, 2), ROUND(SUM( casa*100)::numeric, 2), ROUND(SUM( deposit*100)::numeric, 2), ROUND(SUM( advances*100)::numeric, 2), ROUND(SUM( total_business*100)::numeric, 2), ROUND(SUM( total_retail*100)::numeric, 2), ROUND(SUM(
             housing*100)::numeric, 2), ROUND(SUM( vehicle*100)::numeric, 2), ROUND(SUM( education*100)::numeric, 2), ROUND(SUM( agri*100)::numeric, 2), ROUND(SUM( msme*100)::numeric, 2), ROUND(SUM( gold*100)::numeric, 2), ROUND(SUM( shg*100)::numeric, 2), ROUND(SUM( total_ram*100)::numeric, 2), ROUND(SUM( npa*100)::numeric, 2)
             FROM msso_branch_profile.msso_target_superachievermarch where  branch_code=:branchCode AND
             report_date=:quarterEndDate  GROUP BY report_date ;
