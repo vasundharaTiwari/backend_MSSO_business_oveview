@@ -11,26 +11,27 @@ public interface RepoBranchprofileAccountStatus extends JpaRepository<MssoBranch
 
     @Query(value = """
             SELECT report_date,sum( sb_ac_count)as sb_ac_count ,sum(ca_ac_count)as ca_ac_count,
-                  sum(casa_count)as casa_count,round(sum( casa_amount::numeric), 2) as casa_amount\s
+                  sum(casa_count)as casa_count, sum(pmjdy)as pmjdy,round(sum( casa_amount::numeric), 2) as casa_amount
                   FROM msso_branch_profile.msso_profile_account_status
-                  where  report_date=(select max(report_date)from msso_branch_profile.msso_profile_account_status ) group by report_date;\s
+                  where  report_date=(select max(report_date)from msso_branch_profile.msso_profile_account_status ) group by report_date;
                    """, nativeQuery = true)
     public MssoBranchProfileAccountStatusDto getAccountStatusHo();
 
 
     @Query(value = """
             SELECT report_date,sum( sb_ac_count)as sb_ac_count ,sum(ca_ac_count)as ca_ac_count,
-            sum(casa_count)as casa_count,round(sum( casa_amount::numeric), 2) as casa_amount\s
+            sum(casa_count)as casa_count, sum(pmjdy)as pmjdy,round(sum( casa_amount::numeric), 2) as casa_amount
+		     
             FROM msso_branch_profile.msso_profile_account_status
-            where  report_date=(select max(report_date)from msso_branch_profile.msso_profile_account_status ) and branch_code=:branchCode  group by report_date;\s
+            where  report_date=(select max(report_date)from msso_branch_profile.msso_profile_account_status ) and branch_code=:branchCode  group by report_date;
                 """, nativeQuery = true)
     public MssoBranchProfileAccountStatusDto getAccountStatusBranch(@Param("branchCode") String branchCode);
 
     @Query(value = """
             SELECT report_date,sum( sb_ac_count)as sb_ac_count ,sum(ca_ac_count)as ca_ac_count,
-            sum(casa_count)as casa_count,round(sum( casa_amount::numeric), 2) as casa_amount\s
+            sum(casa_count)as casa_count, sum(pmjdy)as pmjdy,round(sum( casa_amount::numeric), 2) as casa_amount
             FROM msso_branch_profile.msso_profile_account_status
-            where  report_date=(select max(report_date)from msso_branch_profile.msso_profile_account_status ) and REGION=:roname  group by report_date;\s
+            where  report_date=(select max(report_date)from msso_branch_profile.msso_profile_account_status ) and REGION=:roname  group by report_date;
                 """, nativeQuery = true)
 
 

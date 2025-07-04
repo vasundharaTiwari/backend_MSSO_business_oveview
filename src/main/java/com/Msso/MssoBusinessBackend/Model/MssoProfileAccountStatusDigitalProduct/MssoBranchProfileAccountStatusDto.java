@@ -10,13 +10,15 @@ public class MssoBranchProfileAccountStatusDto {
     private Long sb_ac_count;
     private Long ca_ac_count;
     private Long casa_count;
+    private Long pmjdy;
     private BigDecimal casa_amount;
 
-    public MssoBranchProfileAccountStatusDto(Date report_date, Long sb_ac_count, Long ca_ac_count, Long casa_count, BigDecimal casa_amount) {
+    public MssoBranchProfileAccountStatusDto(Date report_date, Long sb_ac_count, Long ca_ac_count, Long casa_count, Long pmjdy, BigDecimal casa_amount) {
         this.report_date = report_date;
         this.sb_ac_count = sb_ac_count;
         this.ca_ac_count = ca_ac_count;
         this.casa_count = casa_count;
+        this.pmjdy = pmjdy;
         this.casa_amount = casa_amount;
     }
 
@@ -50,6 +52,14 @@ public class MssoBranchProfileAccountStatusDto {
 
     public void setCasa_count(Long casa_count) {
         this.casa_count = casa_count;
+    }
+
+    public Long getPmjdy() {
+        return pmjdy;
+    }
+
+    public void setPmjdy(Long pmjdy) {
+        this.pmjdy = pmjdy;
     }
 
     public BigDecimal getCasa_amount() {

@@ -6,6 +6,7 @@ import com.Msso.MssoBusinessBackend.Model.MssoProfileAccountStatusDigitalProduct
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileDisbursement.MssoProfileDailyDisburseDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileModel.MssoBranchProfileActualDataDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileModel.MssoBranchProfileTargetDataDto;
+import com.Msso.MssoBusinessBackend.Model.MssoProfileAccountStatusDigitalProduct.MssoFiSchemeDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileSmaNpaClassification.MssoBranchProfileSmaDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileReviewRenewal.MssoProfileComplianceDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileSmaNpaClassification.MssoProfileNpaClassificationDto;
@@ -255,7 +256,35 @@ public class MssoBranchProfileController {
         System.out.println("inside digital-product");
         return mssoAccountStatusDigitalTargetDto;
     }
+    @GetMapping("/fi-scheme-target")
+    public MssoFiSchemeDto getMssoFiSchemeTarget(
 
+
+            @RequestParam String roname,
+            @RequestParam String branchCode,
+            @RequestParam String u_loc) {
+
+        MssoFiSchemeDto mssoFiSchemeDto = serviceaccountStatusDigitalProduct.getMssoFiSchemeTarget(branchCode, roname, u_loc);
+
+
+        System.out.println("fi-scheme-target");
+        return mssoFiSchemeDto;
+    }
+
+    @GetMapping("/fi-scheme")
+    public MssoFiSchemeDto getFiSchemeData(
+
+
+            @RequestParam String roname,
+            @RequestParam String branchCode,
+            @RequestParam String u_loc) {
+
+        MssoFiSchemeDto mssoFiSchemeDto = serviceaccountStatusDigitalProduct.getFiSchemeData(branchCode, roname, u_loc);
+
+
+        System.out.println("fi-scheme");
+        return mssoFiSchemeDto;
+    }
 
     @GetMapping("/review-renewal-pending")
     public MssoProfileComplianceDto getPendingReview(

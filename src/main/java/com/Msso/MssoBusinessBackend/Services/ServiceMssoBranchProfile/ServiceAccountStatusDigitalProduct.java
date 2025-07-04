@@ -3,8 +3,9 @@ package com.Msso.MssoBusinessBackend.Services.ServiceMssoBranchProfile;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileAccountStatusDigitalProduct.MssoAccountStatusDigitalTargetDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileAccountStatusDigitalProduct.MssoBranchProfileAccountStatusDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileAccountStatusDigitalProduct.MssoBranchProfileDigitalProductDto;
-import com.Msso.MssoBusinessBackend.Repository.RepoBranchProfileAccountStatusDigitalProduct.RepoAccountDigitalTarget;
-import com.Msso.MssoBusinessBackend.Repository.RepoBranchProfileAccountStatusDigitalProduct.RepoBranchProfileDigitalProduct;
+import com.Msso.MssoBusinessBackend.Model.MssoProfileAccountStatusDigitalProduct.MssoFiSchemeDto;
+import com.Msso.MssoBusinessBackend.Repository.RepoBranchProfileAccountStatusDigitalProduct.RepoAccountDigitalFiSchemeTarget;
+import com.Msso.MssoBusinessBackend.Repository.RepoBranchProfileAccountStatusDigitalProduct.RepoProfileDigitalProductFiScheme;
 import com.Msso.MssoBusinessBackend.Repository.RepoBranchProfileAccountStatusDigitalProduct.RepoBranchprofileAccountStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,11 +13,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class ServiceAccountStatusDigitalProduct {
     @Autowired
-    RepoBranchProfileDigitalProduct repoBranchProfileDigitalProduct;
+    RepoProfileDigitalProductFiScheme repoBranchProfileDigitalProduct;
     @Autowired
     RepoBranchprofileAccountStatus repoBranchprofileAccountStatus;
 @Autowired
-    RepoAccountDigitalTarget repoAccountDigitalTarget;
+RepoAccountDigitalFiSchemeTarget repoAccountDigitalTarget;
     public MssoBranchProfileAccountStatusDto getMssoAccountStatus(String branchCode,
 
                                                                   String roname,
@@ -33,6 +34,25 @@ public class ServiceAccountStatusDigitalProduct {
         } else {
             mssoBranchProfileAccountStatusDto = this.repoBranchprofileAccountStatus.getAccountStatusRO(roname);
             return mssoBranchProfileAccountStatusDto;
+        }
+    }
+
+    public MssoFiSchemeDto getFiSchemeData(String branchCode,
+
+                                                                  String roname,
+                                                                  String u_loc) {
+
+
+        MssoFiSchemeDto mssoFiSchemeDto = null;
+        if (u_loc.equalsIgnoreCase("HO")) {
+            mssoFiSchemeDto = this.repoBranchProfileDigitalProduct.getFiSchemeHo();
+            return mssoFiSchemeDto;
+        } else if (u_loc.equalsIgnoreCase("BR")) {
+            mssoFiSchemeDto = this.repoBranchProfileDigitalProduct.getFiSchemeBranch(branchCode);
+            return mssoFiSchemeDto;
+        } else {
+            mssoFiSchemeDto = this.repoBranchProfileDigitalProduct.getFiSchemeRO(roname);
+            return mssoFiSchemeDto;
         }
     }
 
@@ -91,6 +111,27 @@ public class ServiceAccountStatusDigitalProduct {
         } else {
             mssoAccountStatusDigitalTargetDto = this.repoAccountDigitalTarget.getAccountDigitalTargetRO(roname);
             return mssoAccountStatusDigitalTargetDto;
+        }
+
+
+    }
+
+    public MssoFiSchemeDto getMssoFiSchemeTarget (String branchCode,
+
+                                                                                 String roname,
+                                                                                 String u_loc){
+
+
+        MssoFiSchemeDto mssoFiSchemeDto = null;
+        if (u_loc.equalsIgnoreCase("HO")) {
+            mssoFiSchemeDto = this.repoAccountDigitalTarget.getFiSchemeTargetHo();
+            return mssoFiSchemeDto;
+        } else if (u_loc.equalsIgnoreCase("BR")) {
+            mssoFiSchemeDto = this.repoAccountDigitalTarget.getFiSchemeTargetBranch(branchCode);
+            return mssoFiSchemeDto;
+        } else {
+            mssoFiSchemeDto = this.repoAccountDigitalTarget.getFiSchemeTargetRO(roname);
+            return mssoFiSchemeDto;
         }
 
 
