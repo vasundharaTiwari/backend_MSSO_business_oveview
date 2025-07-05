@@ -166,7 +166,20 @@ public class MssoBranchProfileController {
         System.out.println("inside daily-disbursement");
         return mssoProfileDailyDisburseDto;
     }
+    @GetMapping("/disbursement-target")
+    public MssoProfileDailyDisburseDto getDisbursementTarget(
 
+
+            @RequestParam String roname,
+            @RequestParam String branchCode,
+            @RequestParam String u_loc) {
+
+        MssoProfileDailyDisburseDto mssoProfileDailyDisburseDto = serviceMssoDailyDisbursement.getMssoDisbursementTarget(branchCode, roname, u_loc);
+
+
+        System.out.println("disbursement-target");
+        return mssoProfileDailyDisburseDto;
+    }
     @GetMapping("/daily-sma")
     public MssoBranchProfileSmaDto getMssoDailySma(
 

@@ -30,4 +30,24 @@ public class ServiceMssoDailyDisbursement {
 
 
     }
+    public MssoProfileDailyDisburseDto getMssoDisbursementTarget(String branchCode,
+
+                                                                String roname,
+                                                                String u_loc) {
+
+
+        MssoProfileDailyDisburseDto mssoProfileDailyDisburseDto = null;
+        if (u_loc.equalsIgnoreCase("HO")) {
+            mssoProfileDailyDisburseDto = this.repoMssoDailyDisbursement.getDailyDisbursementTargetHo();
+            return mssoProfileDailyDisburseDto;
+        } else if (u_loc.equalsIgnoreCase("BR")) {
+            mssoProfileDailyDisburseDto = this.repoMssoDailyDisbursement.getDailyDisbursementTargetBranch(branchCode);
+            return mssoProfileDailyDisburseDto;
+        } else {
+            mssoProfileDailyDisburseDto = this.repoMssoDailyDisbursement.getDailyDisbursementTargetRO(roname);
+            return mssoProfileDailyDisburseDto;
+        }
+
+
+    }
 }
