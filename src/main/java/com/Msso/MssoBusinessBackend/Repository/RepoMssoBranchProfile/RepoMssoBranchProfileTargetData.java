@@ -79,12 +79,12 @@ public interface RepoMssoBranchProfileTargetData extends JpaRepository<MssoBranc
              report_date= :quarterEndDate  
              GROUP BY report_date)
              
-             select lm.report_date,(ad.sb-lm.sb) as sb,(ad.ca-lm.ca) as ca,(ad.td-lm.td )as td,(ad.casa-lm.casa) as casa,
+              select lm.report_date,(0::numeric) as sb,(0::numeric) as ca,(0::numeric) as td,(ad.casa-lm.casa) as casa,\s
              ad.deposit-lm.deposit as deposit,ad.advances-lm.advances as advances,ad.total_business-lm.total_business as total_business,
-             ad.total_retail-lm.total_retail as total_retail,ad.housing-lm.housing as housing,ad.vehicle-lm.vehicle as vehicle,
-             ad.education-lm.education as education,ad.agri-lm.agri as agri,ad.msme-lm.msme as msme,ad.gold-lm.gold as gold,ad.shg-lm.shg as shg,
-             ad.total_ram-lm.total_ram as total_ram,ad.npa-lm.npa
-             from actual_data ad,last_march_data lm  """, nativeQuery = true)
+             (0::numeric) as total_retail,(0::numeric) as housing,(0::numeric) as vehicle,
+             (0::numeric) as education,(0::numeric) as agri,(0::numeric) as msme,(0::numeric) as gold,(0::numeric) as shg,
+             (0::numeric) as total_ram,ad.npa-lm.npa
+             from actual_data ad,last_march_data lm """, nativeQuery = true)
     public MssoBranchProfileTargetDataDto getBranchProfileHoGap(@Param("quarterEndDate") LocalDate quarterEndDate);
 
     @Query(value = """
@@ -99,12 +99,12 @@ public interface RepoMssoBranchProfileTargetData extends JpaRepository<MssoBranc
   report_date= :quarterEndDate 
   GROUP BY report_date)
                                         
-  select lm.report_date,(ad.sb-lm.sb) as sb,(ad.ca-lm.ca) as ca,(ad.td-lm.td )as td,(ad.casa-lm.casa) as casa,
-  ad.deposit-lm.deposit as deposit,ad.advances-lm.advances as advances,ad.total_business-lm.total_business as total_business,
-  ad.total_retail-lm.total_retail as total_retail,ad.housing-lm.housing as housing,ad.vehicle-lm.vehicle as vehicle,
-  ad.education-lm.education as education,ad.agri-lm.agri as agri,ad.msme-lm.msme as msme,ad.gold-lm.gold as gold,ad.shg-lm.shg as shg,
-  ad.total_ram-lm.total_ram as total_ram,ad.npa-lm.npa
-  from actual_data ad,last_march_data lm """, nativeQuery = true)
+   select lm.report_date,(0::numeric) as sb,(0::numeric) as ca,(0::numeric) as td,(ad.casa-lm.casa) as casa,\s
+                       ad.deposit-lm.deposit as deposit,ad.advances-lm.advances as advances,ad.total_business-lm.total_business as total_business,
+                       (0::numeric) as total_retail,(0::numeric) as housing,(0::numeric) as vehicle,
+                       (0::numeric) as education,(0::numeric) as agri,(0::numeric) as msme,(0::numeric) as gold,(0::numeric) as shg,
+                       (0::numeric) as total_ram,ad.npa-lm.npa
+                       from actual_data ad,last_march_data lm """, nativeQuery = true)
     public MssoBranchProfileTargetDataDto getBranchProfileBranchGap(@Param("branchCode") String branchCode, @Param("quarterEndDate") LocalDate quarterEndDate);
 
     @Query(value = """
@@ -119,12 +119,12 @@ public interface RepoMssoBranchProfileTargetData extends JpaRepository<MssoBranc
             report_date= :quarterEndDate 
             GROUP BY report_date)
 
-            select lm.report_date,(ad.sb-lm.sb) as sb,(ad.ca-lm.ca) as ca,(ad.td-lm.td )as td,(ad.casa-lm.casa) as casa, 
-            ad.deposit-lm.deposit as deposit,ad.advances-lm.advances as advances,ad.total_business-lm.total_business as total_business,
-            ad.total_retail-lm.total_retail as total_retail,ad.housing-lm.housing as housing,ad.vehicle-lm.vehicle as vehicle,
-            ad.education-lm.education as education,ad.agri-lm.agri as agri,ad.msme-lm.msme as msme,ad.gold-lm.gold as gold,ad.shg-lm.shg as shg,
-            ad.total_ram-lm.total_ram as total_ram,ad.npa-lm.npa
-            from actual_data ad,last_march_data lm  """, nativeQuery = true)
+             select lm.report_date,(0::numeric) as sb,(0::numeric) as ca,(0::numeric) as td,(ad.casa-lm.casa) as casa,\s
+             ad.deposit-lm.deposit as deposit,ad.advances-lm.advances as advances,ad.total_business-lm.total_business as total_business,
+             (0::numeric) as total_retail,(0::numeric) as housing,(0::numeric) as vehicle,
+             (0::numeric) as education,(0::numeric) as agri,(0::numeric) as msme,(0::numeric) as gold,(0::numeric) as shg,
+             (0::numeric) as total_ram,ad.npa-lm.npa
+             from actual_data ad,last_march_data lm """, nativeQuery = true)
     public MssoBranchProfileTargetDataDto getBranchProfileRoGap(@Param("roname") String roname, @Param("quarterEndDate") LocalDate quarterEndDate);
 
 
