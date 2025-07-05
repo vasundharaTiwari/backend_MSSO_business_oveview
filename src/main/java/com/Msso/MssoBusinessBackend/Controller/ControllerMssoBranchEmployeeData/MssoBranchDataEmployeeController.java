@@ -137,4 +137,23 @@ public class MssoBranchDataEmployeeController {
 
 
     }
+
+    @GetMapping("bc-data")
+    public BranchCategoryDto getBCData(@RequestParam String uLoc, @RequestParam String branchCode, @RequestParam String roname){
+
+        BranchCategoryDto branchCategoryDto = null;
+        if (uLoc.equalsIgnoreCase("HO")) {
+            branchCategoryDto = this.repoEmployeData.getBCCountHO();
+            System.out.println("getBCCountHO");
+
+        } else if (uLoc.equalsIgnoreCase("RO")) {
+            branchCategoryDto = this.repoEmployeData.getBCCountRo(roname);
+            System.out.println("branchCategoryDto"+branchCategoryDto);
+
+        }
+else if (uLoc.equalsIgnoreCase("BR")){ branchCategoryDto = this.repoEmployeData.getBCCountBranch(branchCode);}
+        return branchCategoryDto;
+
+
+    }
 }

@@ -86,4 +86,20 @@ BranchCategoryDto getCategoryCountHO();
               FROM master_data.branch_opening_date where branch_code=:branchCode ;
             """, nativeQuery=true)
     BranchOpeningDateDto getBranchopendate(@Param("branchCode") String branchCode);
+
+    //**************************************bc data
+
+    @Query(value= """
+             SELECT sum(number_of_bc)::bigint FROM master_data.bc_count_branchwise """, nativeQuery=true)
+    BranchCategoryDto getBCCountHO();
+
+
+
+    @Query(value= """
+             SELECT sum(number_of_bc)::bigint FROM master_data.bc_count_branchwise where region=:roname     """, nativeQuery=true)
+    BranchCategoryDto getBCCountRo(@Param("roname") String roname);
+
+    @Query(value= """
+            SELECT sum(number_of_bc)::bigint FROM master_data.bc_count_branchwise where  branch_code=:branchCode     """, nativeQuery=true)
+    BranchCategoryDto getBCCountBranch(@Param("branchCode") String branchCode);
 }

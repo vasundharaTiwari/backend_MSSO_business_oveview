@@ -56,4 +56,8 @@ public class BranchCategoryDto {
         this.metropolitan = metropolitan;
         this.semiUrban = semiUrban;
     }
+
+    public BranchCategoryDto(Long totalCount) {
+        this.totalCount = totalCount;
+    }
 }
