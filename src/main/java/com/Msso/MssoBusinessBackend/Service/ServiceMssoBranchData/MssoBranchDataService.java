@@ -1,9 +1,6 @@
 package com.Msso.MssoBusinessBackend.Service.ServiceMssoBranchData;
 
-import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.BranchCategoryDto;
-import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.ForRoBranchDto;
-import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.MssoBranchEmployeeDataDto;
-import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.MssoEmployeeSummaryDto;
+import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.*;
 import jakarta.transaction.Transactional;
 
 import java.util.List;
@@ -27,4 +24,5 @@ public interface MssoBranchDataService {
     public String getBranchCategory(String branchCode, String uLoc, String roname);
 
     BranchCategoryDto getBranchCategoryCount(String branchCode, String uLoc, String roname);
+     BranchOpeningDateDto getBranchOpenDate(String branchCode , String uLoc, String roname);
 }

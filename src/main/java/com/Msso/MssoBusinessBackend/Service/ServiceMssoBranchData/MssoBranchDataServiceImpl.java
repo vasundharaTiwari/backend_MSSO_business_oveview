@@ -1,9 +1,6 @@
 package com.Msso.MssoBusinessBackend.Service.ServiceMssoBranchData;
 
-import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.BranchCategoryDto;
-import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.ForRoBranchDto;
-import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.MssoBranchEmployeeDataDto;
-import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.MssoEmployeeSummaryDto;
+import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.*;
 import com.Msso.MssoBusinessBackend.Repository.RepoMssoBranchEmployeeData.RepoMssoBranchEmployeData;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,7 +106,14 @@ if(uLoc.equalsIgnoreCase("HO")) {
 
         return branchCategoryDto;
     }
+    public BranchOpeningDateDto getBranchOpenDate(String branchCode , String uLoc, String roname) {
+        BranchOpeningDateDto branchOpeningDateDto = null;
 
+        branchOpeningDateDto = this.repoMssoBranchData.getBranchopendate(branchCode);
+
+
+        return branchOpeningDateDto;
+    }
         
     
 }

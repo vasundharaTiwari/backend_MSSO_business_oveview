@@ -1,9 +1,6 @@
 package com.Msso.MssoBusinessBackend.Controller.ControllerMssoBranchEmployeeData;
 
-import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.BranchCategoryDto;
-import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.ForRoBranchDto;
-import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.MssoBranchEmployeeDataDto;
-import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.MssoEmployeeSummaryDto;
+import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.*;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileReviewRenewal.MssoProfileComplianceDto;
 import com.Msso.MssoBusinessBackend.Repository.RepoMssoBranchEmployeeData.RepoMssoBranchEmployeData;
 import com.Msso.MssoBusinessBackend.Service.ServiceMssoBranchData.MssoBranchDataService;
@@ -126,5 +123,18 @@ public class MssoBranchDataEmployeeController {
 
 
     }
+    @GetMapping("branch-open-date")
+    public BranchOpeningDateDto getBranchOpeningDate(@RequestParam String uLoc, @RequestParam String branchCode, @RequestParam String roname){
 
+        System.out.println("this.branch_code, this.region, this.u_loc..."+uLoc+" "+branchCode+" "+roname);
+
+        BranchOpeningDateDto branchOpeningDateDto = mssoBranchDataService.getBranchOpenDate(branchCode,uLoc, roname);
+//        List<MssoBranchEmployeeDataDto> branchDataList= mssoBranchDataService.getMssoBranchData(branchCode,uLoc, uId,roname);
+
+
+        System.out.println("branch-open-date:- "+branchOpeningDateDto);
+        return branchOpeningDateDto;
+
+
+    }
 }

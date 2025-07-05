@@ -80,4 +80,10 @@ BranchCategoryDto getCategoryCountHO();
             FROM master_data.branch_master where region=:roname     """, nativeQuery=true)
     BranchCategoryDto getCategoryCountRo(@Param("roname") String roname);
 
+    //********************************************branch opening date*****************************************************************
+    @Query(value= """
+              SELECT branch_code, branch_name, region, branchopendate
+              FROM master_data.branch_opening_date where branch_code=:branchCode ;
+            """, nativeQuery=true)
+    BranchOpeningDateDto getBranchopendate(@Param("branchCode") String branchCode);
 }
