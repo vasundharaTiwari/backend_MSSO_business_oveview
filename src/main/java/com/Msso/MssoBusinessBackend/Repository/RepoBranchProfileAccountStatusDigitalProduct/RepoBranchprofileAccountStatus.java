@@ -41,26 +41,26 @@ public interface RepoBranchprofileAccountStatus extends JpaRepository<MssoBranch
 
     @Query(value = """
             SELECT report_date,sum( sb_ac_count)as sb_ac_count ,sum(ca_ac_count)as ca_ac_count,
-                  sum(casa_count)as casa_count,round(sum( casa_amount::numeric), 2) as casa_amount\s
+                  sum(casa_count)as casa_count,0::bigint AS PMJDY,round(sum( casa_amount::numeric), 2) as casa_amount
                   FROM msso_branch_profile.msso_profile_account_status_march
-               group by report_date;\s
+               group by report_date;
                    """, nativeQuery = true)
     public MssoBranchProfileAccountStatusDto getAccountStatusMarchHo();
 
 
     @Query(value = """
             SELECT report_date,sum( sb_ac_count)as sb_ac_count ,sum(ca_ac_count)as ca_ac_count,
-            sum(casa_count)as casa_count,round(sum( casa_amount::numeric), 2) as casa_amount\s
+            sum(casa_count)as casa_count,0::bigint AS PMJDY,round(sum( casa_amount::numeric), 2) as casa_amount
             FROM msso_branch_profile.msso_profile_account_status_march
-            where  branch_code=:branchCode  group by report_date;\s
+            where  branch_code=:branchCode  group by report_date;
                 """, nativeQuery = true)
     public MssoBranchProfileAccountStatusDto getAccountStatusMarchBranch(@Param("branchCode") String branchCode);
 
     @Query(value = """
             SELECT report_date,sum( sb_ac_count)as sb_ac_count ,sum(ca_ac_count)as ca_ac_count,
-            sum(casa_count)as casa_count,round(sum( casa_amount::numeric), 2) as casa_amount\s
+            sum(casa_count)as casa_count,0::bigint AS PMJDY,round(sum( casa_amount::numeric), 2) as casa_amount
             FROM msso_branch_profile.msso_profile_account_status_march
-            where   REGION=:roname  group by report_date;\s
+            where   REGION=:roname  group by report_date;
                 """, nativeQuery = true)
 
 
