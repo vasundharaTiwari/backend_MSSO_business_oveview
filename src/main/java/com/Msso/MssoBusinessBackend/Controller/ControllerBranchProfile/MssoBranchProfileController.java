@@ -7,6 +7,7 @@ import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileDisbursement.MssoProf
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileModel.MssoBranchProfileActualDataDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileModel.MssoBranchProfileTargetDataDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileAccountStatusDigitalProduct.MssoFiSchemeDto;
+import com.Msso.MssoBusinessBackend.Model.MssoProfileReviewRenewal.MssoProfileReviewRenewalDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileSmaNpaClassification.MssoBranchProfileSmaDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileReviewRenewal.MssoProfileComplianceDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileSmaNpaClassification.MssoProfileNpaClassificationDto;
@@ -287,14 +288,14 @@ public class MssoBranchProfileController {
     }
 
     @GetMapping("/review-renewal-pending")
-    public MssoProfileComplianceDto getPendingReview(
+    public MssoProfileReviewRenewalDto getPendingReview(
 
 
             @RequestParam String roname,
             @RequestParam String branchCode,
             @RequestParam String u_loc) {
 
-        MssoProfileComplianceDto mssoProfileReviewRenewalPending = serviceMssoBranchProfileSma.getPendingReview(branchCode, roname, u_loc);
+        MssoProfileReviewRenewalDto mssoProfileReviewRenewalPending = serviceMssoBranchProfileSma.getPendingReview(branchCode, roname, u_loc);
 
 
         System.out.println("inside review renewal pending");

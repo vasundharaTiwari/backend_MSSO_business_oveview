@@ -10,6 +10,7 @@ import com.Msso.MssoBusinessBackend.Model.MssoProfileAccountStatusDigitalProduct
 import com.Msso.MssoBusinessBackend.Model.MssoProfileAccountStatusDigitalProduct.MssoBranchProfileAccountStatusDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileAccountStatusDigitalProduct.MssoBranchProfileDigitalProductDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileReviewRenewal.MssoProfileComplianceDto;
+import com.Msso.MssoBusinessBackend.Model.MssoProfileReviewRenewal.MssoProfileReviewRenewalDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileSmaNpaClassification.MssoBranchProfileSmaDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileSmaNpaClassification.MssoProfileNpaClassificationDto;
 import com.Msso.MssoBusinessBackend.Model.ParameterDetails;
@@ -79,7 +80,7 @@ public class BranchProfileReport {
             System.out.println("SMA DATA :"+mssoBranchProfileSmaDto);
             List<MssoBranchProfileSmaDto> mssoBranchProfileSmaDtoList = Collections.singletonList(mssoBranchProfileSmaDto);
 
-            MssoProfileComplianceDto pendingReviewRenewal=serviceMssoBranchProfileSma.getPendingReview(branch_code,region,u_loc);
+            MssoProfileReviewRenewalDto pendingReviewRenewal=serviceMssoBranchProfileSma.getPendingReview(branch_code,region,u_loc);
             System.out.println("SMA DATA :"+pendingReviewRenewal.getTotal_amount()+pendingReviewRenewal.getTotal_count());
 
             MssoProfileDailyDisburseDto mssoProfileDailyDisburseDto=serviceMssoDailyDisbursement.getMssoDailyDisbursement(branch_code,region,u_loc);
@@ -494,7 +495,7 @@ public class BranchProfileReport {
             MssoBranchProfileDigitalProductDto mssoBranchProfileDigitalProductDto = serviceaccountStatusDigitalProduct.getMssoDigitalProduct(branch_code,region,u_loc);
             MssoBranchProfileAccountStatusDto mssoBranchProfileAccountStatusDto = serviceaccountStatusDigitalProduct.getMssoAccountStatus(branch_code,region,u_loc);
             MssoAccountStatusDigitalTargetDto mssoAccountStatusDigitalTargetDto = serviceaccountStatusDigitalProduct.getMssoAccountDigitalProductTarget(branch_code,region,u_loc);
-            MssoProfileComplianceDto mssoProfileReviewRenewalPending = serviceMssoBranchProfileSma.getPendingReview(branch_code,region,u_loc);
+            MssoProfileReviewRenewalDto mssoProfileReviewRenewalPending = serviceMssoBranchProfileSma.getPendingReview(branch_code,region,u_loc);
             MssoProfileComplianceDto mssoProfileTimebarred = serviceMssoBranchProfileSma.getTimebarredData(branch_code,region,u_loc);
 
             BigDecimal perEmployeeBusiness=mssoBranchProfileCurrentData.getTotal_business().divide(total_bank_staff, 2, RoundingMode.HALF_UP);

@@ -1,5 +1,6 @@
 package com.Msso.MssoBusinessBackend.Services.ServiceMssoBranchProfile;
 
+import com.Msso.MssoBusinessBackend.Model.MssoProfileReviewRenewal.MssoProfileReviewRenewalDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileSmaNpaClassification.MssoBranchProfileSmaDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileReviewRenewal.MssoProfileComplianceDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileSmaNpaClassification.MssoProfileNpaClassificationDto;
@@ -52,13 +53,13 @@ public class ServiceMssoBranchProfileSma {
         return mssoProfileNpaClassificationDto;
 
     }
-    public MssoProfileComplianceDto getPendingReview(String branchCode,
+    public MssoProfileReviewRenewalDto getPendingReview(String branchCode,
 
-                                                     String roname,
-                                                     String u_loc) {
+                                                        String roname,
+                                                        String u_loc) {
 
 
-        MssoProfileComplianceDto mssoProfileReviewRenewalPending = null;
+        MssoProfileReviewRenewalDto mssoProfileReviewRenewalPending = null;
         if (u_loc.equalsIgnoreCase("HO")) {
             mssoProfileReviewRenewalPending = this.repoMssoBranchProfileSma.getPendingRevieRenewalHo();
             return mssoProfileReviewRenewalPending;
