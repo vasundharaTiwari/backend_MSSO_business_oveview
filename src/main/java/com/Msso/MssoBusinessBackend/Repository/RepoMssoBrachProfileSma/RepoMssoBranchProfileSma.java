@@ -22,8 +22,8 @@ public interface RepoMssoBranchProfileSma extends JpaRepository<MssoBranchProfil
 
 
     @Query(value = """
-            SELECT report_date,sum( total_count)as total_count ,round(sum( total_amount::numeric), 2) as total_amount ,sum(sma0_count)as sma0_count,round(sum( sma0_amount::numeric), 2) as sma0_amount ,
-             sum(sma1_count)as sma1_count,round(sum( sma1_amount::numeric), 2) as sma1_amount ,sum(sma2_count)as sma2_count ,round(sum( sma2_amount::numeric), 2) as sma2_amount  \s
+            SELECT report_date,sum( total_count)as total_count ,round(sum( total_amount::numeric)*100, 2) as total_amount ,sum(sma0_count)as sma0_count,round(sum( sma0_amount::numeric)*100, 2) as sma0_amount ,
+             sum(sma1_count)as sma1_count,round(sum( sma1_amount::numeric)*100, 2) as sma1_amount ,sum(sma2_count)as sma2_count ,round(sum( sma2_amount::numeric)*100, 2) as sma2_amount  \s
              FROM msso_branch_profile.msso_profile_sma_data
              where  report_date=(select max(report_date)from msso_branch_profile.msso_profile_sma_data ) and branch_code=:branchCode group by report_date;
              """, nativeQuery = true)
@@ -49,9 +49,10 @@ public interface RepoMssoBranchProfileSma extends JpaRepository<MssoBranchProfil
 
 
     @Query(value = """
-           SELECT report_date,sum( total_count)as total_count ,round(sum( total_amount::numeric), 2) as total_amount ,sum(substandard_count)as substandard_count ,round(sum( substandard_amount::numeric), 2) as substandard_amount ,sum(d0_count)as d0_count,round(sum( d0_amount::numeric), 2) as d0_amount ,
-             sum(d1_count)as d1_count,round(sum( d1_amount::numeric), 2) as d1_amount ,sum(d2_count)as d2_count ,round(sum( d2_amount::numeric), 2) as d2_amount ,sum(lost_count)as lost_count ,round(sum( lost_amount::numeric), 2) as lost_amount  
+          SELECT report_date,sum( total_count)as total_count ,round(sum( total_amount::numeric)*100, 2) as total_amount ,sum(substandard_count)as substandard_count ,round(sum( substandard_amount::numeric)*100, 2) as substandard_amount ,sum(d0_count)as d0_count,round(sum( d0_amount::numeric)*100, 2) as d0_amount ,
+             sum(d1_count)as d1_count,round(sum( d1_amount::numeric)*100, 2) as d1_amount ,sum(d2_count)as d2_count ,round(sum( d2_amount::numeric)*100, 2) as d2_amount ,sum(lost_count)as lost_count ,round(sum( lost_amount::numeric)*100, 2) as lost_amount  
              FROM msso_branch_profile.msso_profile_npa_classification
+         
              where  report_date=(select max(report_date)from msso_branch_profile.msso_profile_npa_classification ) and branch_code=:branchCode group by report_date;
              """, nativeQuery = true)
     public MssoProfileNpaClassificationDto getNpaClassificationBranch(@Param("branchCode") String branchCode);
@@ -76,8 +77,8 @@ public interface RepoMssoBranchProfileSma extends JpaRepository<MssoBranchProfil
 
 
     @Query(value = """
-            SELECT report_date,sum( total_count)as total_count ,round(sum( total_amount::numeric), 2) as total_amount ,
-             sum( total_count_nacc)as total_count_nacc ,round(sum( total_amount_nacc::numeric), 2) as total_amount_nacc\s FROM msso_branch_profile.msso_profile_pending_review_renewal
+            SELECT report_date,sum( total_count)as total_count ,round(sum( total_amount::numeric)*100, 2) as total_amount ,
+             sum( total_count_nacc)as total_count_nacc ,round(sum( total_amount_nacc::numeric)*100, 2) as total_amount_nacc\s FROM msso_branch_profile.msso_profile_pending_review_renewal
              where  report_date=(select max(report_date)from msso_branch_profile.msso_profile_pending_review_renewal ) and branch_code=:branchCode group by report_date;
              """, nativeQuery = true)
     public MssoProfileReviewRenewalDto getPendingRevieRenewalBranch(@Param("branchCode") String branchCode);
