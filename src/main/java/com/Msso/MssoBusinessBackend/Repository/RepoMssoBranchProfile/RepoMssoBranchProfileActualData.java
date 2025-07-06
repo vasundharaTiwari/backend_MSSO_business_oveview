@@ -153,23 +153,23 @@ public interface RepoMssoBranchProfileActualData extends JpaRepository<MssoBranc
              
              SELECT
                 lm.report_date,
-                ROUND(CASE WHEN ad.sb = 0 OR ad.sb IS NULL THEN NULL ELSE ((ad.sb - lm.sb) / lm.sb::numeric) * 100 END, 2) AS sb,
-                ROUND(CASE WHEN ad.ca = 0 OR ad.ca IS NULL THEN NULL ELSE ((ad.ca - lm.ca) / lm.ca::numeric) * 100 END, 2) AS ca,
-                ROUND(CASE WHEN ad.td = 0 OR ad.td IS NULL THEN NULL ELSE ((ad.td - lm.td) / lm.td::numeric) * 100 END, 2) AS td,
-                ROUND(CASE WHEN ad.casa = 0 OR ad.casa IS NULL THEN NULL ELSE ((ad.casa - lm.casa) / lm.casa::numeric) * 100 END, 2) AS casa,
-                ROUND(CASE WHEN ad.deposit = 0 OR ad.deposit IS NULL THEN NULL ELSE ((ad.deposit - lm.deposit) / lm.deposit::numeric) * 100 END, 2) AS deposit,
-                ROUND(CASE WHEN ad.advances = 0 OR ad.advances IS NULL THEN NULL ELSE ((ad.advances - lm.advances) / lm.advances::numeric) * 100 END, 2) AS advances,
-                ROUND(CASE WHEN ad.total_business = 0 OR ad.total_business IS NULL THEN NULL ELSE ((ad.total_business - lm.total_business) / lm.total_business::numeric) * 100 END, 2) AS total_business,
-                ROUND(CASE WHEN ad.total_retail = 0 OR ad.total_retail IS NULL THEN NULL ELSE ((ad.total_retail - lm.total_retail) / lm.total_retail::numeric) * 100 END, 2) AS total_retail,
-                ROUND(CASE WHEN ad.housing = 0 OR ad.housing IS NULL THEN NULL ELSE ((ad.housing - lm.housing) / lm.housing::numeric) * 100 END, 2) AS housing,
-                ROUND(CASE WHEN ad.vehicle = 0 OR ad.vehicle IS NULL THEN NULL ELSE ((ad.vehicle - lm.vehicle) / lm.vehicle::numeric) * 100 END, 2) AS vehicle,
-                ROUND(CASE WHEN ad.education = 0 OR ad.education IS NULL THEN NULL ELSE ((ad.education - lm.education) / lm.education::numeric) * 100 END, 2) AS education,
-                ROUND(CASE WHEN ad.agri = 0 OR ad.agri IS NULL THEN NULL ELSE ((ad.agri - lm.agri) / lm.agri::numeric) * 100 END, 2) AS agri,
-                ROUND(CASE WHEN ad.msme = 0 OR ad.msme IS NULL THEN NULL ELSE ((ad.msme - lm.msme) / lm.msme::numeric) * 100 END, 2) AS msme,
-                ROUND(CASE WHEN ad.gold = 0 OR ad.gold IS NULL THEN NULL ELSE ((ad.gold - lm.gold) / lm.gold::numeric) * 100 END, 2) AS gold,
-                ROUND(CASE WHEN ad.shg = 0 OR ad.shg IS NULL THEN NULL ELSE ((ad.shg - lm.shg) / lm.shg::numeric) * 100 END, 2) AS shg,
-                ROUND(CASE WHEN ad.total_ram = 0 OR ad.total_ram IS NULL THEN NULL ELSE ((ad.total_ram - lm.total_ram) / lm.total_ram::numeric) * 100 END, 2) AS total_ram,
-                ROUND( CASE  WHEN ad.npa = 0 OR ad.npa IS NULL THEN NULL ELSE ((ad.npa - lm.npa) / lm.npa::numeric) * 100 END,  2) AS npa
+                ROUND(CASE WHEN lm.sb = 0 OR ad.sb IS NULL THEN NULL ELSE ((ad.sb - lm.sb) / lm.sb::numeric) * 100 END, 2) AS sb,
+                ROUND(CASE WHEN lm.ca = 0 OR ad.ca IS NULL THEN NULL ELSE ((ad.ca - lm.ca) / lm.ca::numeric) * 100 END, 2) AS ca,
+                ROUND(CASE WHEN lm .td = 0 OR ad.td IS NULL THEN NULL ELSE ((ad.td - lm.td) / lm.td::numeric) * 100 END, 2) AS td,
+                ROUND(CASE WHEN lm.casa = 0 OR ad.casa IS NULL THEN NULL ELSE ((ad.casa - lm.casa) / lm.casa::numeric) * 100 END, 2) AS casa,
+                ROUND(CASE WHEN lm.deposit = 0 OR ad.deposit IS NULL THEN NULL ELSE ((ad.deposit - lm.deposit) / lm.deposit::numeric) * 100 END, 2) AS deposit,
+                ROUND(CASE WHEN lm.advances = 0 OR ad.advances IS NULL THEN NULL ELSE ((ad.advances - lm.advances) / lm.advances::numeric) * 100 END, 2) AS advances,
+                ROUND(CASE WHEN lm.total_business = 0 OR ad.total_business IS NULL THEN NULL ELSE ((ad.total_business - lm.total_business) / lm.total_business::numeric) * 100 END, 2) AS total_business,
+                ROUND(CASE WHEN lm.total_retail = 0 OR ad.total_retail IS NULL THEN NULL ELSE ((ad.total_retail - lm.total_retail) / lm.total_retail::numeric) * 100 END, 2) AS total_retail,
+                ROUND(CASE WHEN lm.housing = 0 OR ad.housing IS NULL THEN NULL ELSE ((ad.housing - lm.housing) / lm.housing::numeric) * 100 END, 2) AS housing,
+                ROUND(CASE WHEN lm.vehicle = 0 OR ad.vehicle IS NULL THEN NULL ELSE ((ad.vehicle - lm.vehicle) / lm.vehicle::numeric) * 100 END, 2) AS vehicle,
+                ROUND(CASE WHEN lm.education = 0 OR ad.education IS NULL THEN NULL ELSE ((ad.education - lm.education) / lm.education::numeric) * 100 END, 2) AS education,
+                ROUND(CASE WHEN lm.agri = 0 OR ad.agri IS NULL THEN NULL ELSE ((ad.agri - lm.agri) / lm.agri::numeric) * 100 END, 2) AS agri,
+                ROUND(CASE WHEN lm.msme = 0 OR ad.msme IS NULL THEN NULL ELSE ((ad.msme - lm.msme) / lm.msme::numeric) * 100 END, 2) AS msme,
+                ROUND(CASE WHEN lm.gold = 0 OR ad.gold IS NULL THEN NULL ELSE ((ad.gold - lm.gold) / lm.gold::numeric) * 100 END, 2) AS gold,
+                ROUND(CASE WHEN lm.shg = 0 OR ad.shg IS NULL THEN NULL ELSE ((ad.shg - lm.shg) / lm.shg::numeric) * 100 END, 2) AS shg,
+                ROUND(CASE WHEN lm.total_ram = 0 OR ad.total_ram IS NULL THEN NULL ELSE ((ad.total_ram - lm.total_ram) / lm.total_ram::numeric) * 100 END, 2) AS total_ram,
+                ROUND( CASE  WHEN lm.npa = 0 OR ad.npa IS NULL THEN NULL ELSE ((ad.npa - lm.npa) / lm.npa::numeric) * 100 END,  2) AS npa
             FROM actual_data ad, last_march_data lm """, nativeQuery = true)
     public MssoBranchProfileActualDataDto getBranchProfileHoGapPercentage(@Param("marchEndDates") LocalDate marchEndDates);
 
@@ -187,23 +187,23 @@ public interface RepoMssoBranchProfileActualData extends JpaRepository<MssoBranc
 
              SELECT
                 lm.report_date,
-                ROUND(CASE WHEN ad.sb = 0 OR ad.sb IS NULL THEN NULL ELSE ((ad.sb - lm.sb) / lm.sb::numeric) * 100 END, 2) AS sb,
-                ROUND(CASE WHEN ad.ca = 0 OR ad.ca IS NULL THEN NULL ELSE ((ad.ca - lm.ca) / lm.ca::numeric) * 100 END, 2) AS ca,
-                ROUND(CASE WHEN ad.td = 0 OR ad.td IS NULL THEN NULL ELSE ((ad.td - lm.td) / lm.td::numeric) * 100 END, 2) AS td,
-                ROUND(CASE WHEN ad.casa = 0 OR ad.casa IS NULL THEN NULL ELSE ((ad.casa - lm.casa) / lm.casa::numeric) * 100 END, 2) AS casa,
-                ROUND(CASE WHEN ad.deposit = 0 OR ad.deposit IS NULL THEN NULL ELSE ((ad.deposit - lm.deposit) / lm.deposit::numeric) * 100 END, 2) AS deposit,
-                ROUND(CASE WHEN ad.advances = 0 OR ad.advances IS NULL THEN NULL ELSE ((ad.advances - lm.advances) / lm.advances::numeric) * 100 END, 2) AS advances,
-                ROUND(CASE WHEN ad.total_business = 0 OR ad.total_business IS NULL THEN NULL ELSE ((ad.total_business - lm.total_business) / lm.total_business::numeric) * 100 END, 2) AS total_business,
-                ROUND(CASE WHEN ad.total_retail = 0 OR ad.total_retail IS NULL THEN NULL ELSE ((ad.total_retail - lm.total_retail) / lm.total_retail::numeric) * 100 END, 2) AS total_retail,
-                ROUND(CASE WHEN ad.housing = 0 OR ad.housing IS NULL THEN NULL ELSE ((ad.housing - lm.housing) / lm.housing::numeric) * 100 END, 2) AS housing,
-                ROUND(CASE WHEN ad.vehicle = 0 OR ad.vehicle IS NULL THEN NULL ELSE ((ad.vehicle - lm.vehicle) / lm.vehicle::numeric) * 100 END, 2) AS vehicle,
-                ROUND(CASE WHEN ad.education = 0 OR ad.education IS NULL THEN NULL ELSE ((ad.education - lm.education) / lm.education::numeric) * 100 END, 2) AS education,
-                ROUND(CASE WHEN ad.agri = 0 OR ad.agri IS NULL THEN NULL ELSE ((ad.agri - lm.agri) / lm.agri::numeric) * 100 END, 2) AS agri,
-                ROUND(CASE WHEN ad.msme = 0 OR ad.msme IS NULL THEN NULL ELSE ((ad.msme - lm.msme) / lm.msme::numeric) * 100 END, 2) AS msme,
-                ROUND(CASE WHEN ad.gold = 0 OR ad.gold IS NULL THEN NULL ELSE ((ad.gold - lm.gold) / lm.gold::numeric) * 100 END, 2) AS gold,
-                ROUND(CASE WHEN ad.shg = 0 OR ad.shg IS NULL THEN NULL ELSE ((ad.shg - lm.shg) / lm.shg::numeric) * 100 END, 2) AS shg,
-                ROUND(CASE WHEN ad.total_ram = 0 OR ad.total_ram IS NULL THEN NULL ELSE ((ad.total_ram - lm.total_ram) / lm.total_ram::numeric) * 100 END, 2) AS total_ram,
-                ROUND( CASE  WHEN ad.npa = 0 OR ad.npa IS NULL THEN NULL ELSE ((ad.npa - lm.npa) / lm.npa::numeric) * 100 END,  2) AS npa
+                ROUND(CASE WHEN lm.sb = 0 OR ad.sb IS NULL THEN NULL ELSE ((ad.sb - lm.sb) / lm.sb::numeric) * 100 END, 2) AS sb,
+                ROUND(CASE WHEN lm.ca = 0 OR ad.ca IS NULL THEN NULL ELSE ((ad.ca - lm.ca) / lm.ca::numeric) * 100 END, 2) AS ca,
+                ROUND(CASE WHEN lm .td = 0 OR ad.td IS NULL THEN NULL ELSE ((ad.td - lm.td) / lm.td::numeric) * 100 END, 2) AS td,
+                ROUND(CASE WHEN lm.casa = 0 OR ad.casa IS NULL THEN NULL ELSE ((ad.casa - lm.casa) / lm.casa::numeric) * 100 END, 2) AS casa,
+                ROUND(CASE WHEN lm.deposit = 0 OR ad.deposit IS NULL THEN NULL ELSE ((ad.deposit - lm.deposit) / lm.deposit::numeric) * 100 END, 2) AS deposit,
+                ROUND(CASE WHEN lm.advances = 0 OR ad.advances IS NULL THEN NULL ELSE ((ad.advances - lm.advances) / lm.advances::numeric) * 100 END, 2) AS advances,
+                ROUND(CASE WHEN lm.total_business = 0 OR ad.total_business IS NULL THEN NULL ELSE ((ad.total_business - lm.total_business) / lm.total_business::numeric) * 100 END, 2) AS total_business,
+                ROUND(CASE WHEN lm.total_retail = 0 OR ad.total_retail IS NULL THEN NULL ELSE ((ad.total_retail - lm.total_retail) / lm.total_retail::numeric) * 100 END, 2) AS total_retail,
+                ROUND(CASE WHEN lm.housing = 0 OR ad.housing IS NULL THEN NULL ELSE ((ad.housing - lm.housing) / lm.housing::numeric) * 100 END, 2) AS housing,
+                ROUND(CASE WHEN lm.vehicle = 0 OR ad.vehicle IS NULL THEN NULL ELSE ((ad.vehicle - lm.vehicle) / lm.vehicle::numeric) * 100 END, 2) AS vehicle,
+                ROUND(CASE WHEN lm.education = 0 OR ad.education IS NULL THEN NULL ELSE ((ad.education - lm.education) / lm.education::numeric) * 100 END, 2) AS education,
+                ROUND(CASE WHEN lm.agri = 0 OR ad.agri IS NULL THEN NULL ELSE ((ad.agri - lm.agri) / lm.agri::numeric) * 100 END, 2) AS agri,
+                ROUND(CASE WHEN lm.msme = 0 OR ad.msme IS NULL THEN NULL ELSE ((ad.msme - lm.msme) / lm.msme::numeric) * 100 END, 2) AS msme,
+                ROUND(CASE WHEN lm.gold = 0 OR ad.gold IS NULL THEN NULL ELSE ((ad.gold - lm.gold) / lm.gold::numeric) * 100 END, 2) AS gold,
+                ROUND(CASE WHEN lm.shg = 0 OR ad.shg IS NULL THEN NULL ELSE ((ad.shg - lm.shg) / lm.shg::numeric) * 100 END, 2) AS shg,
+                ROUND(CASE WHEN lm.total_ram = 0 OR ad.total_ram IS NULL THEN NULL ELSE ((ad.total_ram - lm.total_ram) / lm.total_ram::numeric) * 100 END, 2) AS total_ram,
+                ROUND( CASE  WHEN lm.npa = 0 OR ad.npa IS NULL THEN NULL ELSE ((ad.npa - lm.npa) / lm.npa::numeric) * 100 END,  2) AS npa
             FROM actual_data ad, last_march_data lm """, nativeQuery = true)
     public MssoBranchProfileActualDataDto getBranchProfileBranchGapPercentage(@Param("branchCode") String branchCode,@Param("marchEndDates")LocalDate marchEndDates);
     @Query(value = """
@@ -220,23 +220,23 @@ public interface RepoMssoBranchProfileActualData extends JpaRepository<MssoBranc
 
              SELECT
                 lm.report_date,
-                ROUND(CASE WHEN ad.sb = 0 OR ad.sb IS NULL THEN NULL ELSE ((ad.sb - lm.sb) / lm.sb::numeric) * 100 END, 2) AS sb,
-                ROUND(CASE WHEN ad.ca = 0 OR ad.ca IS NULL THEN NULL ELSE ((ad.ca - lm.ca) / lm.ca::numeric) * 100 END, 2) AS ca,
-                ROUND(CASE WHEN ad.td = 0 OR ad.td IS NULL THEN NULL ELSE ((ad.td - lm.td) / lm.td::numeric) * 100 END, 2) AS td,
-                ROUND(CASE WHEN ad.casa = 0 OR ad.casa IS NULL THEN NULL ELSE ((ad.casa - lm.casa) / lm.casa::numeric) * 100 END, 2) AS casa,
-                ROUND(CASE WHEN ad.deposit = 0 OR ad.deposit IS NULL THEN NULL ELSE ((ad.deposit - lm.deposit) / lm.deposit::numeric) * 100 END, 2) AS deposit,
-                ROUND(CASE WHEN ad.advances = 0 OR ad.advances IS NULL THEN NULL ELSE ((ad.advances - lm.advances) / lm.advances::numeric) * 100 END, 2) AS advances,
-                ROUND(CASE WHEN ad.total_business = 0 OR ad.total_business IS NULL THEN NULL ELSE ((ad.total_business - lm.total_business) / lm.total_business::numeric) * 100 END, 2) AS total_business,
-                ROUND(CASE WHEN ad.total_retail = 0 OR ad.total_retail IS NULL THEN NULL ELSE ((ad.total_retail - lm.total_retail) / lm.total_retail::numeric) * 100 END, 2) AS total_retail,
-                ROUND(CASE WHEN ad.housing = 0 OR ad.housing IS NULL THEN NULL ELSE ((ad.housing - lm.housing) / lm.housing::numeric) * 100 END, 2) AS housing,
-                ROUND(CASE WHEN ad.vehicle = 0 OR ad.vehicle IS NULL THEN NULL ELSE ((ad.vehicle - lm.vehicle) / lm.vehicle::numeric) * 100 END, 2) AS vehicle,
-                ROUND(CASE WHEN ad.education = 0 OR ad.education IS NULL THEN NULL ELSE ((ad.education - lm.education) / lm.education::numeric) * 100 END, 2) AS education,
-                ROUND(CASE WHEN ad.agri = 0 OR ad.agri IS NULL THEN NULL ELSE ((ad.agri - lm.agri) / lm.agri::numeric) * 100 END, 2) AS agri,
-                ROUND(CASE WHEN ad.msme = 0 OR ad.msme IS NULL THEN NULL ELSE ((ad.msme - lm.msme) / lm.msme::numeric) * 100 END, 2) AS msme,
-                ROUND(CASE WHEN ad.gold = 0 OR ad.gold IS NULL THEN NULL ELSE ((ad.gold - lm.gold) / lm.gold::numeric) * 100 END, 2) AS gold,
-                ROUND(CASE WHEN ad.shg = 0 OR ad.shg IS NULL THEN NULL ELSE ((ad.shg - lm.shg) / lm.shg::numeric) * 100 END, 2) AS shg,
-                ROUND(CASE WHEN ad.total_ram = 0 OR ad.total_ram IS NULL THEN NULL ELSE ((ad.total_ram - lm.total_ram) / lm.total_ram::numeric) * 100 END, 2) AS total_ram,
-                ROUND( CASE  WHEN ad.npa = 0 OR ad.npa IS NULL THEN NULL ELSE ((ad.npa - lm.npa) / lm.npa::numeric) * 100 END,  2) AS npa
+                ROUND(CASE WHEN lm.sb = 0 OR ad.sb IS NULL THEN NULL ELSE ((ad.sb - lm.sb) / lm.sb::numeric) * 100 END, 2) AS sb,
+                ROUND(CASE WHEN lm.ca = 0 OR ad.ca IS NULL THEN NULL ELSE ((ad.ca - lm.ca) / lm.ca::numeric) * 100 END, 2) AS ca,
+                ROUND(CASE WHEN lm .td = 0 OR ad.td IS NULL THEN NULL ELSE ((ad.td - lm.td) / lm.td::numeric) * 100 END, 2) AS td,
+                ROUND(CASE WHEN lm.casa = 0 OR ad.casa IS NULL THEN NULL ELSE ((ad.casa - lm.casa) / lm.casa::numeric) * 100 END, 2) AS casa,
+                ROUND(CASE WHEN lm.deposit = 0 OR ad.deposit IS NULL THEN NULL ELSE ((ad.deposit - lm.deposit) / lm.deposit::numeric) * 100 END, 2) AS deposit,
+                ROUND(CASE WHEN lm.advances = 0 OR ad.advances IS NULL THEN NULL ELSE ((ad.advances - lm.advances) / lm.advances::numeric) * 100 END, 2) AS advances,
+                ROUND(CASE WHEN lm.total_business = 0 OR ad.total_business IS NULL THEN NULL ELSE ((ad.total_business - lm.total_business) / lm.total_business::numeric) * 100 END, 2) AS total_business,
+                ROUND(CASE WHEN lm.total_retail = 0 OR ad.total_retail IS NULL THEN NULL ELSE ((ad.total_retail - lm.total_retail) / lm.total_retail::numeric) * 100 END, 2) AS total_retail,
+                ROUND(CASE WHEN lm.housing = 0 OR ad.housing IS NULL THEN NULL ELSE ((ad.housing - lm.housing) / lm.housing::numeric) * 100 END, 2) AS housing,
+                ROUND(CASE WHEN lm.vehicle = 0 OR ad.vehicle IS NULL THEN NULL ELSE ((ad.vehicle - lm.vehicle) / lm.vehicle::numeric) * 100 END, 2) AS vehicle,
+                ROUND(CASE WHEN lm.education = 0 OR ad.education IS NULL THEN NULL ELSE ((ad.education - lm.education) / lm.education::numeric) * 100 END, 2) AS education,
+                ROUND(CASE WHEN lm.agri = 0 OR ad.agri IS NULL THEN NULL ELSE ((ad.agri - lm.agri) / lm.agri::numeric) * 100 END, 2) AS agri,
+                ROUND(CASE WHEN lm.msme = 0 OR ad.msme IS NULL THEN NULL ELSE ((ad.msme - lm.msme) / lm.msme::numeric) * 100 END, 2) AS msme,
+                ROUND(CASE WHEN lm.gold = 0 OR ad.gold IS NULL THEN NULL ELSE ((ad.gold - lm.gold) / lm.gold::numeric) * 100 END, 2) AS gold,
+                ROUND(CASE WHEN lm.shg = 0 OR ad.shg IS NULL THEN NULL ELSE ((ad.shg - lm.shg) / lm.shg::numeric) * 100 END, 2) AS shg,
+                ROUND(CASE WHEN lm.total_ram = 0 OR ad.total_ram IS NULL THEN NULL ELSE ((ad.total_ram - lm.total_ram) / lm.total_ram::numeric) * 100 END, 2) AS total_ram,
+                ROUND( CASE  WHEN lm.npa = 0 OR ad.npa IS NULL THEN NULL ELSE ((ad.npa - lm.npa) / lm.npa::numeric) * 100 END,  2) AS npa
             FROM actual_data ad, last_march_data lm  """, nativeQuery = true)
     public MssoBranchProfileActualDataDto getBranchProfileRoGapPercentage(@Param("roname") String roname,@Param("marchEndDates")LocalDate marchEndDates);
 
