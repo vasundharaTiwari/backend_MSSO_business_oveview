@@ -1,6 +1,7 @@
 package com.Msso.MssoBusinessBackend.Reports;
 
 import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.BranchCategoryDto;
+import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.BranchOpeningDateDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.MssoBranchEmployeeDataDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.MssoEmployeeSummaryDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileDisbursement.MssoProfileDailyDisburseDto;
@@ -15,6 +16,7 @@ import com.Msso.MssoBusinessBackend.Model.MssoProfileSmaNpaClassification.MssoBr
 import com.Msso.MssoBusinessBackend.Model.MssoProfileSmaNpaClassification.MssoProfileNpaClassificationDto;
 import com.Msso.MssoBusinessBackend.Model.ParameterDetails;
 import com.Msso.MssoBusinessBackend.Repository.RepoMssoBrachProfileSma.RepoMssoBranchProfileSma;
+import com.Msso.MssoBusinessBackend.Repository.RepoMssoBranchEmployeeData.RepoMssoBranchEmployeData;
 import com.Msso.MssoBusinessBackend.Repository.RepoMssoBranchProfile.RepoMssoBranchProfileActualData;
 import com.Msso.MssoBusinessBackend.Repository.RepoMssoBranchProfileDailyDisbursement.RepoMssoBranchProfileDailyDisbursement;
 import com.Msso.MssoBusinessBackend.Service.ServiceMssoBranchData.MssoBranchDataService;
@@ -35,8 +37,10 @@ import java.io.InputStream;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -60,9 +64,14 @@ public class BranchProfileReport {
     ServiceAccountStatusDigitalProduct serviceaccountStatusDigitalProduct;
     @Autowired
     RepoMssoBranchProfileActualData repoMssoBranchProfile;
+    @Autowired
+    RepoMssoBranchEmployeData repoEmployeData;
+//    @Autowired
+//    ServiceMssoBranchProfileTargetData serviceMssoBranchProfileTargetData;
+
     public ResponseEntity<ByteArrayResource> exportBranchProfileReport(String branch_code,  String region, String u_loc) throws JRException {
 
-        try{
+        try {
             //********************************************** Load main JRXML file ************************************************************************************
 
             //***************************************************************************************************************************************************************
@@ -71,75 +80,113 @@ public class BranchProfileReport {
             templateStream = getClass().getResourceAsStream("/REPORTS/ReportDownload.jrxml");
 
 
-
             JasperReport jasperReport = JasperCompileManager.compileReport(templateStream);
 
 
             //*********************************************** Main JRXML parameter mapping ***************************************************************************
-            MssoBranchProfileSmaDto mssoBranchProfileSmaDto=serviceMssoBranchProfileSma.getMssoDailySma(branch_code,region,u_loc);
-            System.out.println("SMA DATA :"+mssoBranchProfileSmaDto);
+            MssoBranchProfileSmaDto mssoBranchProfileSmaDto = serviceMssoBranchProfileSma.getMssoDailySma(branch_code, region, u_loc);
+            System.out.println("SMA DATA :" + mssoBranchProfileSmaDto);
             List<MssoBranchProfileSmaDto> mssoBranchProfileSmaDtoList = Collections.singletonList(mssoBranchProfileSmaDto);
 
-            MssoProfileReviewRenewalDto pendingReviewRenewal=serviceMssoBranchProfileSma.getPendingReview(branch_code,region,u_loc);
-            System.out.println("SMA DATA :"+pendingReviewRenewal.getTotal_amount()+pendingReviewRenewal.getTotal_count());
+            MssoProfileReviewRenewalDto pendingReviewRenewal = serviceMssoBranchProfileSma.getPendingReview(branch_code, region, u_loc);
 
-            MssoProfileDailyDisburseDto mssoProfileDailyDisburseDto=serviceMssoDailyDisbursement.getMssoDailyDisbursement(branch_code,region,u_loc);
-            System.out.println("SMA DATA :"+mssoProfileDailyDisburseDto);
+            System.out.println("SMA DATA :" + pendingReviewRenewal.getTotal_amount() + pendingReviewRenewal.getTotal_count());
+
+            MssoProfileDailyDisburseDto mssoProfileDailyDisburseDto = serviceMssoDailyDisbursement.getMssoDailyDisbursement(branch_code, region, u_loc);
+            System.out.println("SMA DATA :" + mssoProfileDailyDisburseDto);
             List<MssoProfileDailyDisburseDto> mssoProfileDailyDisburseDtoList = Collections.singletonList(mssoProfileDailyDisburseDto);
 
 
+            MssoProfileDailyDisburseDto mssoProfileDailyDisburseTargetDto = serviceMssoDailyDisbursement.getMssoDisbursementTarget(branch_code, region, u_loc);
+//            MssoProfileDailyDisburseDto mssoProfileDailyDisburseTargetDto = serviceMssoDailyDisbursement.getMssoDisbursementTarget(branchCode, roname, u_loc);
+
+            System.out.println("SMA DATA :" + mssoProfileDailyDisburseDto);
+            List<MssoProfileDailyDisburseDto> mssoProfileDailyDisburseTargetList = Collections.singletonList(mssoProfileDailyDisburseTargetDto);
+
             Boolean isHeadName;
-            if(u_loc.equalsIgnoreCase("HO")){
-                isHeadName=false;
-            }else {
-                isHeadName=true;
+            if (u_loc.equalsIgnoreCase("HO")) {
+                isHeadName = false;
+            } else {
+                isHeadName = true;
             }
             Boolean isHoRoEmployeeSummary;
-            if(u_loc.equalsIgnoreCase("BR")){
-                isHoRoEmployeeSummary=false;
-            }else {
-                isHoRoEmployeeSummary=true;
+            if (u_loc.equalsIgnoreCase("BR")) {
+                isHoRoEmployeeSummary = false;
+            } else {
+                isHoRoEmployeeSummary = true;
             }
 
             // 3 years
-            List<MssoBranchProfileActualDataDto> mssoBranchProfileActualDataDto=serviceBranchProfileLast3Year.getMssoBranchProfileMarchData(branch_code,region,u_loc);
-            System.out.println("mssoBranchProfileActualDataDto DATA :"+mssoBranchProfileActualDataDto.get(0));
+            List<MssoBranchProfileActualDataDto> mssoBranchProfileActualDataDto = serviceBranchProfileLast3Year.getMssoBranchProfileMarchData(branch_code, region, u_loc);
+            System.out.println("mssoBranchProfileActualDataDto DATA :" + mssoBranchProfileActualDataDto.get(0));
 
             //march
-            MssoBranchProfileActualDataDto mssoBranchProfileActualDataDtoMarchGap=serviceBranchProfileLast3Year.getMssoBranchProfileGapMarch(branch_code,region,u_loc);
-            System.out.println("SMA DATA :"+mssoProfileDailyDisburseDto);
+            MssoBranchProfileActualDataDto mssoBranchProfileActualDataDtoMarchGap = serviceBranchProfileLast3Year.getMssoBranchProfileGapMarch(branch_code, region, u_loc);
+            System.out.println("SMA DATA :" + mssoProfileDailyDisburseDto);
 
-            MssoBranchProfileTargetDataDto mssoBranchProfileQuarterTargetData = serviceMssoBranchProfileTargetData.getMssoBranchProfileTargetData(branch_code,region,u_loc);
-            System.out.println("mssoBranchProfileQuarterTargetData DATA :"+mssoBranchProfileQuarterTargetData);
+            MssoBranchProfileTargetDataDto mssoBranchProfileQuarterTargetData = serviceMssoBranchProfileTargetData.getMssoBranchProfileTargetData(branch_code, region, u_loc);
+            System.out.println("mssoBranchProfileQuarterTargetData DATA :" + mssoBranchProfileQuarterTargetData);
 
-            String branchCategory= mssoBranchDataService.getBranchCategory(branch_code,u_loc,region);
+
+            MssoBranchProfileTargetDataDto mssoBranchProfileQuarterTargetGap = serviceMssoBranchProfileTargetData.getMssoBranchProfileGapQuarter(branch_code, region, u_loc);
+
+
+            String branchCategory = mssoBranchDataService.getBranchCategory(branch_code, u_loc, region);
 //    if(u_loc.equalsIgnoreCase("HO")||u_loc.equalsIgnoreCase("RO")){
-            BranchCategoryDto branchCategoryDto = mssoBranchDataService.getBranchCategoryCount(branch_code,u_loc,region);
+            BranchCategoryDto branchCategoryDto = mssoBranchDataService.getBranchCategoryCount(branch_code, u_loc, region);
 
             // }
 
 
-            MssoBranchProfileTargetDataDto mssoBranchProfileTargetDataSuperAchieverMarch = serviceMssoBranchProfileTargetData.getSuperAchieverMarch(branch_code,region,u_loc);
+            MssoBranchProfileTargetDataDto mssoBranchProfileTargetDataSuperAchieverMarch = serviceMssoBranchProfileTargetData.getSuperAchieverMarch(branch_code, region, u_loc);
 
-            MssoBranchProfileTargetDataDto mssoBranchProfileMarchTargetData = serviceMssoBranchProfileTargetData.getMssoTargetMarch(branch_code,region,u_loc);
-            MssoBranchProfileActualDataDto mssoBranchProfileActualDataDtoMarchGapPer = serviceBranchProfileLast3Year.getMssoBranchProfileGapMarchPercentage(branch_code,region,u_loc);
+            MssoBranchProfileTargetDataDto mssoBranchProfileMarchTargetData = serviceMssoBranchProfileTargetData.getMssoTargetMarch(branch_code, region, u_loc);
+            MssoBranchProfileActualDataDto mssoBranchProfileActualDataDtoMarchGapPer = serviceBranchProfileLast3Year.getMssoBranchProfileGapMarchPercentage(branch_code, region, u_loc);
             MssoBranchProfileActualDataDto mssoBranchProfileCurrentData = null;
-            String category="";
+            String category = "";
             if (u_loc.equalsIgnoreCase("HO")) {
                 mssoBranchProfileCurrentData = this.repoMssoBranchProfile.getBranchProfileHo();
-                category="HO Staff";
+                category = "HO Staff";
 
             } else if (u_loc.equalsIgnoreCase("BR")) {
                 mssoBranchProfileCurrentData = this.repoMssoBranchProfile.getBranchProfileBranch(branch_code);
-                category="Branch Staff";
+                category = "Branch Staff";
 
 
             } else {
                 mssoBranchProfileCurrentData = this.repoMssoBranchProfile.getBranchProfileRO(region);
-                category="RO Staff";
+                category = "RO Staff";
 
             }
             System.out.println("inside dep-adv-npa");
+            BranchCategoryDto branchCategoryDto1 = null;
+
+            if (u_loc.equalsIgnoreCase("HO")) {
+                branchCategoryDto1 = this.repoEmployeData.getBCCountHO();
+                System.out.println("getBCCountHO");
+
+            } else if (u_loc.equalsIgnoreCase("RO")) {
+                branchCategoryDto1 = this.repoEmployeData.getBCCountRo(region);
+                System.out.println("branchCategoryDto" + branchCategoryDto);
+
+            } else if (u_loc.equalsIgnoreCase("BR")) {
+                branchCategoryDto1 = this.repoEmployeData.getBCCountBranch(branch_code);
+            }
+
+            Boolean isBcCount;
+            Boolean isPerEmployeeBusiness;
+            String amountIn;
+
+            if (u_loc.equalsIgnoreCase("HO")||u_loc.equalsIgnoreCase("RO")) {
+                isBcCount = false;
+                isPerEmployeeBusiness=false;
+                amountIn="Crore";
+            } else {
+                isBcCount = true;
+                isPerEmployeeBusiness=true;
+                amountIn="Lakh";
+
+            }
 
 
             List<String> branchProfileParameter = Arrays.asList(
@@ -229,7 +276,7 @@ public class BranchProfileReport {
                     mssoBranchProfileActualDataDto.get(2).getTotal_business(),
                     mssoBranchProfileCurrentData.getTotal_business(),
                     mssoBranchProfileQuarterTargetData.getTotal_business(),
-                    mssoBranchProfileActualDataDtoMarchGap.getTotal_business(),
+                    mssoBranchProfileQuarterTargetGap.getTotal_business(),
                     mssoBranchProfileActualDataDtoMarchGap.getTotal_business(),  // gapTarget
                     mssoBranchProfileActualDataDtoMarchGapPer.getTotal_business(),
                     mssoBranchProfileMarchTargetData.getTotal_business(), // targetYear
@@ -243,7 +290,7 @@ public class BranchProfileReport {
                     mssoBranchProfileActualDataDto.get(2).getDeposit(),
                     mssoBranchProfileCurrentData.getDeposit(),
                     mssoBranchProfileQuarterTargetData.getDeposit(),
-                    mssoBranchProfileActualDataDtoMarchGap.getDeposit(),
+                    mssoBranchProfileQuarterTargetGap.getDeposit(),
                     mssoBranchProfileActualDataDtoMarchGap.getDeposit(),  // gapTarget
                     mssoBranchProfileActualDataDtoMarchGapPer.getDeposit(),
                     mssoBranchProfileMarchTargetData.getDeposit(), // targetYear
@@ -257,7 +304,7 @@ public class BranchProfileReport {
                     mssoBranchProfileActualDataDto.get(2).getCa(),
                     mssoBranchProfileCurrentData.getCa(),
                     mssoBranchProfileQuarterTargetData.getCa(),
-                    mssoBranchProfileActualDataDtoMarchGap.getCa(),
+                    mssoBranchProfileQuarterTargetGap.getCa(),
                     mssoBranchProfileActualDataDtoMarchGap.getCa(),  // gapTarget
                     mssoBranchProfileActualDataDtoMarchGapPer.getCa(),
                     mssoBranchProfileMarchTargetData.getCa(), // targetYear
@@ -271,7 +318,7 @@ public class BranchProfileReport {
                     mssoBranchProfileActualDataDto.get(2).getSb(),
                     mssoBranchProfileCurrentData.getSb(),
                     mssoBranchProfileQuarterTargetData.getSb(),
-                    mssoBranchProfileActualDataDtoMarchGap.getSb(),
+                    mssoBranchProfileQuarterTargetGap.getSb(),
                     mssoBranchProfileActualDataDtoMarchGap.getSb(),  // gapTarget
                     mssoBranchProfileActualDataDtoMarchGapPer.getSb(),
                     mssoBranchProfileMarchTargetData.getSb(), // targetYear
@@ -285,7 +332,7 @@ public class BranchProfileReport {
                     mssoBranchProfileActualDataDto.get(2).getCasa(),
                     mssoBranchProfileCurrentData.getCasa(),
                     mssoBranchProfileQuarterTargetData.getCasa(),
-                    mssoBranchProfileActualDataDtoMarchGap.getCasa(),
+                    mssoBranchProfileQuarterTargetGap.getCasa(),
                     mssoBranchProfileActualDataDtoMarchGap.getCasa(),  // gapTarget
                     mssoBranchProfileActualDataDtoMarchGapPer.getCasa(),
                     mssoBranchProfileMarchTargetData.getCasa(), // targetYear
@@ -299,7 +346,7 @@ public class BranchProfileReport {
                     mssoBranchProfileActualDataDto.get(2).getTd(),
                     mssoBranchProfileCurrentData.getTd(),
                     mssoBranchProfileQuarterTargetData.getTd(),
-                    mssoBranchProfileActualDataDtoMarchGap.getTd(),
+                    mssoBranchProfileQuarterTargetGap.getTd(),
                     mssoBranchProfileActualDataDtoMarchGap.getTd(),  // gapTarget
                     mssoBranchProfileActualDataDtoMarchGapPer.getTd(),
                     mssoBranchProfileMarchTargetData.getTd(), // targetYear
@@ -313,11 +360,25 @@ public class BranchProfileReport {
                     mssoBranchProfileActualDataDto.get(2).getAdvances(),
                     mssoBranchProfileCurrentData.getAdvances(),
                     mssoBranchProfileQuarterTargetData.getAdvances(),
-                    mssoBranchProfileActualDataDtoMarchGap.getAdvances(),
+                    mssoBranchProfileQuarterTargetGap.getAdvances(),
                     mssoBranchProfileActualDataDtoMarchGap.getAdvances(),  // gapTarget
                     mssoBranchProfileActualDataDtoMarchGapPer.getAdvances(),
                     mssoBranchProfileMarchTargetData.getAdvances(), // targetYear
                     mssoBranchProfileTargetDataSuperAchieverMarch.getAdvances()  // targetYearSuperAchiever
+            ));
+
+            parameterDetailsList.add(new ParameterDetails(
+                    "Retail",
+                    mssoBranchProfileActualDataDto.get(0).getTotal_retail(),
+                    mssoBranchProfileActualDataDto.get(1).getTotal_retail(),
+                    mssoBranchProfileActualDataDto.get(2).getTotal_retail(),
+                    mssoBranchProfileCurrentData.getTotal_retail(),
+                    mssoBranchProfileQuarterTargetData.getTotal_retail(),
+                    mssoBranchProfileQuarterTargetGap.getTotal_retail(),
+                    mssoBranchProfileActualDataDtoMarchGap.getTotal_retail(),  // gapTarget
+                    mssoBranchProfileActualDataDtoMarchGapPer.getTotal_retail(),
+                    mssoBranchProfileMarchTargetData.getTotal_retail(), // targetYear
+                    mssoBranchProfileTargetDataSuperAchieverMarch.getTotal_retail()  // targetYearSuperAchiever
             ));
 
             parameterDetailsList.add(new ParameterDetails(
@@ -327,7 +388,7 @@ public class BranchProfileReport {
                     mssoBranchProfileActualDataDto.get(2).getHousing(),
                     mssoBranchProfileCurrentData.getHousing(),
                     mssoBranchProfileQuarterTargetData.getHousing(),
-                    mssoBranchProfileActualDataDtoMarchGap.getHousing(),
+                    mssoBranchProfileQuarterTargetGap.getHousing(),
                     mssoBranchProfileActualDataDtoMarchGap.getHousing(),  // gapTarget
                     mssoBranchProfileActualDataDtoMarchGapPer.getHousing(),
                     mssoBranchProfileMarchTargetData.getHousing(), // targetYear
@@ -341,7 +402,7 @@ public class BranchProfileReport {
                     mssoBranchProfileActualDataDto.get(2).getVehicle(),
                     mssoBranchProfileCurrentData.getVehicle(),
                     mssoBranchProfileQuarterTargetData.getVehicle(),
-                    mssoBranchProfileActualDataDtoMarchGap.getVehicle(),
+                    mssoBranchProfileQuarterTargetGap.getVehicle(),
                     mssoBranchProfileActualDataDtoMarchGap.getVehicle(),  // gapTarget
                     mssoBranchProfileActualDataDtoMarchGapPer.getVehicle(),
                     mssoBranchProfileMarchTargetData.getVehicle(), // targetYear
@@ -355,7 +416,7 @@ public class BranchProfileReport {
                     mssoBranchProfileActualDataDto.get(2).getEducation(),
                     mssoBranchProfileCurrentData.getEducation(),
                     mssoBranchProfileQuarterTargetData.getEducation(),
-                    mssoBranchProfileActualDataDtoMarchGap.getEducation(),
+                    mssoBranchProfileQuarterTargetGap.getEducation(),
                     mssoBranchProfileActualDataDtoMarchGap.getEducation(),  // gapTarget
                     mssoBranchProfileActualDataDtoMarchGapPer.getEducation(),
                     mssoBranchProfileMarchTargetData.getEducation(), // targetYear
@@ -369,7 +430,7 @@ public class BranchProfileReport {
                     mssoBranchProfileActualDataDto.get(2).getAgri(),
                     mssoBranchProfileCurrentData.getAgri(),
                     mssoBranchProfileQuarterTargetData.getAgri(),
-                    mssoBranchProfileActualDataDtoMarchGap.getAgri(),
+                    mssoBranchProfileQuarterTargetGap.getAgri(),
                     mssoBranchProfileActualDataDtoMarchGap.getAgri(),  // gapTarget
                     mssoBranchProfileActualDataDtoMarchGapPer.getAgri(),
                     mssoBranchProfileMarchTargetData.getAgri(), // targetYear
@@ -383,7 +444,7 @@ public class BranchProfileReport {
                     mssoBranchProfileActualDataDto.get(2).getMsme(),
                     mssoBranchProfileCurrentData.getMsme(),
                     mssoBranchProfileQuarterTargetData.getMsme(),
-                    mssoBranchProfileActualDataDtoMarchGap.getMsme(),
+                    mssoBranchProfileQuarterTargetGap.getMsme(),
                     mssoBranchProfileActualDataDtoMarchGap.getMsme(),  // gapTarget
                     mssoBranchProfileActualDataDtoMarchGapPer.getMsme(),
                     mssoBranchProfileMarchTargetData.getMsme(), // targetYear
@@ -397,7 +458,7 @@ public class BranchProfileReport {
                     mssoBranchProfileActualDataDto.get(2).getGold(),
                     mssoBranchProfileCurrentData.getGold(),
                     mssoBranchProfileQuarterTargetData.getGold(),
-                    mssoBranchProfileActualDataDtoMarchGap.getGold(),
+                    mssoBranchProfileQuarterTargetGap.getGold(),
                     mssoBranchProfileActualDataDtoMarchGap.getGold(),  // gapTarget
                     mssoBranchProfileActualDataDtoMarchGapPer.getGold(),
                     mssoBranchProfileMarchTargetData.getGold(), // targetYear
@@ -411,7 +472,7 @@ public class BranchProfileReport {
                     mssoBranchProfileActualDataDto.get(2).getShg(),
                     mssoBranchProfileCurrentData.getShg(),
                     mssoBranchProfileQuarterTargetData.getShg(),
-                    mssoBranchProfileActualDataDtoMarchGap.getShg(),
+                    mssoBranchProfileQuarterTargetGap.getShg(),
                     mssoBranchProfileActualDataDtoMarchGap.getShg(),  // gapTarget
                     mssoBranchProfileActualDataDtoMarchGapPer.getShg(),
                     mssoBranchProfileMarchTargetData.getShg(), // targetYear
@@ -425,7 +486,7 @@ public class BranchProfileReport {
                     mssoBranchProfileActualDataDto.get(2).getTotal_ram(),
                     mssoBranchProfileCurrentData.getTotal_ram(),
                     mssoBranchProfileQuarterTargetData.getTotal_ram(),
-                    mssoBranchProfileActualDataDtoMarchGap.getTotal_ram(),
+                    mssoBranchProfileQuarterTargetGap.getTotal_ram(),
                     mssoBranchProfileActualDataDtoMarchGap.getTotal_ram(),  // gapTarget
                     mssoBranchProfileActualDataDtoMarchGapPer.getTotal_ram(),
                     mssoBranchProfileMarchTargetData.getTotal_ram(), // targetYear
@@ -439,7 +500,7 @@ public class BranchProfileReport {
                     mssoBranchProfileActualDataDto.get(2).getNpa(),
                     mssoBranchProfileCurrentData.getNpa(),
                     mssoBranchProfileQuarterTargetData.getNpa(),
-                    mssoBranchProfileActualDataDtoMarchGap.getNpa(),
+                    mssoBranchProfileQuarterTargetGap.getNpa(),
                     mssoBranchProfileActualDataDtoMarchGap.getNpa(),  // gapTarget
                     mssoBranchProfileActualDataDtoMarchGapPer.getNpa(),
                     mssoBranchProfileMarchTargetData.getNpa(), // targetYear
@@ -459,6 +520,12 @@ public class BranchProfileReport {
             System.out.println("SMA DATA :"+mssoBranchEmployeeDataDto);
             List<MssoBranchEmployeeDataDto> mssoBranchEmployeeDataDtoList = Collections.singletonList(mssoBranchEmployeeDataDto);
 
+//            MssoProfileDailyDisburseDto mssoProfileDailyDisburseTarget = serviceMssoDailyDisbursement.getMssoDisbursementTarget(branch_code, region, u_loc);
+//
+//            System.out.println("SMA DATA :"+mssoBranchEmployeeDataDto);
+//            List<MssoProfileDailyDisburseDto> mssoProfileDailyDisburseTargetList = Collections.singletonList(mssoProfileDailyDisburseTarget);
+
+
             int total_staff=mssoBranchEmployeeDataDto.getDesg_agm()+
                     mssoBranchEmployeeDataDto.getDesg_cm()+
                     mssoBranchEmployeeDataDto.getDesg_srmanager()+
@@ -473,7 +540,7 @@ public class BranchProfileReport {
 
             MssoEmployeeSummaryDto mssoEmployeeSummaryDto = (mssoBranchDataService.getMssoRegionEmployeeSummary(branch_code,u_loc, region));
             List<MssoEmployeeSummaryDto> mssoEmployeeSummaryDtoList = Collections.singletonList(mssoEmployeeSummaryDto);
-            Long branch_total_staff = null;
+            int branch_total_staff = 0;
 
             if (u_loc.equalsIgnoreCase("HO") || u_loc.equalsIgnoreCase("RO")) {
                 branch_total_staff = mssoEmployeeSummaryDto.getDesg_agm()
@@ -485,7 +552,7 @@ public class BranchProfileReport {
                         + mssoEmployeeSummaryDto.getSubstaff();
             }
 
-            long safeBranchTotal = branch_total_staff != null ? branch_total_staff : 0L;
+            long safeBranchTotal = branch_total_staff != 0 ? branch_total_staff : 0L;
 
             BigDecimal total_bank_staff = BigDecimal.valueOf(total_staff)
                     .add(BigDecimal.valueOf(safeBranchTotal));
@@ -495,34 +562,84 @@ public class BranchProfileReport {
             MssoBranchProfileDigitalProductDto mssoBranchProfileDigitalProductDto = serviceaccountStatusDigitalProduct.getMssoDigitalProduct(branch_code,region,u_loc);
             MssoBranchProfileAccountStatusDto mssoBranchProfileAccountStatusDto = serviceaccountStatusDigitalProduct.getMssoAccountStatus(branch_code,region,u_loc);
             MssoAccountStatusDigitalTargetDto mssoAccountStatusDigitalTargetDto = serviceaccountStatusDigitalProduct.getMssoAccountDigitalProductTarget(branch_code,region,u_loc);
-            MssoProfileReviewRenewalDto mssoProfileReviewRenewalPending = serviceMssoBranchProfileSma.getPendingReview(branch_code,region,u_loc);
+//            MssoProfileComplianceDto mssoProfileReviewRenewalPending = serviceMssoBranchProfileSma.getPendingReview(branch_code,region,u_loc);
             MssoProfileComplianceDto mssoProfileTimebarred = serviceMssoBranchProfileSma.getTimebarredData(branch_code,region,u_loc);
 
             BigDecimal perEmployeeBusiness=mssoBranchProfileCurrentData.getTotal_business().divide(total_bank_staff, 2, RoundingMode.HALF_UP);
             MssoBranchProfileAccountStatusDto mssoBranchProfileAccountStatusMarch = serviceaccountStatusDigitalProduct.getMssoAccountStatusMarch(branch_code,region,u_loc);
             MssoProfileNpaClassificationDto mssoNpaClassification = serviceMssoBranchProfileSma.getMssoNpaClassification(branch_code,region,u_loc);
             List<MssoProfileNpaClassificationDto> mssoNpaClassificationList = Collections.singletonList(mssoNpaClassification);
+            BranchOpeningDateDto branchOpeningDateDto = mssoBranchDataService.getBranchOpenDate(branch_code,region,u_loc);
 
 
 
             Map<String, Object> parameters = new HashMap<>();
             parameters.put("stressData", new JRBeanCollectionDataSource(mssoBranchProfileSmaDtoList));
             parameters.put("newLoanSanctioned", new JRBeanCollectionDataSource(mssoProfileDailyDisburseDtoList));
+            parameters.put("newLoanSanctionedTarget", new JRBeanCollectionDataSource(mssoProfileDailyDisburseTargetList));
+//            parameters.put("newLoanSanctionedTarget", new JRBeanCollectionDataSource(mssoProfileDailyDisburseTargetList));
+
             parameters.put("newLoanSanctionedProductWise", new JRBeanCollectionDataSource(mssoProfileDailyDisburseDtoList));
+
+            parameters.put("newLoanSanctionedProductWiseTarget", new JRBeanCollectionDataSource(mssoProfileDailyDisburseTargetList));
+
             parameters.put("employeeData", new JRBeanCollectionDataSource(mssoBranchEmployeeDataDtoList));
             parameters.put("employeeDataSummary", new JRBeanCollectionDataSource(mssoEmployeeSummaryDtoList));
             parameters.put("npaClassification", new JRBeanCollectionDataSource( mssoNpaClassificationList));
 
             parameters.put("perEmployeeBusiness",perEmployeeBusiness);
-            parameters.put("region",mssoBranchEmployeeDataDto.getRegion());
+            if(mssoBranchEmployeeDataDto.getBranch_code().equalsIgnoreCase("4000")) {
+                parameters.put("region", "Head Office");
+                parameters.put("branchName","-");
 
-            parameters.put("branchName",mssoBranchEmployeeDataDto.getBranch_name());
+            }else{
+
+                if(mssoBranchEmployeeDataDto.getRegion().equalsIgnoreCase("AURANGABAD")){
+                    parameters.put("region", "Chht. Sambhaji Nagar");
+                }else {
+                    parameters.put("region", mssoBranchEmployeeDataDto.getRegion());
+                }
+                parameters.put("branchName",mssoBranchEmployeeDataDto.getBranch_name());
+
+            }
+
             parameters.put("branchCode",mssoBranchEmployeeDataDto.getBranch_code());
+//            Date branchOpenDate = branchOpeningDateDto.getBranchopendate();
+
+
+
+//            String formattedDate = branchOpenDate.toInstant()
+//                    .atZone(ZoneId.systemDefault())
+//                    .toLocalDate()
+//                    .format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+
+//            if(u_loc.equalsIgnoreCase("HO") ||u_loc.equalsIgnoreCase("RO")) {
+//                String dateStr = "01/05/2025"; // 1st May 2025
+//                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+//                Date utilDate = sdf.parse(dateStr);
+//                parameters.put("sinceDate",utilDate );
+//
+//            }else{
+//                parameters.put("sinceDate", branchOpeningDateDto.getBranchopendate());
+//
+//            }
+
+            String branchOpenDate=dateConverter(branchOpeningDateDto.getBranchopendate());
+
+            parameters.put("sinceDate", branchOpenDate);
+
+//            parameters.put("sinceDate",mssoBranchEmployeeDataDto.getBranch_name());
+            parameters.put("bcCount",branchCategoryDto1.getTotalCount());
+
             parameters.put("branchOrRegionHead",mssoBranchEmployeeDataDto.getEmployee_name());
             parameters.put("grade",mssoBranchEmployeeDataDto.getGrade_code());
             parameters.put("isHeadName",isHeadName);
+            parameters.put("isBcCount",isBcCount);
+            parameters.put("isPerEmployeeBusiness",isPerEmployeeBusiness);
             parameters.put("isHoRoEmployeeSummary",isHoRoEmployeeSummary);
             parameters.put("branchCategory",branchCategory);
+            parameters.put("amountIn",amountIn);
+
             if(u_loc.equalsIgnoreCase("HO")||u_loc.equalsIgnoreCase("RO")) {
 
                 parameters.put("totalBranch", branchCategoryDto.getTotalCount()!=null?branchCategoryDto.getTotalCount():0);
@@ -531,7 +648,9 @@ public class BranchProfileReport {
                 parameters.put("metro", branchCategoryDto.getMetropolitan()!=null?branchCategoryDto.getMetropolitan():0);
                 parameters.put("rural", branchCategoryDto.getRural()!=null?branchCategoryDto.getRural():0);
             }
-            parameters.put("current_report_date",mssoBranchProfileCurrentData.getReport_date());
+            String current_report_date=dateConverter(mssoBranchProfileCurrentData.getReport_date());
+
+            parameters.put("current_report_date",current_report_date);
             System.out.println("current_report_date"+mssoBranchProfileCurrentData.getReport_date());
             parameters.put("quarter",total_staff);
 
@@ -540,19 +659,24 @@ public class BranchProfileReport {
 
             parameters.put("category",category);
 //    parameters.put("timebarredCount",total_staff);
-            parameters.put("reviewRenewalCount",pendingReviewRenewal.getTotal_count());
-            parameters.put("reviewRenewalAmount",pendingReviewRenewal.getTotal_amount());
-            parameters.put("reviewRenewalAmount",pendingReviewRenewal.getTotal_amount());
+//            parameters.put("reviewRenewalCount",pendingReviewRenewal.getTotal_count());
+//            parameters.put("reviewRenewalAmount",pendingReviewRenewal.getTotal_amount());
+//            parameters.put("reviewRenewalAmount",pendingReviewRenewal.getTotal_amount());
             parameters.put("paramterDetails", new JRBeanCollectionDataSource(parameterDetailsList));
 
 
-            parameters.put("naccReviewRenewalCount",pendingReviewRenewal.getTotal_count());
-            parameters.put("naccReviewRenewalAmount",pendingReviewRenewal.getTotal_amount());
+            parameters.put("naccReviewRenewalCount",pendingReviewRenewal.getNacc_count());
+            parameters.put("naccReviewRenewalAmount",pendingReviewRenewal.getNacc_amount());
             parameters.put("timebarredCount",mssoProfileTimebarred.getTotal_count());
             parameters.put("timebarredAmount",mssoProfileTimebarred.getTotal_amount());
             parameters.put("kccReviewRenewalCount",pendingReviewRenewal.getTotal_count());
             parameters.put("kccReviewRenewalAmount",pendingReviewRenewal.getTotal_amount());
-            parameters.put("pendingMultipleCif",mssoBranchProfileDigitalProductDto.getMultiple_cif());
+            if(u_loc.equalsIgnoreCase("HO")) {
+                parameters.put("pendingMultipleCif", 22916L);
+            }else{
+                parameters.put("pendingMultipleCif", mssoBranchProfileDigitalProductDto.getMultiple_cif());
+
+            }
             parameters.put("pendingCkyc",mssoBranchProfileDigitalProductDto.getCkyc());
             parameters.put("inoperativeCasaCount",mssoBranchProfileAccountStatusDto.getCasa_count());
             parameters.put("inoperativeCasaAmount",mssoBranchProfileAccountStatusDto.getCasa_amount());
@@ -571,11 +695,19 @@ public class BranchProfileReport {
             parameters.put("quarterTargetMobileBanking",mssoAccountStatusDigitalTargetDto.getMobile_banking());
             parameters.put("quarterTargetInternetBanking",mssoAccountStatusDigitalTargetDto.getinternet_banking());
 
-
-            parameters.put("quarter",total_staff);
+            LocalDate quarterEnd = serviceMssoBranchProfileTargetData.getCurrentquarterEndDateDate();
+            System.out.println("Current Quarter End Date: " + quarterEnd);
+//
+//            String quarter=dateConverterMonth(quarterEnd);
+//
+////            parameters.put("current_report_date",current_report_date);
+//
+//            System.out.println(" quarter quarter"+quarter);
+//            parameters.put("quarter",quarter);
             parameters.put("todayDate",total_staff);
             parameters.put("financialYear",total_staff);
 
+//            parameters.put("bcCount",branchCategoryDto1.getTotalCount());
 
 
 
@@ -607,4 +739,19 @@ public class BranchProfileReport {
         return new BigDecimal(formatted);    // returns BigDecimal(202507)
     }
 
+    public String dateConverter(Date date) {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String formattedDate = formatter.format(date);
+        System.out.println(formattedDate); // e.g., 05/07/2025
+        return  formattedDate;
+    }
+    public String dateConverterMonth(LocalDate date) {
+
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MMM", Locale.ENGLISH);
+        String month = monthFormat.format(date);
+//        SimpleDateFormat formatter = new SimpleDateFormat("dd/MMM/yyyy");
+//        String formattedDate = formatter.format(date);
+//        System.out.println(formattedDate); // e.g., 05/07/2025
+        return  month;
+    }
 }

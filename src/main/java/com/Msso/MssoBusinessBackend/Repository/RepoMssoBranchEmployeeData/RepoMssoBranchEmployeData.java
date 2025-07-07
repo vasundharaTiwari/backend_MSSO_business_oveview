@@ -43,20 +43,71 @@ public interface RepoMssoBranchEmployeData extends JpaRepository<MssoBranchEmplo
             """, nativeQuery=true)
     String getBranchCategory(@Param("branchCode") String branchCode);
 
-    @Query(value= """
-              SELECT SUM(desg_agm) AS desg_agm ,SUM(desg_cm) AS desg_cm,sum(desg_srmanager) AS desg_srmanager,
-                      sum(desg_manager) AS desg_manager ,sum(desg_dymanager) AS desg_dymanager,
-                     sum(desg_clerk) AS desg_clerk,sum(substaff)AS substaff FROM msso_branch_profile.msso_employee_data where branch_code <> :branchCode  ;
-            """, nativeQuery=true)
+    @Query(value = """
+        WITH abc AS (
+            SELECT 
+                employee_details.branch_code,
+                COUNT(CASE WHEN employee_details.designation_code = 'AGM' THEN employee_details.emp_id END) AS desg_agm,
+                COUNT(CASE WHEN (employee_details.designation_code = 'CM') 
+                            OR (employee_details.designation_code = 'BM' AND grade_code = 'SM-IV') THEN employee_details.emp_id END) AS desg_cm,
+                COUNT(CASE WHEN (employee_details.designation_code = 'SM') 
+                            OR (employee_details.designation_code = 'BM' AND grade_code = 'MM-III') THEN employee_details.emp_id END) AS desg_srmanager,
+                COUNT(CASE WHEN (employee_details.designation_code = 'MN') 
+                            OR (employee_details.designation_code = 'BM' AND grade_code = 'MM-II') THEN employee_details.emp_id END) AS desg_manager,
+                COUNT(CASE WHEN (employee_details.designation_code = 'AM') 
+                            OR (employee_details.designation_code = 'BM' AND grade_code = 'JM') THEN employee_details.emp_id END) AS desg_dymanager,
+                COUNT(CASE WHEN employee_details.designation_code = 'CL' THEN employee_details.emp_id END) AS desg_clerk,
+                COUNT(CASE WHEN employee_details.designation_code = 'SS' THEN employee_details.emp_id END) AS substaff
+            FROM hrms.employee_details
+            GROUP BY employee_details.branch_code
+        )
+        SELECT 
+            SUM(desg_agm) AS desg_agm,
+            SUM(desg_cm) AS desg_cm,
+            SUM(desg_srmanager) AS desg_srmanager,
+            SUM(desg_manager) AS desg_manager,
+            SUM(desg_dymanager) AS desg_dymanager,
+            SUM(desg_clerk) AS desg_clerk,
+            SUM(substaff) AS substaff
+        FROM abc
+       
+        """, nativeQuery = true)
     MssoEmployeeSummaryDto getRegionEmployeeSummary(@Param("branchCode") String branchCode);
 
 
 
-    @Query(value= """
-              SELECT SUM(desg_agm) AS desg_agm ,SUM(desg_cm) AS desg_cm,sum(desg_srmanager) AS desg_srmanager,
-                      sum(desg_manager) AS desg_manager ,sum(desg_dymanager) AS desg_dymanager,
-                     sum(desg_clerk) AS desg_clerk,sum(substaff)AS substaff FROM msso_branch_profile.msso_employee_data where region=:roname and branch_code <> :branchCode ;
-            """, nativeQuery=true)
+    @Query(value = """
+
+            WITH abc AS (
+                                         SELECT\s
+                                             employee_details.branch_code,
+                                             employee_details.region,
+                                             COUNT(CASE WHEN employee_details.designation_code = 'AGM' THEN employee_details.emp_id END) AS desg_agm,
+                                             COUNT(CASE WHEN (employee_details.designation_code = 'CM')\s
+                                                         OR (employee_details.designation_code = 'BM' AND grade_code = 'SM-IV') THEN employee_details.emp_id END) AS desg_cm,
+                                             COUNT(CASE WHEN (employee_details.designation_code = 'SM')\s
+                                                         OR (employee_details.designation_code = 'BM' AND grade_code = 'MM-III') THEN employee_details.emp_id END) AS desg_srmanager,
+                                             COUNT(CASE WHEN (employee_details.designation_code = 'MN')\s
+                                                         OR (employee_details.designation_code = 'BM' AND grade_code = 'MM-II') THEN employee_details.emp_id END) AS desg_manager,
+                                             COUNT(CASE WHEN (employee_details.designation_code = 'AM')\s
+                                                         OR (employee_details.designation_code = 'BM' AND grade_code = 'JM') THEN employee_details.emp_id END) AS desg_dymanager,
+                                             COUNT(CASE WHEN employee_details.designation_code = 'CL' THEN employee_details.emp_id END) AS desg_clerk,
+                                             COUNT(CASE WHEN employee_details.designation_code = 'SS' THEN employee_details.emp_id END) AS substaff
+                                         FROM hrms.employee_details
+                                         GROUP BY employee_details.branch_code, employee_details.region
+                                     )
+                                     SELECT\s
+                                         SUM(desg_agm) AS desg_agm,
+                                         SUM(desg_cm) AS desg_cm,
+                                         SUM(desg_srmanager) AS desg_srmanager,
+                                         SUM(desg_manager) AS desg_manager,
+                                         SUM(desg_dymanager) AS desg_dymanager,
+                                         SUM(desg_clerk) AS desg_clerk,
+                                         SUM(substaff) AS substaff
+                                     FROM abc
+                                     WHERE abc.region = :roname AND abc.branch_code <> '4100' 
+                                     
+        """, nativeQuery = true)
     MssoEmployeeSummaryDto getBranchEmployeeSummary(@Param("roname") String roname,@Param("branchCode") String branchCode);
 
 //************************************************BRANCH CATAGORY COUNT********************************************************
@@ -66,7 +117,7 @@ public interface RepoMssoBranchEmployeData extends JpaRepository<MssoBranchEmplo
         count(CASE when population_group_name='RURAL' then branch_code  ELSE null  END  ) as RURAL,
         count(CASE when population_group_name='METROPOLITAN' then branch_code  ELSE null  END  ) as METROPOLITAN,
         count(CASE when population_group_name='SEMI-URBAN' then branch_code  ELSE null  END  ) as SEMI_URBAN
-        FROM master_data.branch_master   """, nativeQuery=true)
+        FROM master_data.branch_master_catagory   """, nativeQuery=true)
 BranchCategoryDto getCategoryCountHO();
 
 

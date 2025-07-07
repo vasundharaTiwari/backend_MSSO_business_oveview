@@ -58,9 +58,15 @@ public class MssoBranchDataServiceImpl implements MssoBranchDataService{
 
     @Override
     public MssoEmployeeSummaryDto getMssoRegionEmployeeSummary(String branchCode , String uLoc,  String roname) {
-
+        String headOffice="4000";
         MssoEmployeeSummaryDto mssoRegionEmployeeSummary;
         System.out.println("branchCode : ******"+branchCode);
+        if(roname.equalsIgnoreCase("AURANGABAD")){
+            branchCode=headOffice;
+            roname="CHH SAMBHAJINAGAR";
+        }
+
+
 
 if(uLoc.equalsIgnoreCase("HO")) {
      mssoRegionEmployeeSummary = repoMssoBranchData.getRegionEmployeeSummary(branchCode);
