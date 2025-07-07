@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
+
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -26,24 +26,24 @@ public class MssoProfileDailyDisbursement {
     private String branch_name;
 
     private String region;
-    private BigDecimal total_advances;
-    private BigDecimal total_os;
+    private Double total_advances;
+    private Double total_os;
     private int total_count;
-    private BigDecimal retail;
+    private Double retail;
     private int retail_count;
-    private BigDecimal housing;
+    private Double housing;
     private int housing_count;
-    private BigDecimal vehicle;
+    private Double vehicle;
     private int vehicle_count;
-    private BigDecimal education;
+    private Double education;
     private int education_count;
-    private BigDecimal agriculture;
+    private Double agriculture;
     private int agriculture_count;
-    private BigDecimal msme;
+    private Double msme;
     private int msme_count;
-    private BigDecimal gold;
+    private Double gold;
     private int gold_count;
-    private BigDecimal shg;
+    private Double shg;
     private int shg_count;
 
 }

@@ -24,12 +24,12 @@ public class MssoBranchProfileSma {
     private String branch_name;
     private String region;
     private int total_count;
-    private BigDecimal total_amount;
+    private Double total_amount;
     private int sma0_count;
-    private BigDecimal sma0_amount;
+    private Double sma0_amount;
     private int sma1_count;
-    private BigDecimal sma1_amount;
+    private Double sma1_amount;
     private int sma2_count;
-    private BigDecimal sma2_amount;
+    private Double sma2_amount;
 
 }
