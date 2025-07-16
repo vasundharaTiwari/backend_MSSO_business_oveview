@@ -335,14 +335,5 @@ public class MssoBranchProfileController {
         System.out.println("inside timebarred");
         return mssoProfileTimebarred;
     }
-    @GetMapping("/visit-report")
-    public ExecutiveVisitingData getVisitReport( @RequestParam String branchCode, @RequestParam LocalDate  visit_date)
-          {
 
-              ExecutiveVisitingData executiveVisitingData = serviceVisitReport.getVisitDataByBranch(branchCode,visit_date);
-
-
-        System.out.println("visit-report");
-        return executiveVisitingData;
-    }
 }

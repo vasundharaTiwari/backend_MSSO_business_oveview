@@ -14,7 +14,7 @@ public interface RepoVisitReport extends JpaRepository<ExecutiveVisitingData, Lo
 
 
     @Query(value = """
-            SELECT  * FROM msso_branch_profile.msso_profile_visit_report WHERE branch_code=:branchCode AND visit_date='2025-07-14' ;
+            SELECT  * FROM msso_branch_profile.msso_profile_visit_report WHERE branch_code=:branchCode AND visit_date=:visit_date ;
             """, nativeQuery = true)
     ExecutiveVisitingData getVisitData( @Param("branchCode") String branchCode, @Param("visit_date") LocalDate  visit_date);
 
