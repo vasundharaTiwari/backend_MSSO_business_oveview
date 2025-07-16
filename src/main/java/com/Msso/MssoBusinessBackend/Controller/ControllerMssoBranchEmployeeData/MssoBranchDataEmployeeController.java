@@ -43,17 +43,23 @@ public class MssoBranchDataEmployeeController {
 
         List<ForRoBranchDto> forRoBranchDto = mssoBranchDataService.getDistinctRo();
 
+        System.out.println("ro-data..."+forRoBranchDto);
+
 
         return forRoBranchDto;
     }
 
     @GetMapping("branch-data")
-    public List<ForRoBranchDto> getDistinctBranch(@RequestParam String roname) {
+    public List<ForRoBranchDto> getDistinctBranch(@RequestParam String branchCode,
+
+                                                  @RequestParam String roname,
+                                                  @RequestParam String u_loc)  {
 
         System.out.println("branch-data...");
 
-        List<ForRoBranchDto> forRoBranchDto = mssoBranchDataService.getDistinctbranch(roname);
+        List<ForRoBranchDto> forRoBranchDto = mssoBranchDataService.getDistinctbranch(branchCode,roname,u_loc);
 
+        System.out.println("branch-data... "+forRoBranchDto);
 
         return forRoBranchDto;
     }
@@ -134,6 +140,23 @@ public class MssoBranchDataEmployeeController {
 
         System.out.println("branch-open-date:- "+branchOpeningDateDto);
         return branchOpeningDateDto;
+
+
+    }
+
+
+
+    @GetMapping("bm-branch-join-date")
+    public BmBranchJoinDateDto getBmBranchJoinDate( @RequestParam String branchCode, @RequestParam String u_id){
+
+        System.out.println("this.branch_code, ..." +branchCode+" "+u_id);
+
+        BmBranchJoinDateDto bmBranchJoinDate = mssoBranchDataService.getBmBranchJoinDate(branchCode,u_id);
+//        List<MssoBranchEmployeeDataDto> branchDataList= mssoBranchDataService.getMssoBranchData(branchCode,uLoc, uId,roname);
+
+
+        System.out.println("bm-branch-join-date:- "+bmBranchJoinDate);
+        return bmBranchJoinDate;
 
 
     }

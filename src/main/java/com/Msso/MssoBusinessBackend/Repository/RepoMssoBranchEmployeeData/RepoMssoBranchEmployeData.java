@@ -18,12 +18,12 @@ public interface RepoMssoBranchEmployeData extends JpaRepository<MssoBranchEmplo
 
     @Query(value = """
             SELECT DISTINCT b.REGION,b.BRANCH_CODE,branch_name FROM MASTER_DATA.BRANCH_MASTER b ,HRMS.hrmsuser h\s
-            WHERE h.u_loc='RO' and b.branch_code=h.branch_code """, nativeQuery = true)
+            WHERE h.u_loc='RO' and b.branch_code=h.branch_code ORDER BY b.BRANCH_CODE """, nativeQuery = true)
     List<ForRoBranchDto> getRegion();
 
     @Query(value = """
-            SELECT REGION,BRANCH_CODE,branch_name FROM MASTER_DATA.BRANCH_MASTER WHERE REGION=:roname """, nativeQuery = true)
-    List<ForRoBranchDto> getBranch(@Param("roname") String roname);
+            SELECT REGION,BRANCH_CODE,branch_name FROM MASTER_DATA.BRANCH_MASTER WHERE REGION=:roname ORDER BY BRANCH_CODE""", nativeQuery = true)
+    List<ForRoBranchDto> getBranch(@Param("roname") String roname,@Param("branch_code") String branch_code);
 
 
     @Query(value = """
@@ -105,7 +105,7 @@ public interface RepoMssoBranchEmployeData extends JpaRepository<MssoBranchEmplo
                                          SUM(desg_clerk) AS desg_clerk,
                                          SUM(substaff) AS substaff
                                      FROM abc
-                                     WHERE abc.region = :roname AND abc.branch_code <> '4100' 
+                                     WHERE abc.region = :roname AND abc.branch_code <> '4000' 
                                      
         """, nativeQuery = true)
     MssoEmployeeSummaryDto getBranchEmployeeSummary(@Param("roname") String roname,@Param("branchCode") String branchCode);
@@ -128,8 +128,8 @@ BranchCategoryDto getCategoryCountHO();
             count(CASE when population_group_name='RURAL' then branch_code  ELSE null  END  ) as RURAL,
             count(CASE when population_group_name='METROPOLITAN' then branch_code  ELSE null  END  ) as METROPOLITAN,
             count(CASE when population_group_name='SEMI-URBAN' then branch_code  ELSE null  END  ) as SEMI_URBAN
-            FROM master_data.branch_master where region=:roname     """, nativeQuery=true)
-    BranchCategoryDto getCategoryCountRo(@Param("roname") String roname);
+            FROM master_data.branch_master where region=:roname and branch_code<>:branchCode    """, nativeQuery=true)
+    BranchCategoryDto getCategoryCountRo(@Param("roname") String roname,@Param("branchCode") String branchCode);
 
     //********************************************branch opening date*****************************************************************
     @Query(value= """
@@ -137,6 +137,15 @@ BranchCategoryDto getCategoryCountHO();
               FROM master_data.branch_opening_date where branch_code=:branchCode ;
             """, nativeQuery=true)
     BranchOpeningDateDto getBranchopendate(@Param("branchCode") String branchCode);
+
+
+    //******************************************** BM branch join date*****************************************************************
+
+    @Query(value= """
+             	 SELECT branch_code,  region, bm_since_date
+               FROM master_data.bm_joining_data where pfno=:userId  ;
+            """, nativeQuery=true)
+    BmBranchJoinDateDto getBmBranchJoindate(@Param("branchCode") String branchCode,@Param("userId") String userId);
 
     //**************************************bc data
 

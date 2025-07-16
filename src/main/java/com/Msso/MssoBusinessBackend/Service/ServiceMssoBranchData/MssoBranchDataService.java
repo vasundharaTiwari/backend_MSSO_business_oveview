@@ -13,7 +13,7 @@ public interface MssoBranchDataService {
     public List<ForRoBranchDto> getDistinctRo();
 
 
-    List<ForRoBranchDto> getDistinctbranch(String ro_name);
+    List<ForRoBranchDto> getDistinctbranch(String branchCode, String roname,String uLoc);
 
 
 
@@ -25,4 +25,7 @@ public interface MssoBranchDataService {
 
     BranchCategoryDto getBranchCategoryCount(String branchCode, String uLoc, String roname);
      BranchOpeningDateDto getBranchOpenDate(String branchCode , String uLoc, String roname);
+
+    BmBranchJoinDateDto getBmBranchJoinDate(String branchCode , String u_id);
+
 }
