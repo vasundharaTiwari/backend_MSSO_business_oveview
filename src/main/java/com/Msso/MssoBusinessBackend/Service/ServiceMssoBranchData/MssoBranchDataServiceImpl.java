@@ -52,8 +52,10 @@ public class MssoBranchDataServiceImpl implements MssoBranchDataService{
 
 
     @Override
-    public List<ForRoBranchDto> getDistinctbranch(String ro_name) {
-        return  repoMssoBranchData.getBranch(ro_name);
+    public List<ForRoBranchDto> getDistinctbranch(String branchCode, String roname,String uLoc) {
+        System.out.println("GET BRNACHES :RONAME"+roname+" "+branchCode);
+
+        return  repoMssoBranchData.getBranch(roname,branchCode);
     }
 
     @Override
@@ -61,7 +63,7 @@ public class MssoBranchDataServiceImpl implements MssoBranchDataService{
         String headOffice="4000";
         MssoEmployeeSummaryDto mssoRegionEmployeeSummary;
         System.out.println("branchCode : ******"+branchCode);
-        if(roname.equalsIgnoreCase("AURANGABAD")){
+        if(roname.equalsIgnoreCase("AURANGABAD") && uLoc.equalsIgnoreCase("HO")){
             branchCode=headOffice;
             roname="CHH SAMBHAJINAGAR";
         }
@@ -105,7 +107,7 @@ if(uLoc.equalsIgnoreCase("HO")) {
             System.out.println("branchCategoryDto"+branchCategoryDto);
 
         } else if (uLoc.equalsIgnoreCase("RO")) {
-            branchCategoryDto = this.repoMssoBranchData.getCategoryCountRo(roname);
+            branchCategoryDto = this.repoMssoBranchData.getCategoryCountRo(roname,branchCode);
             System.out.println("branchCategoryDto"+branchCategoryDto);
 
         }
@@ -120,6 +122,16 @@ if(uLoc.equalsIgnoreCase("HO")) {
 
         return branchOpeningDateDto;
     }
-        
-    
+
+
+    public BmBranchJoinDateDto getBmBranchJoinDate(String branchCode , String u_id) {
+        BmBranchJoinDateDto bmBranchJoiningDateDto = null;
+
+        bmBranchJoiningDateDto = this.repoMssoBranchData.getBmBranchJoindate(branchCode,u_id);
+
+
+        return bmBranchJoiningDateDto;
+    }
+
+
 }

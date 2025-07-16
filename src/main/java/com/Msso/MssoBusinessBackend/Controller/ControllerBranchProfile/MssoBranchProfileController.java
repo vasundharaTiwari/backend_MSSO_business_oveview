@@ -1,5 +1,6 @@
 package com.Msso.MssoBusinessBackend.Controller.ControllerBranchProfile;
 
+import com.Msso.MssoBusinessBackend.Model.ModelExecutiveVisit.ExecutiveVisitingData;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileAccountStatusDigitalProduct.MssoAccountStatusDigitalTargetDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileAccountStatusDigitalProduct.MssoBranchProfileAccountStatusDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileAccountStatusDigitalProduct.MssoBranchProfileDigitalProductDto;
@@ -17,6 +18,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @CrossOrigin
@@ -37,6 +40,9 @@ public class MssoBranchProfileController {
     ServiceMssoBranchProfileSma serviceMssoBranchProfileSma;
     @Autowired
     ServiceAccountStatusDigitalProduct serviceaccountStatusDigitalProduct;
+    @Autowired
+    ServiceVisitReport serviceVisitReport;
+
 
 
     @GetMapping("/dep-adv-npa")
@@ -328,5 +334,15 @@ public class MssoBranchProfileController {
 
         System.out.println("inside timebarred");
         return mssoProfileTimebarred;
+    }
+    @GetMapping("/visit-report")
+    public ExecutiveVisitingData getVisitReport( @RequestParam String branchCode, @RequestParam LocalDate  visit_date)
+          {
+
+              ExecutiveVisitingData executiveVisitingData = serviceVisitReport.getVisitDataByBranch(branchCode,visit_date);
+
+
+        System.out.println("visit-report");
+        return executiveVisitingData;
     }
 }

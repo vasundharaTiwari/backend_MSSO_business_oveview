@@ -1,15 +1,13 @@
 package com.Msso.MssoBusinessBackend.Reports;
 
-import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.BranchCategoryDto;
-import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.BranchOpeningDateDto;
-import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.MssoBranchEmployeeDataDto;
-import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.MssoEmployeeSummaryDto;
+import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.*;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileDisbursement.MssoProfileDailyDisburseDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileModel.MssoBranchProfileActualDataDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileModel.MssoBranchProfileTargetDataDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileAccountStatusDigitalProduct.MssoAccountStatusDigitalTargetDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileAccountStatusDigitalProduct.MssoBranchProfileAccountStatusDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileAccountStatusDigitalProduct.MssoBranchProfileDigitalProductDto;
+import com.Msso.MssoBusinessBackend.Model.MssoProfileAccountStatusDigitalProduct.MssoFiSchemeDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileReviewRenewal.MssoProfileComplianceDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileReviewRenewal.MssoProfileReviewRenewalDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileSmaNpaClassification.MssoBranchProfileSmaDto;
@@ -77,30 +75,30 @@ public class BranchProfileReport {
             //***************************************************************************************************************************************************************
 
             InputStream templateStream;
-            templateStream = getClass().getResourceAsStream("/REPORTS/ReportDownload.jrxml");
-
+//            templateStream = getClass().getResourceAsStream("/REPORTS/ReportDownload.jrxml");
+            templateStream = getClass().getResourceAsStream("/REPORTS/ReportDownloadInprocess.jrxml");
 
             JasperReport jasperReport = JasperCompileManager.compileReport(templateStream);
 
 
             //*********************************************** Main JRXML parameter mapping ***************************************************************************
             MssoBranchProfileSmaDto mssoBranchProfileSmaDto = serviceMssoBranchProfileSma.getMssoDailySma(branch_code, region, u_loc);
-            System.out.println("SMA DATA :" + mssoBranchProfileSmaDto);
+            System.out.println("mssoBranchProfileSmaDto :" + mssoBranchProfileSmaDto);
             List<MssoBranchProfileSmaDto> mssoBranchProfileSmaDtoList = Collections.singletonList(mssoBranchProfileSmaDto);
 
             MssoProfileReviewRenewalDto pendingReviewRenewal = serviceMssoBranchProfileSma.getPendingReview(branch_code, region, u_loc);
 
-            System.out.println("SMA DATA :" + pendingReviewRenewal.getTotal_amount() + pendingReviewRenewal.getTotal_count());
+            System.out.println("pendingReviewRenewal :" + pendingReviewRenewal.getTotal_amount() + pendingReviewRenewal.getTotal_count());
 
             MssoProfileDailyDisburseDto mssoProfileDailyDisburseDto = serviceMssoDailyDisbursement.getMssoDailyDisbursement(branch_code, region, u_loc);
-            System.out.println("SMA DATA :" + mssoProfileDailyDisburseDto);
+            System.out.println("mssoProfileDailyDisburseDto DATA :" + mssoProfileDailyDisburseDto);
             List<MssoProfileDailyDisburseDto> mssoProfileDailyDisburseDtoList = Collections.singletonList(mssoProfileDailyDisburseDto);
 
 
             MssoProfileDailyDisburseDto mssoProfileDailyDisburseTargetDto = serviceMssoDailyDisbursement.getMssoDisbursementTarget(branch_code, region, u_loc);
 //            MssoProfileDailyDisburseDto mssoProfileDailyDisburseTargetDto = serviceMssoDailyDisbursement.getMssoDisbursementTarget(branchCode, roname, u_loc);
 
-            System.out.println("SMA DATA :" + mssoProfileDailyDisburseDto);
+            System.out.println("mssoProfileDailyDisburseTargetDto DATA :" + mssoProfileDailyDisburseTargetDto);
             List<MssoProfileDailyDisburseDto> mssoProfileDailyDisburseTargetList = Collections.singletonList(mssoProfileDailyDisburseTargetDto);
 
             Boolean isHeadName;
@@ -122,7 +120,7 @@ public class BranchProfileReport {
 
             //march
             MssoBranchProfileActualDataDto mssoBranchProfileActualDataDtoMarchGap = serviceBranchProfileLast3Year.getMssoBranchProfileGapMarch(branch_code, region, u_loc);
-            System.out.println("SMA DATA :" + mssoProfileDailyDisburseDto);
+            System.out.println("mssoBranchProfileActualDataDtoMarchGap DATA :" + mssoProfileDailyDisburseDto);
 
             MssoBranchProfileTargetDataDto mssoBranchProfileQuarterTargetData = serviceMssoBranchProfileTargetData.getMssoBranchProfileTargetData(branch_code, region, u_loc);
             System.out.println("mssoBranchProfileQuarterTargetData DATA :" + mssoBranchProfileQuarterTargetData);
@@ -144,6 +142,8 @@ public class BranchProfileReport {
             MssoBranchProfileActualDataDto mssoBranchProfileActualDataDtoMarchGapPer = serviceBranchProfileLast3Year.getMssoBranchProfileGapMarchPercentage(branch_code, region, u_loc);
             MssoBranchProfileActualDataDto mssoBranchProfileCurrentData = null;
             String category = "";
+            String designation = "";
+            String desig = "";
             if (u_loc.equalsIgnoreCase("HO")) {
                 mssoBranchProfileCurrentData = this.repoMssoBranchProfile.getBranchProfileHo();
                 category = "HO Staff";
@@ -151,11 +151,15 @@ public class BranchProfileReport {
             } else if (u_loc.equalsIgnoreCase("BR")) {
                 mssoBranchProfileCurrentData = this.repoMssoBranchProfile.getBranchProfileBranch(branch_code);
                 category = "Branch Staff";
+                designation="Branch";
+                desig="BM";
 
 
             } else {
                 mssoBranchProfileCurrentData = this.repoMssoBranchProfile.getBranchProfileRO(region);
                 category = "RO Staff";
+                designation="Regional";
+                desig="RM";
 
             }
             System.out.println("inside dep-adv-npa");
@@ -571,6 +575,10 @@ public class BranchProfileReport {
             List<MssoProfileNpaClassificationDto> mssoNpaClassificationList = Collections.singletonList(mssoNpaClassification);
             BranchOpeningDateDto branchOpeningDateDto = mssoBranchDataService.getBranchOpenDate(branch_code,region,u_loc);
 
+            BmBranchJoinDateDto bmBranchJoinDateDto = mssoBranchDataService.getBmBranchJoinDate(branch_code,u_id);
+
+            MssoFiSchemeDto mssoFiSchemeDto = serviceaccountStatusDigitalProduct.getFiSchemeData(branch_code,region,u_loc);
+            MssoFiSchemeDto mssoFiSchemeDtoTarget = serviceaccountStatusDigitalProduct.getMssoFiSchemeTarget(branch_code,region,u_loc);
 
 
             Map<String, Object> parameters = new HashMap<>();
@@ -625,8 +633,15 @@ public class BranchProfileReport {
 //            }
 
             String branchOpenDate=dateConverter(branchOpeningDateDto.getBranchopendate());
+            String bmBranchJoinDate="";
+            if(bmBranchJoinDateDto!=null) {
+                 bmBranchJoinDate = dateConverter(bmBranchJoinDateDto.getBmBranchJoinDate());
+            }
+            parameters.put("sinceDate", branchOpenDate!=null?branchOpenDate:"");
+            parameters.put("bmBranchJoinDate", bmBranchJoinDate!=null?bmBranchJoinDate:"");
+            parameters.put("designation", designation!=null?designation:"");
+            parameters.put("design", desig!=null?desig:"");
 
-            parameters.put("sinceDate", branchOpenDate);
 
 //            parameters.put("sinceDate",mssoBranchEmployeeDataDto.getBranch_name());
             parameters.put("bcCount",branchCategoryDto1.getTotalCount());
@@ -652,7 +667,7 @@ public class BranchProfileReport {
 
             parameters.put("current_report_date",current_report_date);
             System.out.println("current_report_date"+mssoBranchProfileCurrentData.getReport_date());
-            parameters.put("quarter",total_staff);
+
 
             parameters.put("total_staff",total_staff);
             parameters.put("total_staff_bank",branch_total_staff);
@@ -695,8 +710,30 @@ public class BranchProfileReport {
             parameters.put("quarterTargetMobileBanking",mssoAccountStatusDigitalTargetDto.getMobile_banking());
             parameters.put("quarterTargetInternetBanking",mssoAccountStatusDigitalTargetDto.getinternet_banking());
 
+
+            parameters.put("quarterTargetPmjdy",mssoFiSchemeDtoTarget.getPmjdy());
+            parameters.put("quarterTargetPmjjby",mssoFiSchemeDtoTarget.getPmjjby());
+            parameters.put("quarterTargetPmsby",mssoFiSchemeDtoTarget.getPmsby());
+            parameters.put("quarterTargetApy",mssoFiSchemeDtoTarget.getApy());
+            parameters.put("asOnDatePmjdy",mssoBranchProfileAccountStatusDto.getPmjdy());
+            parameters.put("asOnDatePmjjby",mssoFiSchemeDto.getPmjjby());
+            parameters.put("asOnDatePmsby",mssoFiSchemeDto.getPmsby());
+            parameters.put("asOnDateApy",mssoFiSchemeDto.getApy());
             LocalDate quarterEnd = serviceMssoBranchProfileTargetData.getCurrentquarterEndDateDate();
-            System.out.println("Current Quarter End Date: " + quarterEnd);
+            System.out.println("Current Quarter End Date: " + dateConverterQuarter(quarterEnd));
+            parameters.put("quarter",dateConverterQuarter(quarterEnd));
+
+            LocalDate financialYearEndDate = serviceMssoBranchProfileTargetData.getFinancialYearEndDate();
+            System.out.println("financialYearEndDate : " + dateConverterQuarter(financialYearEndDate));
+            parameters.put("financialYrEnd",dateConverterQuarter(financialYearEndDate));
+
+            List<LocalDate> marchEndDates = serviceBranchProfileLast3Year.getLastThreeMarchEndDates();
+            marchEndDates.forEach(System.out::println);
+
+            parameters.put("year1",dateConverterYear(marchEndDates.get(2)));
+            parameters.put("year2",dateConverterYear(marchEndDates.get(1)));
+            parameters.put("year3",dateConverterYear(marchEndDates.get(0)));
+
 //
 //            String quarter=dateConverterMonth(quarterEnd);
 //
@@ -745,13 +782,23 @@ public class BranchProfileReport {
         System.out.println(formattedDate); // e.g., 05/07/2025
         return  formattedDate;
     }
-    public String dateConverterMonth(LocalDate date) {
+    public String dateConverterQuarter(LocalDate date) {
 
-        SimpleDateFormat monthFormat = new SimpleDateFormat("MMM", Locale.ENGLISH);
-        String month = monthFormat.format(date);
-//        SimpleDateFormat formatter = new SimpleDateFormat("dd/MMM/yyyy");
-//        String formattedDate = formatter.format(date);
-//        System.out.println(formattedDate); // e.g., 05/07/2025
-        return  month;
+        // Format to Sep-2025
+        String formatted1 = date.format(DateTimeFormatter.ofPattern("MMM-yy"));
+        System.out.println(formatted1); // Sep-2025
+
+
+        return  formatted1;
+    }
+
+    public String dateConverterYear(LocalDate date) {
+
+        // Format to Sep-2025
+        String formatted1 = date.format(DateTimeFormatter.ofPattern("MMM-yyyy"));
+        System.out.println(formatted1); // Sep-2025
+
+
+        return  formatted1;
     }
 }

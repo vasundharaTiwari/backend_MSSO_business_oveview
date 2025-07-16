@@ -146,7 +146,24 @@
 			<rightPen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<style name="isBold" pattern="" isItalic="true"/>
+	<style name="isGapTarget" forecolor="#000000" pattern="$F{gapTarget} != null &amp;&amp; $F{gapTarget}.compareTo(BigDecimal.ZERO) &lt; 0" isBold="false" isItalic="true" isUnderline="false">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{gapTarget} != null && $F{gapTarget}.compareTo(BigDecimal.ZERO) < 0]]></conditionExpression>
+			<style forecolor="#F71A16"/>
+		</conditionalStyle>
+	</style>
+	<style name="isGrowthAmount" forecolor="#000000" pattern="$F{gapTarget} != null &amp;&amp; $F{gapTarget}.compareTo(BigDecimal.ZERO) &lt; 0" isBold="true" isItalic="true" isUnderline="false">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{ytdGrowthAmount} != null && $F{ytdGrowthAmount}.compareTo(BigDecimal.ZERO) < 0]]></conditionExpression>
+			<style forecolor="#F71A16"/>
+		</conditionalStyle>
+	</style>
+	<style name="isGrowthAmountPer" forecolor="#000000" pattern="$F{gapTarget} != null &amp;&amp; $F{gapTarget}.compareTo(BigDecimal.ZERO) &lt; 0" isBold="true" isItalic="true" isUnderline="false">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{ytdGrowthAmountPer} != null && $F{ytdGrowthAmountPer}.compareTo(BigDecimal.ZERO) < 0]]></conditionExpression>
+			<style forecolor="#F71A16"/>
+		</conditionalStyle>
+	</style>
 	<subDataset name="ParameterDetails" uuid="f40c960b-dcbd-458d-87ec-dd6bfc88ca94">
 		<parameter name="current_report_date" class="java.lang.String">
 			<defaultValueExpression><![CDATA[$P{current_report_date}]]></defaultValueExpression>
@@ -1161,14 +1178,14 @@
 					<jr:column width="65" uuid="4d762f8b-35b1-4508-81ae-229b70202598">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
 						<jr:detailCell style="Table_TD" height="15">
-							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<textField textAdjust="StretchHeight">
-								<reportElement stretchType="ContainerHeight" x="0" y="0" width="65" height="15" isRemoveLineWhenBlank="true" forecolor="#000000" uuid="88b48d55-df7d-4c8e-a6ec-41c1648751fd">
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="65" height="15" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#FFFFFF" uuid="88b48d55-df7d-4c8e-a6ec-41c1648751fd">
 									<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 								</reportElement>
 								<box topPadding="3" leftPadding="3" bottomPadding="3" rightPadding="3"/>
 								<textElement textAlignment="Left" verticalAlignment="Top">
-									<font size="7" isBold="true"/>
+									<font size="7" isBold="true" isItalic="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{parameter}]]></textFieldExpression>
 							</textField>
@@ -1178,7 +1195,6 @@
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
 						<jr:detailCell style="Table_TD" height="15">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
-							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<textField textAdjust="StretchHeight">
 								<reportElement stretchType="ContainerHeight" x="0" y="0" width="50" height="15" uuid="515a59d5-5cec-40aa-89a2-01c8b5cb301e"/>
 								<box topPadding="3" leftPadding="3" bottomPadding="3" rightPadding="3"/>
@@ -1193,7 +1209,6 @@
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
 						<jr:detailCell style="Table_TD" height="15">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
-							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<textField textAdjust="StretchHeight">
 								<reportElement stretchType="ContainerHeight" x="0" y="0" width="40" height="15" uuid="3ca05428-6850-4130-bff7-53283051330e"/>
 								<box topPadding="3" leftPadding="3" bottomPadding="3" rightPadding="3"/>
@@ -1208,7 +1223,6 @@
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
 						<jr:detailCell style="Table_TD" height="15">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
-							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<textField textAdjust="StretchHeight">
 								<reportElement stretchType="ContainerHeight" x="0" y="0" width="50" height="15" uuid="e1970f4d-87f6-4506-8848-23e9259fe4c4"/>
 								<box topPadding="3" leftPadding="3" bottomPadding="3" rightPadding="3"/>
@@ -1223,7 +1237,6 @@
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
 						<jr:detailCell style="Table_TD" height="15">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
-							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<textField textAdjust="StretchHeight">
 								<reportElement stretchType="ContainerHeight" x="0" y="0" width="50" height="15" uuid="7701462b-0a53-4d72-abd7-9872593e79ff"/>
 								<box topPadding="3" leftPadding="3" bottomPadding="3" rightPadding="3"/>
@@ -1238,7 +1251,6 @@
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column6"/>
 						<jr:detailCell style="Table_TD" height="15">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
-							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<textField textAdjust="StretchHeight">
 								<reportElement stretchType="ContainerHeight" x="0" y="0" width="50" height="15" uuid="9887deb5-7e79-4303-8730-473d5f2e9613"/>
 								<box topPadding="3" leftPadding="3" bottomPadding="3" rightPadding="3"/>
@@ -1247,62 +1259,66 @@
 								</textElement>
 								<textFieldExpression><![CDATA[($F{quarterTarget} == null || $F{quarterTarget}.compareTo(BigDecimal.ZERO) == 0)
  ? "-" 
- : $F{quarterTarget}.toString()]]></textFieldExpression>
+ : ($F{quarterTarget}.compareTo(BigDecimal.ZERO) < 0 
+     ? $F{quarterTarget}.toString() + " *" 
+     : $F{quarterTarget}.toString())]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="45" uuid="fcd2348b-0c42-42f1-9679-732c40db1ab0">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column7"/>
 						<jr:detailCell style="Table_TD" height="15">
-							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<textField textAdjust="StretchHeight">
-								<reportElement stretchType="ContainerHeight" x="0" y="0" width="45" height="15" uuid="e04674f6-11e5-4db5-8e34-09e917740614"/>
+								<reportElement style="isGapTarget" stretchType="ContainerHeight" x="0" y="0" width="45" height="15" uuid="e04674f6-11e5-4db5-8e34-09e917740614"/>
 								<box topPadding="3" leftPadding="3" bottomPadding="3" rightPadding="3"/>
 								<textElement textAlignment="Right" verticalAlignment="Top">
 									<font size="6"/>
 								</textElement>
-								<textFieldExpression><![CDATA[($F{ytdGrowthAmount} == null || $F{ytdGrowthAmount}.compareTo(BigDecimal.ZERO) == 0)
+								<textFieldExpression><![CDATA[($F{gapTarget} == null || $F{gapTarget}.compareTo(BigDecimal.ZERO) == 0)
  ? "-" 
- : $F{ytdGrowthAmount}.toString()]]></textFieldExpression>
+ : ($F{gapTarget}.compareTo(BigDecimal.ZERO) < 0 
+     ? "(" + $F{gapTarget}.abs().toString() + ")" 
+     : $F{gapTarget}.toString())]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="50" uuid="7ebeeaa8-06c7-4f91-ad08-16869de0aa43">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column8"/>
 						<jr:detailCell style="Table_TD" height="15">
-							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<textField textAdjust="StretchHeight">
-								<reportElement key="" style="Table 5_CH" stretchType="ContainerHeight" x="0" y="0" width="50" height="15" uuid="42170a56-d996-4b7c-91a5-6b1258ed26e5"/>
+								<reportElement key="" style="isGrowthAmount" stretchType="ContainerHeight" x="0" y="0" width="50" height="15" uuid="42170a56-d996-4b7c-91a5-6b1258ed26e5"/>
 								<box topPadding="3" leftPadding="3" bottomPadding="3" rightPadding="3"/>
 								<textElement textAlignment="Right" verticalAlignment="Top">
-									<font size="6" isItalic="false"/>
+									<font size="6" isBold="true" isItalic="false"/>
 								</textElement>
-								<textFieldExpression><![CDATA[($F{gapTarget} == null || $F{gapTarget}.compareTo(BigDecimal.ZERO) == 0)
+								<textFieldExpression><![CDATA[($F{ytdGrowthAmount} == null || $F{ytdGrowthAmount}.compareTo(BigDecimal.ZERO) == 0)
  ? "-" 
- : $F{gapTarget}.toString()]]></textFieldExpression>
+ : ($F{ytdGrowthAmount}.compareTo(BigDecimal.ZERO) < 0 
+     ? "(" + $F{ytdGrowthAmount}.abs().toString() + ")" 
+     : $F{ytdGrowthAmount}.toString())]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="50" uuid="f911e71d-b929-49aa-b9d7-81131764c2db">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column9"/>
 						<jr:detailCell style="Table_TD" height="15">
-							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<textField textAdjust="StretchHeight">
-								<reportElement stretchType="ContainerHeight" x="0" y="0" width="50" height="15" uuid="f972ba64-afbd-4b7a-97d0-629c8aad9f22"/>
+								<reportElement style="isGrowthAmountPer" stretchType="ContainerHeight" x="0" y="0" width="50" height="15" uuid="f972ba64-afbd-4b7a-97d0-629c8aad9f22"/>
 								<box topPadding="3" leftPadding="3" bottomPadding="3" rightPadding="3"/>
 								<textElement textAlignment="Right" verticalAlignment="Top">
-									<font size="6" isItalic="true"/>
+									<font size="6" isItalic="false"/>
 								</textElement>
 								<textFieldExpression><![CDATA[($F{ytdGrowthAmountPer} == null || $F{ytdGrowthAmountPer}.compareTo(BigDecimal.ZERO) == 0)
  ? "-" 
- : $F{ytdGrowthAmountPer}.toString()]]></textFieldExpression>
+ : ($F{ytdGrowthAmountPer}.compareTo(BigDecimal.ZERO) < 0 
+     ? "(" + $F{ytdGrowthAmountPer}.abs().toString() + ")" 
+     : $F{ytdGrowthAmountPer}.toString())]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="45" uuid="f654bc1d-54d2-4172-a761-364ba4206a00">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column10"/>
 						<jr:detailCell style="Table_TD" height="15">
-							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<textField textAdjust="StretchHeight">
 								<reportElement stretchType="ContainerHeight" x="0" y="0" width="45" height="15" uuid="7b05ca22-43d2-4158-918b-538e9207dfb6"/>
 								<box topPadding="3" leftPadding="3" bottomPadding="3" rightPadding="3"/>
@@ -1318,7 +1334,6 @@
 					<jr:column width="55" uuid="b169d3fa-49f9-4627-87e1-9a7475bf7e54">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column11"/>
 						<jr:detailCell style="Table_TD" height="15">
-							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<textField textAdjust="StretchHeight">
 								<reportElement stretchType="ContainerHeight" x="0" y="0" width="55" height="15" uuid="bd053c92-d837-44b6-9c9e-6d9131677907"/>
@@ -1345,13 +1360,13 @@
 				<text><![CDATA[Parameter Details]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="65" y="0" width="100" height="15" uuid="9b1ae799-9097-4893-ac94-d9514daa468b">
+				<reportElement x="65" y="0" width="485" height="15" uuid="9b1ae799-9097-4893-ac94-d9514daa468b">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font size="6"/>
 				</textElement>
-				<textFieldExpression><![CDATA["(Amount In "+$P{amountIn}+" )"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["(Amount In "+$P{amountIn}+" ) (Figures in bracket are negative) "]]></textFieldExpression>
 			</textField>
 			<rectangle>
 				<reportElement x="0" y="15" width="550" height="30" uuid="10dcd889-e43e-4b3a-94a1-f1c2e8bd353d">
@@ -1488,7 +1503,7 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="7" isBold="true"/>
+					<font size="7" isBold="true" isItalic="true" isStrikeThrough="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Y-T-D %"]]></textFieldExpression>
 			</textField>
@@ -4220,7 +4235,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="6"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Current FY" ]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Current FY"]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
 				<reportElement stretchType="ContainerBottom" x="180" y="30" width="45" height="15" uuid="abd5c5c5-47a0-457c-a686-05615d8d2f1e">
@@ -4249,7 +4264,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="6"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Current FY" ]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Current FY"]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
 				<reportElement stretchType="ContainerBottom" x="270" y="30" width="46" height="15" uuid="cbdd404c-bf01-4581-bb81-3bdcddddfe84">
@@ -4283,7 +4298,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="6"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Current FY" ]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Current FY"]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
 				<reportElement stretchType="ContainerBottom" x="363" y="30" width="46" height="15" uuid="047ee4c0-42e9-44ec-a756-35f0c96e4c7d">
@@ -4318,7 +4333,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="6"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Current FY" ]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Current FY"]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
 				<reportElement stretchType="ContainerBottom" x="456" y="30" width="47" height="15" uuid="6e3f0bc2-8e34-4a91-8e23-76d54de5c00e">
@@ -4354,7 +4369,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="6"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Current FY" ]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Current FY"]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
 				<reportElement stretchType="ContainerBottom" x="135" y="30" width="45" height="15" uuid="fc62e193-02cd-47ef-a59a-5640fb038630">
