@@ -2576,8 +2576,17 @@ public class ExecutiveVisitingData {
     private Long total_countTimeBarred;
     private BigDecimal total_amountTimeBarred;
 
-    //************************************npa classification********************************************
+    public Date getReport_dateNpa() {
+        return report_dateNpa;
+    }
 
+    public void setReport_dateNpa(Date report_dateNpa) {
+        this.report_dateNpa = report_dateNpa;
+    }
+
+    //************************************npa classification********************************************
+    @Column(columnDefinition = "DATE")
+    private Date report_dateNpa;
     private Long total_countNpa;
     private BigDecimal total_amountNpa;
     private Long subStandard_countNpa;

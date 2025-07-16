@@ -1,6 +1,7 @@
 package com.Msso.MssoBusinessBackend.Controller.ControllerBranchProfile;
 
 import com.Msso.MssoBusinessBackend.Model.ModelExecutiveVisit.ExecutiveVisitingData;
+import com.Msso.MssoBusinessBackend.Model.ModelExecutiveVisit.VisitRemarkParameter;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileDisbursement.MssoProfileDailyDisburseDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileModel.MssoBranchProfileActualDataDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileModel.MssoBranchProfileTargetDataDto;
@@ -45,12 +46,16 @@ public class VisitReportController {
     }
 
     @PostMapping("/visit-report-save")
-    public ExecutiveVisitingData savevisitData( @RequestParam String branchCode, @RequestParam LocalDate  visit_date)
+    public ExecutiveVisitingData savevisitData( @RequestBody VisitRemarkParameter visitRemarkParameter)
     {
-
+        LocalDate visit_date= LocalDate.parse("2025-07-16");
+        System.out.println(visitRemarkParameter);
        //  serviceVisitReport.updateVisitReport(branchCode);
-         serviceVisitReport.updateVisitReportActual(branchCode,visit_date);
-        return serviceVisitReport.updateVisitReportNpa(branchCode,visit_date);
+         serviceVisitReport.updateVisitReportActual(visitRemarkParameter.getBranch_code(),visit_date);
+         serviceVisitReport.updateVisitReportNpa(visitRemarkParameter.getBranch_code(),visit_date);
+          serviceVisitReport.updateVisitReportReviewRenewal(visitRemarkParameter.getBranch_code(),visit_date);
+          serviceVisitReport.updateVisitReportMarchPast(visitRemarkParameter.getBranch_code(),visit_date);
+        return  serviceVisitReport.updateVisitReportMarchPast(visitRemarkParameter.getBranch_code(),visit_date);
 
 
 
