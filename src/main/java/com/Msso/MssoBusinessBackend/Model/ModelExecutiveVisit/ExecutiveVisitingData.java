@@ -2307,7 +2307,7 @@ public class ExecutiveVisitingData {
     private String branch_name;
 
     private String region;
-
+    @Column(columnDefinition = "DATE")
     private Date report_date;
     private BigDecimal sb;
     private BigDecimal ca;
@@ -2329,6 +2329,7 @@ public class ExecutiveVisitingData {
     private BigDecimal npa;
 
     //*******************************************last march1 *******************************************
+    @Column(columnDefinition = "DATE")
     private Date report_dateMarch1;
     private BigDecimal sbMarch1;
     private BigDecimal caMarch1;
@@ -2351,6 +2352,8 @@ public class ExecutiveVisitingData {
 
 
     //*********************************************last march2*****************************
+
+    @Column(columnDefinition = "DATE")
     private Date report_dateMarch2;
     private BigDecimal sbMarch2;
     private BigDecimal caMarch2;
@@ -2371,6 +2374,7 @@ public class ExecutiveVisitingData {
     private BigDecimal total_ramMarch2;
     private BigDecimal npaMarch2;
     //********************************************last march3********************
+    @Column(columnDefinition = "DATE")
     private Date report_dateMarch3;
 
     private BigDecimal sbMarch3;
@@ -2392,7 +2396,7 @@ public class ExecutiveVisitingData {
     private BigDecimal total_ramMarch3;
     private BigDecimal npaMarch3;
 //*******************************************target data**********************************************
-
+@Column(columnDefinition = "DATE")
     private Date report_dateTarget;
 
     private BigDecimal sbTarget;
@@ -2414,6 +2418,7 @@ public class ExecutiveVisitingData {
     private BigDecimal total_ramTarget;
     private BigDecimal npaTarget;
     //********************************************gap target*******************************************
+    @Column(columnDefinition = "DATE")
     private Date report_dateTargetgap;
 
     private BigDecimal sbTargetgap;
@@ -2436,7 +2441,7 @@ public class ExecutiveVisitingData {
     private BigDecimal npaTargetgap;
 
     //*************************************************march gap******************************************************
-
+    @Column(columnDefinition = "DATE")
     private Date report_dateMarchGap;
 
     private BigDecimal sbMarchGap;
@@ -2459,7 +2464,7 @@ public class ExecutiveVisitingData {
     private BigDecimal npaMarchGap;
 
     //***************************************************march percent***************************************************
-
+    @Column(columnDefinition = "DATE")
     private Date report_dateMarchPercent;
 
     private BigDecimal sbMarchPercent;
@@ -2482,7 +2487,7 @@ public class ExecutiveVisitingData {
     private BigDecimal npaMarchPercent;
 
     //*************************************************Coming march*************************************************
-
+    @Column(columnDefinition = "DATE")
     private Date report_dateComingMarch;
 
     private BigDecimal sbComingMarch;
@@ -2555,7 +2560,7 @@ public class ExecutiveVisitingData {
 
 
     //***************************************************sma data****************************************************************
-
+    @Column(columnDefinition = "DATE")
     private Date report_dateSma;
 
     private int total_count;

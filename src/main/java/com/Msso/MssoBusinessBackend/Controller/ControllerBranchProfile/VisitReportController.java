@@ -44,14 +44,15 @@ public class VisitReportController {
         return executiveVisitingData;
     }
 
-    @GetMapping("/visit-report-save")
-    public void savevisitData( @RequestParam String branchCode, @RequestParam LocalDate  visit_date)
+    @PostMapping("/visit-report-save")
+    public ExecutiveVisitingData savevisitData( @RequestParam String branchCode, @RequestParam LocalDate  visit_date)
     {
 
-         serviceVisitReport.updateVisitReport(branchCode);
+       //  serviceVisitReport.updateVisitReport(branchCode);
+         serviceVisitReport.updateVisitReportActual(branchCode,visit_date);
+        return serviceVisitReport.updateVisitReportNpa(branchCode,visit_date);
 
 
-        System.out.println("visit-report");
 
     }
 }
