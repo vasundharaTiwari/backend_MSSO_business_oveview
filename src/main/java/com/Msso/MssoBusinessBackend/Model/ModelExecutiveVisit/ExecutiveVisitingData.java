@@ -2443,7 +2443,23 @@ public class ExecutiveVisitingData {
         this.report_date_actual = report_date_actual;
     }
 
-//*****************************************************************************
+    public Date getReport_dateDisb() {
+        return report_dateDisb;
+    }
+
+    public void setReport_dateDisb(Date report_dateDisb) {
+        this.report_dateDisb = report_dateDisb;
+    }
+
+    public Date getReport_dateDisbTarget() {
+        return report_dateDisbTarget;
+    }
+
+    public void setReport_dateDisbTarget(Date report_dateDisbTarget) {
+        this.report_dateDisbTarget = report_dateDisbTarget;
+    }
+
+    //*****************************************************************************
     @Column(columnDefinition = "DATE")
     private LocalDate visit_date;
     private String branch_code;
