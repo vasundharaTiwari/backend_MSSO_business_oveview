@@ -15,8 +15,7 @@ import java.time.YearMonth;
 public class ServiceMssoBranchProfileTargetData {
     @Autowired
     RepoMssoBranchProfileTargetData repoMssoBranchProfileTargetData;
-    @Autowired
-    RepoMssoBranchProfileActualData repoMssoBranchProfilePreviousData;
+
 
     public MssoBranchProfileTargetDataDto getMssoBranchProfileTargetData(String branchCode,
 

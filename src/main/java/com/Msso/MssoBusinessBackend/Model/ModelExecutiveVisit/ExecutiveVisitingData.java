@@ -2681,5 +2681,70 @@ public class ExecutiveVisitingData {
     private String socialSecurityRemark;
     @Column(columnDefinition = "TEXT")
     private String otherRemark;
+    private  String visitor_userid;
 
+    public String getVisitor_userid() {
+        return visitor_userid;
+    }
+
+    public void setVisitor_userid(String visitor_userid) {
+        this.visitor_userid = visitor_userid;
+    }
+
+    public String getVisitor_name() {
+        return visitor_name;
+    }
+
+    public void setVisitor_name(String visitor_name) {
+        this.visitor_name = visitor_name;
+    }
+
+    public String getVisitor_designation() {
+        return visitor_designation;
+    }
+
+    public void setVisitor_designation(String visitor_designation) {
+        this.visitor_designation = visitor_designation;
+    }
+
+    public String getVisitor_branch_code() {
+        return visitor_branch_code;
+    }
+
+    public void setVisitor_branch_code(String visitor_branch_code) {
+        this.visitor_branch_code = visitor_branch_code;
+    }
+
+    public String getVisitor_region() {
+        return visitor_region;
+    }
+
+    public void setVisitor_region(String visitor_region) {
+        this.visitor_region = visitor_region;
+    }
+
+    public BigDecimal getPerEmployeeBusiness() {
+        return perEmployeeBusiness;
+    }
+
+    public void setPerEmployeeBusiness(BigDecimal perEmployeeBusiness) {
+        this.perEmployeeBusiness = perEmployeeBusiness;
+    }
+
+    public BigDecimal getTotal_staff() {
+        return total_staff;
+    }
+
+    public void setTotal_staff(BigDecimal total_staff) {
+        this.total_staff = total_staff;
+    }
+
+    private  String visitor_name;
+    private  String visitor_designation;
+    private  String visitor_branch_code;
+    private  String visitor_region;
+
+
+    private BigDecimal perEmployeeBusiness;
+    private BigDecimal total_staff;
 }

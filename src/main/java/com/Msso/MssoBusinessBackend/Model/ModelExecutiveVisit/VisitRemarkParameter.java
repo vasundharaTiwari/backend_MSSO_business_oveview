@@ -3,6 +3,7 @@ package com.Msso.MssoBusinessBackend.Model.ModelExecutiveVisit;
 import java.math.BigDecimal;
 
 public class VisitRemarkParameter {
+
     private  String parameterDetailRemark;
     private  String sanctionDisbursedRemark;
     private  String smaRemark;
@@ -17,6 +18,15 @@ public class VisitRemarkParameter {
     private  String visitor_designation;
     private  String visitor_branch_code;
     private  String visitor_region;
+    private  String region;
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
 
     private  String branch_code;
     private BigDecimal perEmployeeBusiness;
