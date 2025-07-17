@@ -2659,6 +2659,8 @@ public class ExecutiveVisitingData {
 
     //*********************************************disbursement*****************************
 
+    @Column(columnDefinition = "DATE")
+    private Date report_dateDisb;
 
     private BigDecimal total_advancesDisb;
     private BigDecimal total_osDisb;
@@ -2682,6 +2684,8 @@ public class ExecutiveVisitingData {
 
     //************************************************disb target**********************************************
 
+    @Column(columnDefinition = "DATE")
+    private Date report_dateDisbTarget;
 
     private BigDecimal total_advancesDisbTarget;
     private BigDecimal total_osDisbTarget;
