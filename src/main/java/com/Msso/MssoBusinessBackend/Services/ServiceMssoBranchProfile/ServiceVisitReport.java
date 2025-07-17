@@ -4,9 +4,16 @@ import com.Msso.MssoBusinessBackend.Model.ModelExecutiveVisit.ExecutiveVisitingD
 import com.Msso.MssoBusinessBackend.Model.ModelExecutiveVisit.VisitRemarkParameter;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileModel.MssoBranchProfileActualDataDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileModel.MssoBranchProfileTargetDataDto;
+import com.Msso.MssoBusinessBackend.Model.MssoProfileAccountStatusDigitalProduct.MssoAccountStatusDigitalTargetDto;
+import com.Msso.MssoBusinessBackend.Model.MssoProfileAccountStatusDigitalProduct.MssoBranchProfileAccountStatusDto;
+import com.Msso.MssoBusinessBackend.Model.MssoProfileAccountStatusDigitalProduct.MssoBranchProfileDigitalProductDto;
+import com.Msso.MssoBusinessBackend.Model.MssoProfileAccountStatusDigitalProduct.MssoFiSchemeDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileReviewRenewal.MssoProfileReviewRenewalDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileSmaNpaClassification.MssoBranchProfileSmaDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileSmaNpaClassification.MssoProfileNpaClassificationDto;
+import com.Msso.MssoBusinessBackend.Repository.RepoBranchProfileAccountStatusDigitalProduct.RepoAccountDigitalFiSchemeTarget;
+import com.Msso.MssoBusinessBackend.Repository.RepoBranchProfileAccountStatusDigitalProduct.RepoBranchprofileAccountStatus;
+import com.Msso.MssoBusinessBackend.Repository.RepoBranchProfileAccountStatusDigitalProduct.RepoProfileDigitalProductFiScheme;
 import com.Msso.MssoBusinessBackend.Repository.RepoMssoBrachProfileSma.RepoMssoBranchProfileSma;
 import com.Msso.MssoBusinessBackend.Repository.RepoMssoBranchProfile.RepoMssoBranchProfileActualData;
 import com.Msso.MssoBusinessBackend.Repository.RepoMssoBranchProfile.RepoMssoBranchProfileTargetData;
@@ -38,6 +45,12 @@ public class ServiceVisitReport {
     RepoMssoBranchProfileTargetData repoMssoBranchProfileTargetData;
     @Autowired
     ServiceMssoBranchProfileTargetData serviceMssoBranchProfileTargetData;
+    @Autowired
+    RepoProfileDigitalProductFiScheme repoBranchProfileDigitalProduct;
+    @Autowired
+    RepoBranchprofileAccountStatus repoBranchprofileAccountStatus;
+    @Autowired
+    RepoAccountDigitalFiSchemeTarget repoAccountDigitalTarget;
 
     public ExecutiveVisitingData getVisitDataByBranch(String branchCode, LocalDate visit_date) {
         ExecutiveVisitingData executiveVisitingData = repoVisitReport.getVisitData(branchCode, visit_date);
@@ -45,7 +58,7 @@ public class ServiceVisitReport {
     }
 
     @Transactional
-    public ExecutiveVisitingData updateVisitReport( VisitRemarkParameter visitRemarkParameter) {
+    public ExecutiveVisitingData updateVisitReport(VisitRemarkParameter visitRemarkParameter) {
 
         System.out.println(" visit report data");
 
@@ -55,6 +68,7 @@ public class ServiceVisitReport {
         mssoBranchProfileDto = this.repoMssoBranchProfile.getBranchProfileBranch(visitRemarkParameter.getBranch_code());
 
         ExecutiveVisitingData executiveVisitingData = modelMapper.map(mssoBranchProfileDto, ExecutiveVisitingData.class);
+        executiveVisitingData.setReport_date_actual(mssoBranchProfileDto.getReport_date());
         executiveVisitingData.setVisit_date(LocalDate.now());
         executiveVisitingData.setBranch_code(visitRemarkParameter.getBranch_code());
         executiveVisitingData.setRegion(visitRemarkParameter.getRegion());
@@ -82,7 +96,7 @@ public class ServiceVisitReport {
         return executiveVisitingData;
     }
 
-    public ExecutiveVisitingData updateVisitReportActual(String branchCode, LocalDate visit_date) {
+    public ExecutiveVisitingData updateVisitReportSma(String branchCode, LocalDate visit_date) {
         ExecutiveVisitingData executiveVisitingData = repoVisitReport.getVisitData(branchCode, visit_date);
 
         System.out.println(" visit report data");
@@ -93,7 +107,7 @@ public class ServiceVisitReport {
 
         mssoBranchProfileSmaDto = this.repoMssoBranchProfileSma.getDailySmaBranch(branchCode);
         modelMapper.map(mssoBranchProfileSmaDto, executiveVisitingData);
-
+        executiveVisitingData.setReport_dateSma(mssoBranchProfileSmaDto.getReport_date());
 
         repoVisitReport.save(executiveVisitingData);
 
@@ -111,7 +125,7 @@ public class ServiceVisitReport {
 
         mssoProfileNpaClassificationDto = this.repoMssoBranchProfileSma.getNpaClassificationBranch(branchCode);
         modelMapper.map(mssoProfileNpaClassificationDto, executiveVisitingData);
-        //executiveVisitingData.setReport
+        executiveVisitingData.setReport_dateNpa(mssoProfileNpaClassificationDto.getReport_date());
 
         repoVisitReport.save(executiveVisitingData);
 
@@ -135,8 +149,9 @@ public class ServiceVisitReport {
 
         return executiveVisitingData;
     }
+
     public ExecutiveVisitingData updateVisitReportMarchPast(String branchCode, LocalDate visit_date) {
-        ExecutiveVisitingData executiveVisitingData = repoVisitReport.getVisitData(branchCode,visit_date);
+        ExecutiveVisitingData executiveVisitingData = repoVisitReport.getVisitData(branchCode, visit_date);
 
         System.out.println(executiveVisitingData.getVisit_date());
 
@@ -145,7 +160,7 @@ public class ServiceVisitReport {
         marchEndDates.forEach(System.out::println);
         List<MssoBranchProfileActualDataDto> mssoBranchProfileActualDataDto = null;
 
-        mssoBranchProfileActualDataDto = this.repoMssoBranchProfilePreviousData.getBranchProfileBranchMarchData(branchCode,marchEndDates);
+        mssoBranchProfileActualDataDto = this.repoMssoBranchProfilePreviousData.getBranchProfileBranchMarchData(branchCode, marchEndDates);
         executiveVisitingData.setReport_dateMarch1(mssoBranchProfileActualDataDto.get(0).getReport_date());
         executiveVisitingData.setSbMarch1(mssoBranchProfileActualDataDto.get(0).getSb());
         executiveVisitingData.setCaMarch1(mssoBranchProfileActualDataDto.get(0).getCa());
@@ -213,7 +228,7 @@ public class ServiceVisitReport {
     }
 
     public ExecutiveVisitingData updateVisitReportMarchGap(String branchCode, LocalDate visit_date) {
-        ExecutiveVisitingData executiveVisitingData = repoVisitReport.getVisitData(branchCode,visit_date);
+        ExecutiveVisitingData executiveVisitingData = repoVisitReport.getVisitData(branchCode, visit_date);
 
         System.out.println(executiveVisitingData.getVisit_date());
 
@@ -221,7 +236,7 @@ public class ServiceVisitReport {
         LocalDate marchEndDates = serviceBranchProfileLast3Year.getLastMarchEndDates();
         MssoBranchProfileActualDataDto mssoBranchProfileActualDataDto = null;
 
-        mssoBranchProfileActualDataDto = this.repoMssoBranchProfilePreviousData.getBranchProfileBranchGap(branchCode,marchEndDates);
+        mssoBranchProfileActualDataDto = this.repoMssoBranchProfilePreviousData.getBranchProfileBranchGap(branchCode, marchEndDates);
         executiveVisitingData.setReport_dateMarchGap(mssoBranchProfileActualDataDto.getReport_date());
         executiveVisitingData.setSbMarchGap(mssoBranchProfileActualDataDto.getSb());
         executiveVisitingData.setCaMarchGap(mssoBranchProfileActualDataDto.getCa());
@@ -245,8 +260,9 @@ public class ServiceVisitReport {
 
         return executiveVisitingData;
     }
+
     public ExecutiveVisitingData updateVisitReportGapPercent(String branchCode, LocalDate visit_date) {
-        ExecutiveVisitingData executiveVisitingData = repoVisitReport.getVisitData(branchCode,visit_date);
+        ExecutiveVisitingData executiveVisitingData = repoVisitReport.getVisitData(branchCode, visit_date);
 
         System.out.println(executiveVisitingData.getVisit_date());
 
@@ -254,7 +270,7 @@ public class ServiceVisitReport {
         LocalDate marchEndDates = serviceBranchProfileLast3Year.getLastMarchEndDates();
         MssoBranchProfileActualDataDto mssoBranchProfileActualDataDto = null;
 
-        mssoBranchProfileActualDataDto = this.repoMssoBranchProfilePreviousData.getBranchProfileBranchGapPercentage(branchCode,marchEndDates);
+        mssoBranchProfileActualDataDto = this.repoMssoBranchProfilePreviousData.getBranchProfileBranchGapPercentage(branchCode, marchEndDates);
         executiveVisitingData.setReport_dateMarchPercent(mssoBranchProfileActualDataDto.getReport_date());
         executiveVisitingData.setSbMarchPercent(mssoBranchProfileActualDataDto.getSb());
         executiveVisitingData.setCaMarchPercent(mssoBranchProfileActualDataDto.getCa());
@@ -280,7 +296,7 @@ public class ServiceVisitReport {
     }
 
     public ExecutiveVisitingData updateVisitReportTargetData(String branchCode, LocalDate visit_date) {
-        ExecutiveVisitingData executiveVisitingData = repoVisitReport.getVisitData(branchCode,visit_date);
+        ExecutiveVisitingData executiveVisitingData = repoVisitReport.getVisitData(branchCode, visit_date);
 
         System.out.println(executiveVisitingData.getVisit_date());
 
@@ -312,8 +328,9 @@ public class ServiceVisitReport {
 
         return executiveVisitingData;
     }
+
     public ExecutiveVisitingData updateVisitReportTargetGap(String branchCode, LocalDate visit_date) {
-        ExecutiveVisitingData executiveVisitingData = repoVisitReport.getVisitData(branchCode,visit_date);
+        ExecutiveVisitingData executiveVisitingData = repoVisitReport.getVisitData(branchCode, visit_date);
 
         System.out.println(executiveVisitingData.getVisit_date());
 
@@ -348,7 +365,7 @@ public class ServiceVisitReport {
     }
 
     public ExecutiveVisitingData updateVisitReportComingMarchTarget(String branchCode, LocalDate visit_date) {
-        ExecutiveVisitingData executiveVisitingData = repoVisitReport.getVisitData(branchCode,visit_date);
+        ExecutiveVisitingData executiveVisitingData = repoVisitReport.getVisitData(branchCode, visit_date);
 
         System.out.println(executiveVisitingData.getVisit_date());
 
@@ -380,8 +397,9 @@ public class ServiceVisitReport {
 
         return executiveVisitingData;
     }
+
     public ExecutiveVisitingData updateVisitReportComingMarchSuper(String branchCode, LocalDate visit_date) {
-        ExecutiveVisitingData executiveVisitingData = repoVisitReport.getVisitData(branchCode,visit_date);
+        ExecutiveVisitingData executiveVisitingData = repoVisitReport.getVisitData(branchCode, visit_date);
 
         System.out.println(executiveVisitingData.getVisit_date());
 
@@ -394,7 +412,113 @@ public class ServiceVisitReport {
 
         executiveVisitingData.setTotal_businessSuperMarch(mssoBranchProfileTargetDataDto.getTotal_business());
 
-        executiveVisitingData.setNpaSuperMarch(mssoBranchProfileTargetDataDto.getNpa());  repoVisitReport.save(executiveVisitingData);
+        executiveVisitingData.setNpaSuperMarch(mssoBranchProfileTargetDataDto.getNpa());
+        repoVisitReport.save(executiveVisitingData);
+
+        return executiveVisitingData;
+    }
+
+    public ExecutiveVisitingData updateVisitReportSSS(String branchCode, LocalDate visit_date) {
+        ExecutiveVisitingData executiveVisitingData = repoVisitReport.getVisitData(branchCode, visit_date);
+
+
+        MssoFiSchemeDto mssoFiSchemeDto = null;
+        mssoFiSchemeDto = this.repoBranchProfileDigitalProduct.getFiSchemeBranch(branchCode);
+
+        executiveVisitingData.setPmjjby(mssoFiSchemeDto.getPmjjby());
+        executiveVisitingData.setPmsby(mssoFiSchemeDto.getPmsby());
+        executiveVisitingData.setApy(mssoFiSchemeDto.getApy());
+        repoVisitReport.save(executiveVisitingData);
+
+        return executiveVisitingData;
+    }
+
+    public ExecutiveVisitingData updateVisitReportSSSTarget(String branchCode, LocalDate visit_date) {
+        ExecutiveVisitingData executiveVisitingData = repoVisitReport.getVisitData(branchCode, visit_date);
+
+
+        MssoFiSchemeDto mssoFiSchemeDto = null;
+        mssoFiSchemeDto = this.repoAccountDigitalTarget.getFiSchemeTargetBranch(branchCode);
+
+        executiveVisitingData.setPmjjbyTarget(mssoFiSchemeDto.getPmjjby());
+        executiveVisitingData.setPmsbyTarget(mssoFiSchemeDto.getPmsby());
+        executiveVisitingData.setApyTarget(mssoFiSchemeDto.getApy());
+        executiveVisitingData.setPmjdyTarget(mssoFiSchemeDto.getPmjdy());
+        repoVisitReport.save(executiveVisitingData);
+
+        return executiveVisitingData;
+    }
+    public ExecutiveVisitingData updateVisitReportAccout(String branchCode, LocalDate visit_date) {
+        ExecutiveVisitingData executiveVisitingData = repoVisitReport.getVisitData(branchCode, visit_date);
+
+
+        MssoBranchProfileAccountStatusDto mssoBranchProfileAccountStatusDto = null;
+
+        mssoBranchProfileAccountStatusDto = this.repoBranchprofileAccountStatus.getAccountStatusBranch(branchCode);
+
+
+        executiveVisitingData.setSb_ac_count(mssoBranchProfileAccountStatusDto.getSb_ac_count());
+        executiveVisitingData.setCa_ac_count(mssoBranchProfileAccountStatusDto.getCa_ac_count());
+        executiveVisitingData.setPmjdy(mssoBranchProfileAccountStatusDto.getPmjdy());
+        executiveVisitingData.setCasa_count(mssoBranchProfileAccountStatusDto.getCasa_count());
+        executiveVisitingData.setCasa_amount(mssoBranchProfileAccountStatusDto.getCasa_amount());
+
+        repoVisitReport.save(executiveVisitingData);
+
+        return executiveVisitingData;
+    }
+
+    public ExecutiveVisitingData updateVisitReportAccoutMarch(String branchCode, LocalDate visit_date) {
+        ExecutiveVisitingData executiveVisitingData = repoVisitReport.getVisitData(branchCode, visit_date);
+
+
+        MssoBranchProfileAccountStatusDto mssoBranchProfileAccountStatusDto = null;
+
+        mssoBranchProfileAccountStatusDto = this.repoBranchprofileAccountStatus.getAccountStatusMarchBranch(branchCode);
+
+
+        executiveVisitingData.setSb_ac_countMarch(mssoBranchProfileAccountStatusDto.getSb_ac_count());
+        executiveVisitingData.setCa_ac_countMarch(mssoBranchProfileAccountStatusDto.getCa_ac_count());
+
+        repoVisitReport.save(executiveVisitingData);
+
+        return executiveVisitingData;
+    }
+    public ExecutiveVisitingData updateVisitReportAccoutTarget(String branchCode, LocalDate visit_date) {
+        ExecutiveVisitingData executiveVisitingData = repoVisitReport.getVisitData(branchCode, visit_date);
+
+
+        MssoAccountStatusDigitalTargetDto mssoAccountStatusDigitalTargetDto = null;
+
+        mssoAccountStatusDigitalTargetDto = this.repoAccountDigitalTarget.getAccountDigitalTargetBranch(branchCode);
+
+
+        executiveVisitingData.setSb_ac_countTarget(mssoAccountStatusDigitalTargetDto.getSb_ac_count());
+        executiveVisitingData.setCa_ac_countTarget(mssoAccountStatusDigitalTargetDto.getCa_ac_count());
+        executiveVisitingData.setInternet_bankingTarget(mssoAccountStatusDigitalTargetDto.getinternet_banking());
+        executiveVisitingData.setMobile_bankingTarget(mssoAccountStatusDigitalTargetDto.getMobile_banking());
+        executiveVisitingData.setAtm_cardTarget(mssoAccountStatusDigitalTargetDto.getAtm_card());
+
+        repoVisitReport.save(executiveVisitingData);
+
+        return executiveVisitingData;
+    }
+
+    public ExecutiveVisitingData updateVisitReportDigital(String branchCode, LocalDate visit_date) {
+        ExecutiveVisitingData executiveVisitingData = repoVisitReport.getVisitData(branchCode, visit_date);
+
+
+        MssoBranchProfileDigitalProductDto mssoBranchProfileDigitalProductDto = null;
+        mssoBranchProfileDigitalProductDto = this.repoBranchProfileDigitalProduct.getDigitalproductBranch(branchCode);
+
+
+        executiveVisitingData.setAtm_card(mssoBranchProfileDigitalProductDto.getAtm_card());
+        executiveVisitingData.setMobile_banking(mssoBranchProfileDigitalProductDto.getMobile_banking());
+        executiveVisitingData.setMultiple_cif(mssoBranchProfileDigitalProductDto.getMultiple_cif());
+        executiveVisitingData.setCkyc(mssoBranchProfileDigitalProductDto.getCkyc());
+        executiveVisitingData.setInternet_banking(mssoBranchProfileDigitalProductDto.getinternet_banking());
+
+        repoVisitReport.save(executiveVisitingData);
 
         return executiveVisitingData;
     }

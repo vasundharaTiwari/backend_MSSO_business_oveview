@@ -32,13 +32,10 @@ public class VisitReportController {
     ServiceVisitReport serviceVisitReport;
 
 
-
-
     @GetMapping("/visit-report")
-    public ExecutiveVisitingData getVisitReport( @RequestParam String branchCode, @RequestParam LocalDate  visit_date)
-          {
+    public ExecutiveVisitingData getVisitReport(@RequestParam String branchCode, @RequestParam LocalDate visit_date) {
 
-              ExecutiveVisitingData executiveVisitingData = serviceVisitReport.getVisitDataByBranch(branchCode,visit_date);
+        ExecutiveVisitingData executiveVisitingData = serviceVisitReport.getVisitDataByBranch(branchCode, visit_date);
 
 
         System.out.println("visit-report");
@@ -46,23 +43,28 @@ public class VisitReportController {
     }
 
     @PostMapping("/visit-report-save")
-    public ExecutiveVisitingData savevisitData( @RequestBody VisitRemarkParameter visitRemarkParameter)
-    {
-        LocalDate visit_date= LocalDate.parse("2025-07-17");
+    public ExecutiveVisitingData savevisitData(@RequestBody VisitRemarkParameter visitRemarkParameter) {
+        LocalDate visit_date = LocalDate.parse("2025-07-17");
         System.out.println(visitRemarkParameter.getBranch_code());
-       // serviceVisitReport.updateVisitReport(visitRemarkParameter);
-         serviceVisitReport.updateVisitReportActual(visitRemarkParameter.getBranch_code(),visit_date);
-         serviceVisitReport.updateVisitReportNpa(visitRemarkParameter.getBranch_code(),visit_date);
-          serviceVisitReport.updateVisitReportReviewRenewal(visitRemarkParameter.getBranch_code(),visit_date);
-          serviceVisitReport.updateVisitReportMarchPast(visitRemarkParameter.getBranch_code(),visit_date);
-         serviceVisitReport.updateVisitReportMarchPast(visitRemarkParameter.getBranch_code(),visit_date);
+         serviceVisitReport.updateVisitReport(visitRemarkParameter);
+        serviceVisitReport.updateVisitReportSma(visitRemarkParameter.getBranch_code(), visit_date);
+        serviceVisitReport.updateVisitReportNpa(visitRemarkParameter.getBranch_code(), visit_date);
+        serviceVisitReport.updateVisitReportReviewRenewal(visitRemarkParameter.getBranch_code(), visit_date);
+        serviceVisitReport.updateVisitReportMarchPast(visitRemarkParameter.getBranch_code(), visit_date);
+        serviceVisitReport.updateVisitReportMarchPast(visitRemarkParameter.getBranch_code(), visit_date);
 
-          serviceVisitReport.updateVisitReportMarchGap(visitRemarkParameter.getBranch_code(),visit_date);
-          serviceVisitReport.updateVisitReportGapPercent(visitRemarkParameter.getBranch_code(),visit_date);
-        serviceVisitReport.updateVisitReportTargetData(visitRemarkParameter.getBranch_code(),visit_date);
-         serviceVisitReport.updateVisitReportTargetGap(visitRemarkParameter.getBranch_code(),visit_date);
-        serviceVisitReport.updateVisitReportComingMarchTarget(visitRemarkParameter.getBranch_code(),visit_date);
-        return serviceVisitReport.updateVisitReportComingMarchSuper(visitRemarkParameter.getBranch_code(),visit_date);
+        serviceVisitReport.updateVisitReportMarchGap(visitRemarkParameter.getBranch_code(), visit_date);
+        serviceVisitReport.updateVisitReportGapPercent(visitRemarkParameter.getBranch_code(), visit_date);
+        serviceVisitReport.updateVisitReportTargetData(visitRemarkParameter.getBranch_code(), visit_date);
+        serviceVisitReport.updateVisitReportTargetGap(visitRemarkParameter.getBranch_code(), visit_date);
+        serviceVisitReport.updateVisitReportComingMarchTarget(visitRemarkParameter.getBranch_code(), visit_date);
+        serviceVisitReport.updateVisitReportComingMarchSuper(visitRemarkParameter.getBranch_code(), visit_date);
+        serviceVisitReport.updateVisitReportSSS(visitRemarkParameter.getBranch_code(), visit_date);
+        serviceVisitReport.updateVisitReportSSSTarget(visitRemarkParameter.getBranch_code(), visit_date);
+        serviceVisitReport.updateVisitReportAccout(visitRemarkParameter.getBranch_code(), visit_date);
+        serviceVisitReport.updateVisitReportAccoutMarch(visitRemarkParameter.getBranch_code(), visit_date);
+         serviceVisitReport.updateVisitReportAccoutTarget(visitRemarkParameter.getBranch_code(), visit_date);
+        return serviceVisitReport.updateVisitReportDigital(visitRemarkParameter.getBranch_code(), visit_date);
 
 
     }

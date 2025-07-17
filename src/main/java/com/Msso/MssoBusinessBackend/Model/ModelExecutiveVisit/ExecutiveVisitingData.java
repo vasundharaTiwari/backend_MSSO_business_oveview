@@ -53,13 +53,6 @@ public class ExecutiveVisitingData {
         this.region = region;
     }
 
-    public Date getReport_date() {
-        return report_date;
-    }
-
-    public void setReport_date(Date report_date) {
-        this.report_date = report_date;
-    }
 
     public BigDecimal getSb() {
         return sb;
@@ -2300,15 +2293,167 @@ public class ExecutiveVisitingData {
     public void setOtherRemark(String otherRemark) {
         this.otherRemark = otherRemark;
     }
+    public Long getPmjjbyTarget() {
+        return pmjjbyTarget;
+    }
 
+    public void setPmjjbyTarget(Long pmjjbyTarget) {
+        this.pmjjbyTarget = pmjjbyTarget;
+    }
+
+    public Long getPmsbyTarget() {
+        return pmsbyTarget;
+    }
+
+    public void setPmsbyTarget(Long pmsbyTarget) {
+        this.pmsbyTarget = pmsbyTarget;
+    }
+
+    public Long getApyTarget() {
+        return apyTarget;
+    }
+
+    public void setApyTarget(Long apyTarget) {
+        this.apyTarget = apyTarget;
+    }
+
+    public Long getPmjdyTarget() {
+        return pmjdyTarget;
+    }
+
+    public void setPmjdyTarget(Long pmjdyTarget) {
+        this.pmjdyTarget = pmjdyTarget;
+    }
+
+    public Long getInternet_bankingTarget() {
+        return internet_bankingTarget;
+    }
+
+    public void setInternet_bankingTarget(Long internet_bankingTarget) {
+        this.internet_bankingTarget = internet_bankingTarget;
+    }
+
+    public Long getMobile_bankingTarget() {
+        return mobile_bankingTarget;
+    }
+
+    public void setMobile_bankingTarget(Long mobile_bankingTarget) {
+        this.mobile_bankingTarget = mobile_bankingTarget;
+    }
+
+    public Long getAtm_cardTarget() {
+        return atm_cardTarget;
+    }
+
+    public void setAtm_cardTarget(Long atm_cardTarget) {
+        this.atm_cardTarget = atm_cardTarget;
+    }
+
+    public Long getSb_ac_countMarch() {
+        return sb_ac_countMarch;
+    }
+
+    public void setSb_ac_countMarch(Long sb_ac_countMarch) {
+        this.sb_ac_countMarch = sb_ac_countMarch;
+    }
+
+    public Long getCa_ac_countMarch() {
+        return ca_ac_countMarch;
+    }
+
+    public void setCa_ac_countMarch(Long ca_ac_countMarch) {
+        this.ca_ac_countMarch = ca_ac_countMarch;
+    }
+
+    public Long getSb_ac_countTarget() {
+        return sb_ac_countTarget;
+    }
+
+    public void setSb_ac_countTarget(Long sb_ac_countTarget) {
+        this.sb_ac_countTarget = sb_ac_countTarget;
+    }
+
+    public Long getCa_ac_countTarget() {
+        return ca_ac_countTarget;
+    }
+
+    public void setCa_ac_countTarget(Long ca_ac_countTarget) {
+        this.ca_ac_countTarget = ca_ac_countTarget;
+    }
+    public String getVisitor_userid() {
+        return visitor_userid;
+    }
+
+    public void setVisitor_userid(String visitor_userid) {
+        this.visitor_userid = visitor_userid;
+    }
+
+    public String getVisitor_name() {
+        return visitor_name;
+    }
+
+    public void setVisitor_name(String visitor_name) {
+        this.visitor_name = visitor_name;
+    }
+
+    public String getVisitor_designation() {
+        return visitor_designation;
+    }
+
+    public void setVisitor_designation(String visitor_designation) {
+        this.visitor_designation = visitor_designation;
+    }
+
+    public String getVisitor_branch_code() {
+        return visitor_branch_code;
+    }
+
+    public void setVisitor_branch_code(String visitor_branch_code) {
+        this.visitor_branch_code = visitor_branch_code;
+    }
+
+    public String getVisitor_region() {
+        return visitor_region;
+    }
+
+    public void setVisitor_region(String visitor_region) {
+        this.visitor_region = visitor_region;
+    }
+
+    public BigDecimal getPerEmployeeBusiness() {
+        return perEmployeeBusiness;
+    }
+
+    public void setPerEmployeeBusiness(BigDecimal perEmployeeBusiness) {
+        this.perEmployeeBusiness = perEmployeeBusiness;
+    }
+
+    public BigDecimal getTotal_staff() {
+        return total_staff;
+    }
+
+    public void setTotal_staff(BigDecimal total_staff) {
+        this.total_staff = total_staff;
+    }
+    public Date getReport_date_actual() {
+        return report_date_actual;
+    }
+
+    public void setReport_date_actual(Date report_date_actual) {
+        this.report_date_actual = report_date_actual;
+    }
+
+//*****************************************************************************
     @Column(columnDefinition = "DATE")
     private LocalDate visit_date;
     private String branch_code;
     private String branch_name;
 
     private String region;
+
+
     @Column(columnDefinition = "DATE")
-    private Date report_date;
+    private Date report_date_actual;
     private BigDecimal sb;
     private BigDecimal ca;
     private BigDecimal td;
@@ -2613,17 +2758,34 @@ public class ExecutiveVisitingData {
     private Long pmsby;
     private Long apy ;
     private Long pmjdy ;
+    private Long pmjjbyTarget;
+    private Long pmsbyTarget;
+    private Long apyTarget;
+
+
+    private Long pmjdyTarget;
+
     private Long internet_banking ;
     private Long mobile_banking ;
     private Long  atm_card ;
+    private Long internet_bankingTarget ;
+    private Long mobile_bankingTarget ;
+    private Long  atm_cardTarget ;
+
+    private Long casa_count;
+    private BigDecimal casa_amount;
     private Long ckyc ;
     private Long multiple_cif ;
 
     private Long sb_ac_count;
     private Long ca_ac_count;
-    private Long casa_count;
+    private Long sb_ac_countMarch;
+    private Long ca_ac_countMarch;
+    private Long sb_ac_countTarget;
+    private Long ca_ac_countTarget;
 
-    private BigDecimal casa_amount;
+
+
 
     //********************************branch category *************************************
     private Long totalBranchCount;
@@ -2683,61 +2845,6 @@ public class ExecutiveVisitingData {
     private String otherRemark;
     private  String visitor_userid;
 
-    public String getVisitor_userid() {
-        return visitor_userid;
-    }
-
-    public void setVisitor_userid(String visitor_userid) {
-        this.visitor_userid = visitor_userid;
-    }
-
-    public String getVisitor_name() {
-        return visitor_name;
-    }
-
-    public void setVisitor_name(String visitor_name) {
-        this.visitor_name = visitor_name;
-    }
-
-    public String getVisitor_designation() {
-        return visitor_designation;
-    }
-
-    public void setVisitor_designation(String visitor_designation) {
-        this.visitor_designation = visitor_designation;
-    }
-
-    public String getVisitor_branch_code() {
-        return visitor_branch_code;
-    }
-
-    public void setVisitor_branch_code(String visitor_branch_code) {
-        this.visitor_branch_code = visitor_branch_code;
-    }
-
-    public String getVisitor_region() {
-        return visitor_region;
-    }
-
-    public void setVisitor_region(String visitor_region) {
-        this.visitor_region = visitor_region;
-    }
-
-    public BigDecimal getPerEmployeeBusiness() {
-        return perEmployeeBusiness;
-    }
-
-    public void setPerEmployeeBusiness(BigDecimal perEmployeeBusiness) {
-        this.perEmployeeBusiness = perEmployeeBusiness;
-    }
-
-    public BigDecimal getTotal_staff() {
-        return total_staff;
-    }
-
-    public void setTotal_staff(BigDecimal total_staff) {
-        this.total_staff = total_staff;
-    }
 
     private  String visitor_name;
     private  String visitor_designation;
