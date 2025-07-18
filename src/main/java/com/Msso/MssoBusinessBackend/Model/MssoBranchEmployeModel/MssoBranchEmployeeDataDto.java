@@ -223,5 +223,8 @@ public class MssoBranchEmployeeDataDto {
         this.desg_clerk = desg_clerk;
         this.substaff = substaff;
     }
+
+    public MssoBranchEmployeeDataDto() {
+    }
 }
 

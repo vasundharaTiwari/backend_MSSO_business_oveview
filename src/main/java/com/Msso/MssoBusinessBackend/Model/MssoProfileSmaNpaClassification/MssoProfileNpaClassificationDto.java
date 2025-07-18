@@ -138,4 +138,7 @@ public class MssoProfileNpaClassificationDto {
     public void setloss_amount(BigDecimal loss_amount) {
         this.loss_amount = loss_amount;
     }
+
+    public MssoProfileNpaClassificationDto() {
+    }
 }

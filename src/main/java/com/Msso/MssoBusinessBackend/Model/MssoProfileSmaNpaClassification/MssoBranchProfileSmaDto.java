@@ -98,4 +98,7 @@ public class MssoBranchProfileSmaDto {
         this.sma2_count = sma2_count;
         this.sma2_amount = sma2_amount;
     }
+
+    public MssoBranchProfileSmaDto() {
+    }
 }

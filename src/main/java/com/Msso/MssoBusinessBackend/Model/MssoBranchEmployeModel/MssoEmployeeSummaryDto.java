@@ -51,4 +51,7 @@ public class MssoEmployeeSummaryDto {
 
     public int getSubstaff() { return substaff; }
     public void setSubstaff(int substaff) { this.substaff = substaff; }
+
+    public MssoEmployeeSummaryDto() {
+    }
 }

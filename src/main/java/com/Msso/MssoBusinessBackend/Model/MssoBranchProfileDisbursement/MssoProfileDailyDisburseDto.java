@@ -11,7 +11,6 @@ import java.time.LocalDate;
 import java.util.Date;
 
 @Data
-@NoArgsConstructor
 
 public class MssoProfileDailyDisburseDto {
     private Date report_date;
@@ -216,5 +215,8 @@ public class MssoProfileDailyDisburseDto {
         this.gold_count = gold_count;
         this.shg = shg;
         this.shg_count = shg_count;
+    }
+
+    public MssoProfileDailyDisburseDto() {
     }
 }
