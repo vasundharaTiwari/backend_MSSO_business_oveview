@@ -29,13 +29,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Service
-public class ServiceVisitReport {
+public class ServiceVisitReportSaveData {
     @Autowired
-    private RepoMssoBranchEmployeData repoMssoBranchData;    @Autowired
+    private RepoMssoBranchEmployeData repoMssoBranchData;
+    @Autowired
     RepoVisitReport repoVisitReport;
     @Autowired
     RepoMssoBranchProfileActualData repoMssoBranchProfile;
@@ -61,10 +61,7 @@ public class ServiceVisitReport {
     RepoMssoBranchProfileDailyDisbursement repoMssoDailyDisbursement;
 
 
-    public ExecutiveVisitingData getVisitDataByBranch(String branchCode, LocalDate visit_date) {
-        ExecutiveVisitingData executiveVisitingData = repoVisitReport.getVisitData(branchCode, visit_date);
-        return executiveVisitingData;
-    }
+
 
     @Transactional
     public ExecutiveVisitingData updateVisitReport(VisitRemarkParameter visitRemarkParameter) {

@@ -1,6 +1,5 @@
 package com.Msso.MssoBusinessBackend.Controller.ControllerBranchProfile;
 
-import com.Msso.MssoBusinessBackend.Model.ModelExecutiveVisit.ExecutiveVisitingData;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileAccountStatusDigitalProduct.MssoAccountStatusDigitalTargetDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileAccountStatusDigitalProduct.MssoBranchProfileAccountStatusDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileAccountStatusDigitalProduct.MssoBranchProfileDigitalProductDto;
@@ -18,8 +17,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @CrossOrigin
@@ -41,7 +38,7 @@ public class MssoBranchProfileController {
     @Autowired
     ServiceAccountStatusDigitalProduct serviceaccountStatusDigitalProduct;
     @Autowired
-    ServiceVisitReport serviceVisitReport;
+    ServiceVisitReportSaveData serviceVisitReport;
 
 
 
