@@ -19,6 +19,23 @@ public class VisitRemarkParameter {
     private  String visitor_branch_code;
     private  String visitor_region;
     private  String region;
+    private String u_loc;
+
+
+
+
+
+
+
+    public String getU_loc() {
+        return u_loc;
+    }
+
+    public void setU_loc(String u_loc) {
+        this.u_loc = u_loc;
+    }
+
+
 
     public String getRegion() {
         return region;

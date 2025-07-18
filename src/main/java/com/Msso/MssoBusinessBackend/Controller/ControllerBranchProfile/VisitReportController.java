@@ -63,9 +63,12 @@ public class VisitReportController {
         serviceVisitReport.updateVisitReportSSSTarget(visitRemarkParameter.getBranch_code(), visit_date);
         serviceVisitReport.updateVisitReportAccout(visitRemarkParameter.getBranch_code(), visit_date);
         serviceVisitReport.updateVisitReportAccoutMarch(visitRemarkParameter.getBranch_code(), visit_date);
-         serviceVisitReport.updateVisitReportAccoutTarget(visitRemarkParameter.getBranch_code(), visit_date);
-        return serviceVisitReport.updateVisitReportDigital(visitRemarkParameter.getBranch_code(), visit_date);
+        serviceVisitReport.updateVisitReportAccoutTarget(visitRemarkParameter.getBranch_code(), visit_date);
+        serviceVisitReport.updateVisitReportDigital(visitRemarkParameter.getBranch_code(), visit_date);
+        serviceVisitReport.updateVisitReportDisbursement(visitRemarkParameter.getBranch_code(), visit_date);
+        serviceVisitReport.updateVisitReportDisbursementTarget(visitRemarkParameter.getBranch_code(), visit_date);
+         serviceVisitReport.updateVisitReportTimeBarred(visitRemarkParameter.getBranch_code(), visit_date);
 
-
+        return serviceVisitReport.updateVisitReportStaffSummery(visitRemarkParameter.getBranch_code(),visitRemarkParameter.getU_loc(),visitRemarkParameter.getRegion() ,visit_date);
     }
 }
