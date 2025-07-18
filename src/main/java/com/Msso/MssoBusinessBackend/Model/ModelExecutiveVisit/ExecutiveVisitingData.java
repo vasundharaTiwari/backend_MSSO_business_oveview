@@ -2467,6 +2467,22 @@ public class ExecutiveVisitingData {
         this.branch_category = branch_category;
     }
 
+    public Long getBcCount() {
+        return bcCount;
+    }
+
+    public void setBcCount(Long bcCount) {
+        this.bcCount = bcCount;
+    }
+
+    public Date getBmBranchJoinDate() {
+        return bmBranchJoinDate;
+    }
+
+    public void setBmBranchJoinDate(Date bmBranchJoinDate) {
+        this.bmBranchJoinDate = bmBranchJoinDate;
+    }
+
     //*****************************************************************************
     @Column(columnDefinition = "DATE")
     private LocalDate visit_date;
@@ -2474,7 +2490,9 @@ public class ExecutiveVisitingData {
     private String branch_name;
     private String branch_category;
     private String region;
-
+    private Long bcCount;
+    @Column(columnDefinition = "DATE")
+    private Date bmBranchJoinDate;
 
     @Column(columnDefinition = "DATE")
     private Date report_date_actual;

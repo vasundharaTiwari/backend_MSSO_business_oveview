@@ -1,6 +1,9 @@
 package com.Msso.MssoBusinessBackend.Model.ModelExecutiveVisit;
 
+import jakarta.persistence.Column;
+
 import java.math.BigDecimal;
+import java.util.Date;
 
 public class VisitRemarkParameter {
 
@@ -21,11 +24,16 @@ public class VisitRemarkParameter {
     private  String region;
     private String u_loc;
 
+    private Date bmBranchJoinDate;
 
 
+    public Date getBmBranchJoinDate() {
+        return bmBranchJoinDate;
+    }
 
-
-
+    public void setBmBranchJoinDate(Date bmBranchJoinDate) {
+        this.bmBranchJoinDate = bmBranchJoinDate;
+    }
 
     public String getU_loc() {
         return u_loc;

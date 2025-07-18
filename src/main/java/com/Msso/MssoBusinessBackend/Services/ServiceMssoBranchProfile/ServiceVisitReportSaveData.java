@@ -2,8 +2,10 @@ package com.Msso.MssoBusinessBackend.Services.ServiceMssoBranchProfile;
 
 import com.Msso.MssoBusinessBackend.Model.ModelExecutiveVisit.ExecutiveVisitingData;
 import com.Msso.MssoBusinessBackend.Model.ModelExecutiveVisit.VisitRemarkParameter;
+import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.BmBranchJoinDateDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.BranchCategoryDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.MssoBranchEmployeeDataDto;
+import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.MssoEmployeeSummaryDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileDisbursement.MssoProfileDailyDisburseDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileModel.MssoBranchProfileActualDataDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileModel.MssoBranchProfileTargetDataDto;
@@ -24,6 +26,7 @@ import com.Msso.MssoBusinessBackend.Repository.RepoMssoBranchProfile.RepoMssoBra
 import com.Msso.MssoBusinessBackend.Repository.RepoMssoBranchProfile.RepoMssoBranchProfileTargetData;
 import com.Msso.MssoBusinessBackend.Repository.RepoMssoBranchProfileDailyDisbursement.RepoMssoBranchProfileDailyDisbursement;
 import com.Msso.MssoBusinessBackend.Repository.RepoVisitReport.RepoVisitReport;
+import com.Msso.MssoBusinessBackend.Service.ServiceMssoBranchData.MssoBranchDataService;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,8 +64,10 @@ public class ServiceVisitReportSaveData {
     @Autowired
     RepoMssoBranchProfileDailyDisbursement repoMssoDailyDisbursement;
 
-
-
+    @Autowired
+    RepoMssoBranchEmployeData repoEmployeData;
+    @Autowired
+    MssoBranchDataService mssoBranchDataService;
 
     @Transactional
     public ExecutiveVisitingData updateVisitReport(VisitRemarkParameter visitRemarkParameter) {
@@ -99,7 +104,7 @@ public class ServiceVisitReportSaveData {
         executiveVisitingData.setAccountAndDigitalStatusRemark(visitRemarkParameter.getAccountAndDigitalStatusRemark());
         executiveVisitingData.setPerEmployeeBusiness(visitRemarkParameter.getPerEmployeeBusiness());
         executiveVisitingData.setTotal_staff(visitRemarkParameter.getTotal_staff());
-
+        executiveVisitingData.setBmBranchJoinDate(visitRemarkParameter.getBmBranchJoinDate());
 
         repoVisitReport.save(executiveVisitingData);
         updateVisitReportSma(visitRemarkParameter.getBranch_code(), executiveVisitingData.getVisit_date());
@@ -680,6 +685,9 @@ public class ServiceVisitReportSaveData {
         BranchCategoryDto branchCategoryDto = null;
         branchCategoryDto = this.repoMssoBranchData.getCategoryCountRo(roname,branchCode);
 
+        MssoEmployeeSummaryDto mssoEmployeeSummaryDto = mssoBranchDataService.getMssoRegionEmployeeSummary(branchCode,uLoc, roname);
+
+
         executiveVisitingData.setDesg_agm(BranchSummary.getDesg_agm());
         executiveVisitingData.setDesg_clerk(BranchSummary.getDesg_clerk());
         executiveVisitingData.setDesg_cm(BranchSummary.getDesg_cm());
@@ -705,7 +713,37 @@ public class ServiceVisitReportSaveData {
             executiveVisitingData.setSemiUrban(branchCategoryDto.getSemiUrban());
             executiveVisitingData.setUrban(branchCategoryDto.getUrban());
             executiveVisitingData.setTotalBranchCount(branchCategoryDto.getTotalCount());
+            executiveVisitingData.setDesg_agmTotalStaff(mssoEmployeeSummaryDto.getDesg_agm());
+            executiveVisitingData.setDesg_clerkTotalStaff(mssoEmployeeSummaryDto.getDesg_clerk());
+            executiveVisitingData.setDesg_cmTotalStaff(mssoEmployeeSummaryDto.getDesg_cm());
+            executiveVisitingData.setSubstaffTotalStaff(mssoEmployeeSummaryDto.getSubstaff());
+            executiveVisitingData.setDesg_managerTotalStaff(mssoEmployeeSummaryDto.getDesg_manager());
+            executiveVisitingData.setDesg_dymanagerTotalStaff(mssoEmployeeSummaryDto.getDesg_dymanager());
+            executiveVisitingData.setDesg_srmanagerTotalStaff(mssoEmployeeSummaryDto.getDesg_srmanager());
+
+
+
         }
+
+
+        BranchCategoryDto bcCount = null;
+        if (uLoc.equalsIgnoreCase("HO")) {
+            bcCount = this.repoEmployeData.getBCCountHO();
+            System.out.println("getBCCountHO");
+
+        } else if (uLoc.equalsIgnoreCase("RO")) {
+            bcCount = this.repoEmployeData.getBCCountRo(roname);
+            System.out.println("branchCategoryDto"+branchCategoryDto);
+
+        }
+        else if (uLoc.equalsIgnoreCase("BR"))
+        {
+            bcCount = this.repoEmployeData.getBCCountBranch(branchCode);
+        }
+        executiveVisitingData.setBcCount(bcCount.getTotalCount());
+
+
+
         repoVisitReport.save(executiveVisitingData);
 
         return executiveVisitingData;
