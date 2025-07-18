@@ -104,6 +104,28 @@ public class ServiceVisitReport {
 
 
         repoVisitReport.save(executiveVisitingData);
+        updateVisitReportSma(visitRemarkParameter.getBranch_code(), executiveVisitingData.getVisit_date());
+        updateVisitReportNpa(visitRemarkParameter.getBranch_code(), executiveVisitingData.getVisit_date());
+        updateVisitReportReviewRenewal(visitRemarkParameter.getBranch_code(), executiveVisitingData.getVisit_date());
+        updateVisitReportMarchPast(visitRemarkParameter.getBranch_code(), executiveVisitingData.getVisit_date());
+        updateVisitReportMarchPast(visitRemarkParameter.getBranch_code(), executiveVisitingData.getVisit_date());
+
+        updateVisitReportMarchGap(visitRemarkParameter.getBranch_code(), executiveVisitingData.getVisit_date());
+        updateVisitReportGapPercent(visitRemarkParameter.getBranch_code(), executiveVisitingData.getVisit_date());
+        updateVisitReportTargetData(visitRemarkParameter.getBranch_code(), executiveVisitingData.getVisit_date());
+        updateVisitReportTargetGap(visitRemarkParameter.getBranch_code(), executiveVisitingData.getVisit_date());
+        updateVisitReportComingMarchTarget(visitRemarkParameter.getBranch_code(), executiveVisitingData.getVisit_date());
+        updateVisitReportComingMarchSuper(visitRemarkParameter.getBranch_code(), executiveVisitingData.getVisit_date());
+        updateVisitReportSSS(visitRemarkParameter.getBranch_code(), executiveVisitingData.getVisit_date());
+        updateVisitReportSSSTarget(visitRemarkParameter.getBranch_code(), executiveVisitingData.getVisit_date());
+        updateVisitReportAccout(visitRemarkParameter.getBranch_code(), executiveVisitingData.getVisit_date());
+        updateVisitReportAccoutMarch(visitRemarkParameter.getBranch_code(), executiveVisitingData.getVisit_date());
+        updateVisitReportAccoutTarget(visitRemarkParameter.getBranch_code(), executiveVisitingData.getVisit_date());
+        updateVisitReportDigital(visitRemarkParameter.getBranch_code(), executiveVisitingData.getVisit_date());
+        updateVisitReportDisbursement(visitRemarkParameter.getBranch_code(), executiveVisitingData.getVisit_date());
+        updateVisitReportDisbursementTarget(visitRemarkParameter.getBranch_code(), executiveVisitingData.getVisit_date());
+        updateVisitReportTimeBarred(visitRemarkParameter.getBranch_code(), executiveVisitingData.getVisit_date());
+        updateVisitReportStaffSummery(visitRemarkParameter.getBranch_code(),visitRemarkParameter.getU_loc(),visitRemarkParameter.getRegion() ,executiveVisitingData.getVisit_date());
 
         return executiveVisitingData;
     }

@@ -46,29 +46,29 @@ public class VisitReportController {
     public ExecutiveVisitingData savevisitData(@RequestBody VisitRemarkParameter visitRemarkParameter) {
         LocalDate visit_date = LocalDate.parse("2025-07-17");
         System.out.println(visitRemarkParameter.getBranch_code());
-         serviceVisitReport.updateVisitReport(visitRemarkParameter);
-        serviceVisitReport.updateVisitReportSma(visitRemarkParameter.getBranch_code(), visit_date);
-        serviceVisitReport.updateVisitReportNpa(visitRemarkParameter.getBranch_code(), visit_date);
-        serviceVisitReport.updateVisitReportReviewRenewal(visitRemarkParameter.getBranch_code(), visit_date);
-        serviceVisitReport.updateVisitReportMarchPast(visitRemarkParameter.getBranch_code(), visit_date);
-        serviceVisitReport.updateVisitReportMarchPast(visitRemarkParameter.getBranch_code(), visit_date);
-
-        serviceVisitReport.updateVisitReportMarchGap(visitRemarkParameter.getBranch_code(), visit_date);
-        serviceVisitReport.updateVisitReportGapPercent(visitRemarkParameter.getBranch_code(), visit_date);
-        serviceVisitReport.updateVisitReportTargetData(visitRemarkParameter.getBranch_code(), visit_date);
-        serviceVisitReport.updateVisitReportTargetGap(visitRemarkParameter.getBranch_code(), visit_date);
-        serviceVisitReport.updateVisitReportComingMarchTarget(visitRemarkParameter.getBranch_code(), visit_date);
-        serviceVisitReport.updateVisitReportComingMarchSuper(visitRemarkParameter.getBranch_code(), visit_date);
-        serviceVisitReport.updateVisitReportSSS(visitRemarkParameter.getBranch_code(), visit_date);
-        serviceVisitReport.updateVisitReportSSSTarget(visitRemarkParameter.getBranch_code(), visit_date);
-        serviceVisitReport.updateVisitReportAccout(visitRemarkParameter.getBranch_code(), visit_date);
-        serviceVisitReport.updateVisitReportAccoutMarch(visitRemarkParameter.getBranch_code(), visit_date);
-        serviceVisitReport.updateVisitReportAccoutTarget(visitRemarkParameter.getBranch_code(), visit_date);
-        serviceVisitReport.updateVisitReportDigital(visitRemarkParameter.getBranch_code(), visit_date);
-        serviceVisitReport.updateVisitReportDisbursement(visitRemarkParameter.getBranch_code(), visit_date);
-        serviceVisitReport.updateVisitReportDisbursementTarget(visitRemarkParameter.getBranch_code(), visit_date);
-         serviceVisitReport.updateVisitReportTimeBarred(visitRemarkParameter.getBranch_code(), visit_date);
-
-        return serviceVisitReport.updateVisitReportStaffSummery(visitRemarkParameter.getBranch_code(),visitRemarkParameter.getU_loc(),visitRemarkParameter.getRegion() ,visit_date);
+        return serviceVisitReport.updateVisitReport(visitRemarkParameter);
+//        serviceVisitReport.updateVisitReportSma(visitRemarkParameter.getBranch_code(), visit_date);
+//        serviceVisitReport.updateVisitReportNpa(visitRemarkParameter.getBranch_code(), visit_date);
+//        serviceVisitReport.updateVisitReportReviewRenewal(visitRemarkParameter.getBranch_code(), visit_date);
+//        serviceVisitReport.updateVisitReportMarchPast(visitRemarkParameter.getBranch_code(), visit_date);
+//        serviceVisitReport.updateVisitReportMarchPast(visitRemarkParameter.getBranch_code(), visit_date);
+//
+//        serviceVisitReport.updateVisitReportMarchGap(visitRemarkParameter.getBranch_code(), visit_date);
+//        serviceVisitReport.updateVisitReportGapPercent(visitRemarkParameter.getBranch_code(), visit_date);
+//        serviceVisitReport.updateVisitReportTargetData(visitRemarkParameter.getBranch_code(), visit_date);
+//        serviceVisitReport.updateVisitReportTargetGap(visitRemarkParameter.getBranch_code(), visit_date);
+//        serviceVisitReport.updateVisitReportComingMarchTarget(visitRemarkParameter.getBranch_code(), visit_date);
+//        serviceVisitReport.updateVisitReportComingMarchSuper(visitRemarkParameter.getBranch_code(), visit_date);
+//        serviceVisitReport.updateVisitReportSSS(visitRemarkParameter.getBranch_code(), visit_date);
+//        serviceVisitReport.updateVisitReportSSSTarget(visitRemarkParameter.getBranch_code(), visit_date);
+//        serviceVisitReport.updateVisitReportAccout(visitRemarkParameter.getBranch_code(), visit_date);
+//        serviceVisitReport.updateVisitReportAccoutMarch(visitRemarkParameter.getBranch_code(), visit_date);
+//        serviceVisitReport.updateVisitReportAccoutTarget(visitRemarkParameter.getBranch_code(), visit_date);
+//        serviceVisitReport.updateVisitReportDigital(visitRemarkParameter.getBranch_code(), visit_date);
+//        serviceVisitReport.updateVisitReportDisbursement(visitRemarkParameter.getBranch_code(), visit_date);
+//        serviceVisitReport.updateVisitReportDisbursementTarget(visitRemarkParameter.getBranch_code(), visit_date);
+//         serviceVisitReport.updateVisitReportTimeBarred(visitRemarkParameter.getBranch_code(), visit_date);
+//
+//        return serviceVisitReport.updateVisitReportStaffSummery(visitRemarkParameter.getBranch_code(),visitRemarkParameter.getU_loc(),visitRemarkParameter.getRegion() ,visit_date);
     }
 }
