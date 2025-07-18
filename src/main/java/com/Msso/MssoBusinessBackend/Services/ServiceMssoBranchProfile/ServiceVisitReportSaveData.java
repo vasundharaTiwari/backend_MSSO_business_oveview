@@ -2,6 +2,7 @@ package com.Msso.MssoBusinessBackend.Services.ServiceMssoBranchProfile;
 
 import com.Msso.MssoBusinessBackend.Model.ModelExecutiveVisit.ExecutiveVisitingData;
 import com.Msso.MssoBusinessBackend.Model.ModelExecutiveVisit.VisitRemarkParameter;
+import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.BranchCategoryDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.MssoBranchEmployeeDataDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileDisbursement.MssoProfileDailyDisburseDto;
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileModel.MssoBranchProfileActualDataDto;
@@ -66,7 +67,7 @@ public class ServiceVisitReportSaveData {
     @Transactional
     public ExecutiveVisitingData updateVisitReport(VisitRemarkParameter visitRemarkParameter) {
 
-        System.out.println(" visit report data");
+
 
         // Retrieve the RefNoVarification data by referenceId
         MssoBranchProfileActualDataDto mssoBranchProfileDto = null;
@@ -122,9 +123,9 @@ public class ServiceVisitReportSaveData {
         updateVisitReportDisbursement(visitRemarkParameter.getBranch_code(), executiveVisitingData.getVisit_date());
         updateVisitReportDisbursementTarget(visitRemarkParameter.getBranch_code(), executiveVisitingData.getVisit_date());
         updateVisitReportTimeBarred(visitRemarkParameter.getBranch_code(), executiveVisitingData.getVisit_date());
-        updateVisitReportStaffSummery(visitRemarkParameter.getBranch_code(),visitRemarkParameter.getU_loc(),visitRemarkParameter.getRegion() ,executiveVisitingData.getVisit_date());
+        return  updateVisitReportStaffSummery(visitRemarkParameter.getBranch_code(),visitRemarkParameter.getU_loc(),visitRemarkParameter.getRegion() ,executiveVisitingData.getVisit_date());
 
-        return executiveVisitingData;
+
     }
 
     public ExecutiveVisitingData updateVisitReportSma(String branchCode, LocalDate visit_date) {
@@ -657,6 +658,7 @@ public class ServiceVisitReportSaveData {
     public ExecutiveVisitingData updateVisitReportStaffSummery(String branchCode,   String uLoc, String roname,LocalDate visit_date) {
       String uType=null;
         ExecutiveVisitingData executiveVisitingData = repoVisitReport.getVisitData(branchCode, visit_date);
+        System.out.println("location for BM: "+uLoc);
         if(uLoc.equals("BR")){
             System.out.println("location for BM: "+uLoc);
             uType="BM";
@@ -673,6 +675,10 @@ public class ServiceVisitReportSaveData {
 
         MssoBranchEmployeeDataDto BranchSummary= repoMssoBranchData.getBranchSummary(uType,branchCode,roname);
 
+        String branchCategory =repoMssoBranchData.getBranchCategory(branchCode);
+
+        BranchCategoryDto branchCategoryDto = null;
+        branchCategoryDto = this.repoMssoBranchData.getCategoryCountRo(roname,branchCode);
 
         executiveVisitingData.setDesg_agm(BranchSummary.getDesg_agm());
         executiveVisitingData.setDesg_clerk(BranchSummary.getDesg_clerk());
@@ -685,18 +691,21 @@ public class ServiceVisitReportSaveData {
         executiveVisitingData.setDesg_agm(BranchSummary.getSubstaff());
         executiveVisitingData.setPopulation_group_name(BranchSummary.getPopulation_group_name());
 
-
-
-
         executiveVisitingData.setBranch_name(BranchSummary.getBranch_name());
         executiveVisitingData.setGrade_code(BranchSummary.getGrade_code());
         executiveVisitingData.setDesignation_code(BranchSummary.getDesignation_code());
         executiveVisitingData.setMain_region(BranchSummary.getMain_region());
         executiveVisitingData.setEmployee_name(BranchSummary.getEmployee_name());
-
-
-
-
+       //*****************************branch category****************
+        executiveVisitingData.setBranch_category(branchCategory);
+        //*******************************category count************************
+        if(uLoc.equals("RO")||uLoc.equals("HO") ) {
+            executiveVisitingData.setMetropolitan(branchCategoryDto.getMetropolitan());
+            executiveVisitingData.setRural(branchCategoryDto.getRural());
+            executiveVisitingData.setSemiUrban(branchCategoryDto.getSemiUrban());
+            executiveVisitingData.setUrban(branchCategoryDto.getUrban());
+            executiveVisitingData.setTotalBranchCount(branchCategoryDto.getTotalCount());
+        }
         repoVisitReport.save(executiveVisitingData);
 
         return executiveVisitingData;

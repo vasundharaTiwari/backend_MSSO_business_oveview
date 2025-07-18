@@ -2459,12 +2459,20 @@ public class ExecutiveVisitingData {
         this.report_dateDisbTarget = report_dateDisbTarget;
     }
 
+    public String getBranch_category() {
+        return branch_category;
+    }
+
+    public void setBranch_category(String branch_category) {
+        this.branch_category = branch_category;
+    }
+
     //*****************************************************************************
     @Column(columnDefinition = "DATE")
     private LocalDate visit_date;
     private String branch_code;
     private String branch_name;
-
+    private String branch_category;
     private String region;
 
 

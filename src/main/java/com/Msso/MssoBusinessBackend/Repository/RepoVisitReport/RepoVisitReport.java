@@ -23,8 +23,7 @@ public interface RepoVisitReport extends JpaRepository<ExecutiveVisitingData, Lo
     //*******************************************************Visit summery******************************************************
 
     @Query(value = """
-            select visit_date,branch_code,branch_name,region,visitor_name,visitor_region,visitor_branch_code,
-            visitor_designation from msso_branch_profile.msso_profile_visit_report ORDER BY REGION,BRANCH_CODE;
+       select distinct region,count(*) from msso_branch_profile.msso_profile_visit_report group by region
             """, nativeQuery = true)
     public List<VisitReportSummryDto> getVisitSummeryHo();
 
