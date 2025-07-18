@@ -11,6 +11,22 @@ public class VisitReportSummryDto {
     private String visitor_region;
     private String visitor_branch_code;
     private String visitor_designation;
+    private Long count;
+
+    public Long getCount() {
+        return count;
+    }
+
+    public void setCount(Long count) {
+        this.count = count;
+    }
+
+    public VisitReportSummryDto(String region, Long count) {
+        this.region = region;
+        this.count = count;
+    }
+
+  
 
     public Date getVisit_date() {
         return visit_date;
