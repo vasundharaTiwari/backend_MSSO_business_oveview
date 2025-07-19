@@ -125,6 +125,15 @@ public class VisitDataStaffCompliance {
     private  BigDecimal total_staff;
     private  BigDecimal  perEmployeeBusiness;
     private Long bcCount;
+    private  String region;
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
 
     public Long getBcCount() {
         return bcCount;

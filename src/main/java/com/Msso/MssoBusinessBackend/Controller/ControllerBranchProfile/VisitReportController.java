@@ -1,6 +1,7 @@
 package com.Msso.MssoBusinessBackend.Controller.ControllerBranchProfile;
 
 import com.Msso.MssoBusinessBackend.Model.ModelExecutiveVisit.ExecutiveVisitingData;
+import com.Msso.MssoBusinessBackend.Model.ModelExecutiveVisit.VisitDataStaffCompliance;
 import com.Msso.MssoBusinessBackend.Model.ModelExecutiveVisit.VisitRemarkParameter;
 import com.Msso.MssoBusinessBackend.Model.ModelExecutiveVisit.VisitingDataStaffDto;
 import com.Msso.MssoBusinessBackend.Services.ServiceMssoBranchProfile.*;
@@ -27,6 +28,17 @@ public class VisitReportController {
 
         ExecutiveVisitingData executiveVisitingData;
         executiveVisitingData = serviceVisitReportGetData.getVisitDataByBranch(branchCode,visit_date);
+
+
+        System.out.println("visit-report");
+        return executiveVisitingData;
+    }
+
+    @GetMapping("/visit-report_compliance")
+    public VisitDataStaffCompliance getVisitStaffCompliance(@RequestParam String branchCode, @RequestParam LocalDate visit_date) {
+
+        VisitDataStaffCompliance executiveVisitingData;
+        executiveVisitingData = serviceVisitReportGetData.getVisitStaffComplianceData(branchCode,visit_date);
 
 
         System.out.println("visit-report");
