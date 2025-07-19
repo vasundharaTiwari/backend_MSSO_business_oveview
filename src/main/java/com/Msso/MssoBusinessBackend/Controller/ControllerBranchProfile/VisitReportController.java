@@ -2,7 +2,7 @@ package com.Msso.MssoBusinessBackend.Controller.ControllerBranchProfile;
 
 import com.Msso.MssoBusinessBackend.Model.ModelExecutiveVisit.ExecutiveVisitingData;
 import com.Msso.MssoBusinessBackend.Model.ModelExecutiveVisit.VisitRemarkParameter;
-import com.Msso.MssoBusinessBackend.Model.ModelExecutiveVisit.VisitReportSummryDto;
+import com.Msso.MssoBusinessBackend.Model.ModelExecutiveVisit.VisitingDataStaffDto;
 import com.Msso.MssoBusinessBackend.Services.ServiceMssoBranchProfile.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,17 +36,17 @@ public class VisitReportController {
     @PostMapping("/visit-report-save")
     public ExecutiveVisitingData savevisitData(@RequestBody VisitRemarkParameter visitRemarkParameter) {
         LocalDate visit_date = LocalDate.parse("2025-07-17");
-        System.out.println(visitRemarkParameter.getBranch_code());
+
         return serviceVisitReport.updateVisitReport(visitRemarkParameter);
     }
     @GetMapping("/visit-summery")
-    public List<VisitReportSummryDto> getBranchProfileLastMarch(
+    public List<VisitingDataStaffDto> getBranchProfileLastMarch(
             @RequestParam String branchCode,
 
             @RequestParam String roname,
             @RequestParam String u_loc) {
 
-        List<VisitReportSummryDto> visitReportSummryDto = serviceVisitReportGetData.getVisitSummery(branchCode, roname, u_loc);
+        List<VisitingDataStaffDto> visitReportSummryDto = serviceVisitReportGetData.getVisitSummery(branchCode, roname, u_loc);
 
         System.out.println("inside dep-adv-npa-march");
         return visitReportSummryDto;

@@ -26,33 +26,6 @@ public class VisitRemarkParameter {
 
     private Date bmBranchJoinDate;
 
-
-    public Date getBmBranchJoinDate() {
-        return bmBranchJoinDate;
-    }
-
-    public void setBmBranchJoinDate(Date bmBranchJoinDate) {
-        this.bmBranchJoinDate = bmBranchJoinDate;
-    }
-
-    public String getU_loc() {
-        return u_loc;
-    }
-
-    public void setU_loc(String u_loc) {
-        this.u_loc = u_loc;
-    }
-
-
-
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
-    }
-
     private  String branch_code;
     private BigDecimal perEmployeeBusiness;
     private BigDecimal total_staff;
@@ -159,6 +132,30 @@ public class VisitRemarkParameter {
 
     public void setVisitor_region(String visitor_region) {
         this.visitor_region = visitor_region;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public String getU_loc() {
+        return u_loc;
+    }
+
+    public void setU_loc(String u_loc) {
+        this.u_loc = u_loc;
+    }
+
+    public Date getBmBranchJoinDate() {
+        return bmBranchJoinDate;
+    }
+
+    public void setBmBranchJoinDate(Date bmBranchJoinDate) {
+        this.bmBranchJoinDate = bmBranchJoinDate;
     }
 
     public String getBranch_code() {
