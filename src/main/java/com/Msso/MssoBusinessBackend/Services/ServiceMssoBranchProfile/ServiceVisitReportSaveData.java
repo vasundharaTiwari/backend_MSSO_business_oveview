@@ -81,10 +81,16 @@ public class ServiceVisitReportSaveData {
 
 
         // Retrieve the RefNoVarification data by referenceId
-        MssoBranchProfileActualDataDto mssoBranchProfileDto = null;
+        MssoBranchProfileActualDataDto mssoBranchProfileDto = new MssoBranchProfileActualDataDto();
 
-        mssoBranchProfileDto = this.repoMssoBranchProfile.getBranchProfileBranch(visitRemarkParameter.getBranch_code());
+        if (visitRemarkParameter.getU_loc().equalsIgnoreCase("BR")) {
+            mssoBranchProfileDto = this.repoMssoBranchProfile.getBranchProfileBranch(visitRemarkParameter.getBranch_code());
 
+        } else {
+            System.out.println("inside");
+            mssoBranchProfileDto = this.repoMssoBranchProfile.getBranchProfileRO(visitRemarkParameter.getRegion());
+            System.out.println(mssoBranchProfileDto);
+        }
         ExecutiveVisitingData executiveVisitingData = modelMapper.map(mssoBranchProfileDto, ExecutiveVisitingData.class);
         VisitDataStaffCompliance visitDataStaffCompliance =new VisitDataStaffCompliance();
         executiveVisitingData.setReport_date_actual(mssoBranchProfileDto.getReport_date());
@@ -135,7 +141,7 @@ public class ServiceVisitReportSaveData {
         updateVisitReportAccout(visitRemarkParameter.getBranch_code(), executiveVisitingData.getVisit_date());
         updateVisitReportAccoutMarch(visitRemarkParameter.getBranch_code(), executiveVisitingData.getVisit_date());
         updateVisitReportAccoutTarget(visitRemarkParameter.getBranch_code(), executiveVisitingData.getVisit_date());
-        //updateVisitReportDigital(visitRemarkParameter.getBranch_code(), executiveVisitingData.getVisit_date());
+        updateVisitReportDigital(visitRemarkParameter.getBranch_code(), executiveVisitingData.getVisit_date());
         updateVisitReportDisbursement(visitRemarkParameter.getBranch_code(), executiveVisitingData.getVisit_date());
         updateVisitReportDisbursementTarget(visitRemarkParameter.getBranch_code(), executiveVisitingData.getVisit_date());
         updateVisitReportTimeBarred(visitRemarkParameter.getBranch_code(), executiveVisitingData.getVisit_date());

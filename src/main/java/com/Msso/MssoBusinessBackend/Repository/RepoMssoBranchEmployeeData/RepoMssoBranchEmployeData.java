@@ -47,17 +47,17 @@ public interface RepoMssoBranchEmployeData extends JpaRepository<MssoBranchEmplo
         WITH abc AS (
             SELECT 
                 employee_details.branch_code,
-                COUNT(CASE WHEN employee_details.designation_code = 'AGM' THEN employee_details.emp_id END) AS desg_agm,
+                COUNT(CASE WHEN employee_details.designation_code = 'AGM' THEN employee_details.emp_number END) AS desg_agm,
                 COUNT(CASE WHEN (employee_details.designation_code = 'CM') 
-                            OR (employee_details.designation_code = 'BM' AND grade_code = 'SM-IV') THEN employee_details.emp_id END) AS desg_cm,
+                            OR (employee_details.designation_code = 'BM' AND grade_code = 'SM-IV') THEN employee_details.emp_number END) AS desg_cm,
                 COUNT(CASE WHEN (employee_details.designation_code = 'SM') 
-                            OR (employee_details.designation_code = 'BM' AND grade_code = 'MM-III') THEN employee_details.emp_id END) AS desg_srmanager,
+                            OR (employee_details.designation_code = 'BM' AND grade_code = 'MM-III') THEN employee_details.emp_number END) AS desg_srmanager,
                 COUNT(CASE WHEN (employee_details.designation_code = 'MN') 
-                            OR (employee_details.designation_code = 'BM' AND grade_code = 'MM-II') THEN employee_details.emp_id END) AS desg_manager,
+                            OR (employee_details.designation_code = 'BM' AND grade_code = 'MM-II') THEN employee_details.emp_number END) AS desg_manager,
                 COUNT(CASE WHEN (employee_details.designation_code = 'AM') 
-                            OR (employee_details.designation_code = 'BM' AND grade_code = 'JM') THEN employee_details.emp_id END) AS desg_dymanager,
-                COUNT(CASE WHEN employee_details.designation_code = 'CL' THEN employee_details.emp_id END) AS desg_clerk,
-                COUNT(CASE WHEN employee_details.designation_code = 'SS' THEN employee_details.emp_id END) AS substaff
+                            OR (employee_details.designation_code = 'BM' AND grade_code = 'JM') THEN employee_details.emp_number END) AS desg_dymanager,
+                COUNT(CASE WHEN employee_details.designation_code = 'CL' THEN employee_details.emp_number END) AS desg_clerk,
+                COUNT(CASE WHEN employee_details.designation_code = 'SS' THEN employee_details.emp_number END) AS substaff
             FROM hrms.employee_details
             GROUP BY employee_details.branch_code
         )
@@ -82,17 +82,17 @@ public interface RepoMssoBranchEmployeData extends JpaRepository<MssoBranchEmplo
                                          SELECT\s
                                              employee_details.branch_code,
                                              employee_details.region,
-                                             COUNT(CASE WHEN employee_details.designation_code = 'AGM' THEN employee_details.emp_id END) AS desg_agm,
+                                             COUNT(CASE WHEN employee_details.designation_code = 'AGM' THEN employee_details.emp_number END) AS desg_agm,
                                              COUNT(CASE WHEN (employee_details.designation_code = 'CM')\s
-                                                         OR (employee_details.designation_code = 'BM' AND grade_code = 'SM-IV') THEN employee_details.emp_id END) AS desg_cm,
+                                                         OR (employee_details.designation_code = 'BM' AND grade_code = 'SM-IV') THEN employee_details.emp_number END) AS desg_cm,
                                              COUNT(CASE WHEN (employee_details.designation_code = 'SM')\s
-                                                         OR (employee_details.designation_code = 'BM' AND grade_code = 'MM-III') THEN employee_details.emp_id END) AS desg_srmanager,
+                                                         OR (employee_details.designation_code = 'BM' AND grade_code = 'MM-III') THEN employee_details.emp_number END) AS desg_srmanager,
                                              COUNT(CASE WHEN (employee_details.designation_code = 'MN')\s
-                                                         OR (employee_details.designation_code = 'BM' AND grade_code = 'MM-II') THEN employee_details.emp_id END) AS desg_manager,
+                                                         OR (employee_details.designation_code = 'BM' AND grade_code = 'MM-II') THEN employee_details.emp_number END) AS desg_manager,
                                              COUNT(CASE WHEN (employee_details.designation_code = 'AM')\s
-                                                         OR (employee_details.designation_code = 'BM' AND grade_code = 'JM') THEN employee_details.emp_id END) AS desg_dymanager,
-                                             COUNT(CASE WHEN employee_details.designation_code = 'CL' THEN employee_details.emp_id END) AS desg_clerk,
-                                             COUNT(CASE WHEN employee_details.designation_code = 'SS' THEN employee_details.emp_id END) AS substaff
+                                                         OR (employee_details.designation_code = 'BM' AND grade_code = 'JM') THEN employee_details.emp_number END) AS desg_dymanager,
+                                             COUNT(CASE WHEN employee_details.designation_code = 'CL' THEN employee_details.emp_number END) AS desg_clerk,
+                                             COUNT(CASE WHEN employee_details.designation_code = 'SS' THEN employee_details.emp_number END) AS substaff
                                          FROM hrms.employee_details
                                          GROUP BY employee_details.branch_code, employee_details.region
                                      )

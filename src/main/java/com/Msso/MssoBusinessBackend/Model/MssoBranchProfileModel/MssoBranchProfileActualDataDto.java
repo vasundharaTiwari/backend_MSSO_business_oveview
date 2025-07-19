@@ -6,6 +6,9 @@ import java.util.Date;
 public class MssoBranchProfileActualDataDto {
     private Date report_date;
 
+    public MssoBranchProfileActualDataDto() {
+    }
+
     private BigDecimal sb;
     private BigDecimal ca;
     private BigDecimal td;
