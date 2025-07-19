@@ -102,6 +102,7 @@ if(uLoc.equalsIgnoreCase("HO")) {
 
         return branchCategory;
     }
+    @Override
     public BranchCategoryDto getBranchCategoryCount(String branchCode , String uLoc, String roname) {
         BranchCategoryDto branchCategoryDto = null;
         if (uLoc.equalsIgnoreCase("HO")) {
@@ -116,6 +117,7 @@ if(uLoc.equalsIgnoreCase("HO")) {
 
         return branchCategoryDto;
     }
+    @Override
     public BranchOpeningDateDto getBranchOpenDate(String branchCode , String uLoc, String roname) {
         BranchOpeningDateDto branchOpeningDateDto = null;
 
@@ -125,7 +127,7 @@ if(uLoc.equalsIgnoreCase("HO")) {
         return branchOpeningDateDto;
     }
 
-
+    @Override
     public BmBranchJoinDateDto getBmBranchJoinDate(String branchCode , String u_id) {
         BmBranchJoinDateDto bmBranchJoiningDateDto = null;
 

@@ -2,9 +2,11 @@ package com.Msso.MssoBusinessBackend.Service.ServiceMssoBranchData;
 
 import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.*;
 import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Transactional
 public interface MssoBranchDataService {
 
     @Transactional

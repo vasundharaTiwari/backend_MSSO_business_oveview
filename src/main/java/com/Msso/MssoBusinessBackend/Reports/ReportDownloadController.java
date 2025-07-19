@@ -25,18 +25,18 @@ public class ReportDownloadController {
 private BranchProfileReport branchProfileReport;
 
     //********************************* APPRAISAL NOTE BELOW HOD ************************************
-    @GetMapping("/download-upto-rm")
-    public ResponseEntity<ByteArrayResource> exportAppraisalNoteReport(@RequestParam String branch_code,
-                                                                       @RequestParam String region,
-                                                                       @RequestParam String u_loc) throws JRException, FileNotFoundException, NoSuchFileException {
-
-
-        System.out.println("Data for BranchProfileReport"+branch_code+region+u_loc);
-
-        return branchProfileReport.exportBranchProfileReport(branch_code,region,u_loc);
-
-    }
-
+//    @GetMapping("/download-upto-rm")
+//    public ResponseEntity<ByteArrayResource> exportAppraisalNoteReport(@RequestParam String branch_code,
+//                                                                       @RequestParam String region,
+//                                                                       @RequestParam String u_loc) throws JRException, FileNotFoundException, NoSuchFileException {
+//
+//
+//        System.out.println("Data for BranchProfileReport"+branch_code+region+u_loc);
+//
+//        return branchProfileReport.exportBranchProfileReport(branch_code,region,u_loc);
+//
+//    }
+//
 
 
 }
