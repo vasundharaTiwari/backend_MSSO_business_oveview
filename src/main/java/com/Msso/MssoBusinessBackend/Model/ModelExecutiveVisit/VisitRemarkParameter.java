@@ -25,10 +25,18 @@ public class VisitRemarkParameter {
     private String u_loc;
 
     private Date bmBranchJoinDate;
-
+    private Date branchOpeningDate;
     private  String branch_code;
     private BigDecimal perEmployeeBusiness;
     private BigDecimal total_staff;
+
+    public Date getBranchOpeningDate() {
+        return branchOpeningDate;
+    }
+
+    public void setBranchOpeningDate(Date branchOpeningDate) {
+        this.branchOpeningDate = branchOpeningDate;
+    }
 
     public String getEmployeeDataRemark() {
         return employeeDataRemark;

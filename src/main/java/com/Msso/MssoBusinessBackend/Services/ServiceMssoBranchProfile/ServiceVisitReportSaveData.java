@@ -108,7 +108,7 @@ public class ServiceVisitReportSaveData {
         visitDataStaffCompliance.setVisitor_branch_code(visitRemarkParameter.getVisitor_branch_code());
         visitDataStaffCompliance.setU_loc(visitRemarkParameter.getU_loc());
 
-        visitDataStaffCompliance.setBranchOpenDate(visitDataStaffCompliance.getBranchOpenDate());
+        visitDataStaffCompliance.setBranchOpenDate(visitRemarkParameter.getBranchOpeningDate());
         //////////////////////////******************remark****************************
         visitDataStaffCompliance.setRegion(visitRemarkParameter.getRegion());
         visitDataStaffCompliance.setEmployeeDataRemark(visitRemarkParameter.getEmployeeDataRemark());
