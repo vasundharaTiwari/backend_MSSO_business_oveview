@@ -1908,6 +1908,126 @@ public class ExecutiveVisitingData {
         this.bmBranchJoinDate = bmBranchJoinDate;
     }
 
+    public BigDecimal getSbSuperMarch() {
+        return sbSuperMarch;
+    }
+
+    public void setSbSuperMarch(BigDecimal sbSuperMarch) {
+        this.sbSuperMarch = sbSuperMarch;
+    }
+
+    public BigDecimal getCaSuperMarch() {
+        return caSuperMarch;
+    }
+
+    public void setCaSuperMarch(BigDecimal caSuperMarch) {
+        this.caSuperMarch = caSuperMarch;
+    }
+
+    public BigDecimal getTdSuperMarch() {
+        return tdSuperMarch;
+    }
+
+    public void setTdSuperMarch(BigDecimal tdSuperMarch) {
+        this.tdSuperMarch = tdSuperMarch;
+    }
+
+    public BigDecimal getCasaSuperMarch() {
+        return casaSuperMarch;
+    }
+
+    public void setCasaSuperMarch(BigDecimal casaSuperMarch) {
+        this.casaSuperMarch = casaSuperMarch;
+    }
+
+    public BigDecimal getDepositSuperMarch() {
+        return depositSuperMarch;
+    }
+
+    public void setDepositSuperMarch(BigDecimal depositSuperMarch) {
+        this.depositSuperMarch = depositSuperMarch;
+    }
+
+    public BigDecimal getAdvancesSuperMarch() {
+        return advancesSuperMarch;
+    }
+
+    public void setAdvancesSuperMarch(BigDecimal advancesSuperMarch) {
+        this.advancesSuperMarch = advancesSuperMarch;
+    }
+
+    public BigDecimal getTotal_retailSuperMarch() {
+        return total_retailSuperMarch;
+    }
+
+    public void setTotal_retailSuperMarch(BigDecimal total_retailSuperMarch) {
+        this.total_retailSuperMarch = total_retailSuperMarch;
+    }
+
+    public BigDecimal getHousingSuperMarch() {
+        return housingSuperMarch;
+    }
+
+    public void setHousingSuperMarch(BigDecimal housingSuperMarch) {
+        this.housingSuperMarch = housingSuperMarch;
+    }
+
+    public BigDecimal getVehicleSuperMarch() {
+        return vehicleSuperMarch;
+    }
+
+    public void setVehicleSuperMarch(BigDecimal vehicleSuperMarch) {
+        this.vehicleSuperMarch = vehicleSuperMarch;
+    }
+
+    public BigDecimal getEducationSuperMarch() {
+        return educationSuperMarch;
+    }
+
+    public void setEducationSuperMarch(BigDecimal educationSuperMarch) {
+        this.educationSuperMarch = educationSuperMarch;
+    }
+
+    public BigDecimal getAgriSuperMarch() {
+        return agriSuperMarch;
+    }
+
+    public void setAgriSuperMarch(BigDecimal agriSuperMarch) {
+        this.agriSuperMarch = agriSuperMarch;
+    }
+
+    public BigDecimal getMsmeSuperMarch() {
+        return msmeSuperMarch;
+    }
+
+    public void setMsmeSuperMarch(BigDecimal msmeSuperMarch) {
+        this.msmeSuperMarch = msmeSuperMarch;
+    }
+
+    public BigDecimal getGoldSuperMarch() {
+        return goldSuperMarch;
+    }
+
+    public void setGoldSuperMarch(BigDecimal goldSuperMarch) {
+        this.goldSuperMarch = goldSuperMarch;
+    }
+
+    public BigDecimal getShgSuperMarch() {
+        return shgSuperMarch;
+    }
+
+    public void setShgSuperMarch(BigDecimal shgSuperMarch) {
+        this.shgSuperMarch = shgSuperMarch;
+    }
+
+    public BigDecimal getTotal_ramSuperMarch() {
+        return total_ramSuperMarch;
+    }
+
+    public void setTotal_ramSuperMarch(BigDecimal total_ramSuperMarch) {
+        this.total_ramSuperMarch = total_ramSuperMarch;
+    }
+
     //*****************************************************************************
     @Column(columnDefinition = "DATE")
     private LocalDate visit_date;
@@ -2120,7 +2240,24 @@ public class ExecutiveVisitingData {
     private BigDecimal total_ramComingMarch;
     private BigDecimal npaComingMarch;
 //**********************************************************super march*****************************************************************
-    private BigDecimal total_businessSuperMarch;
+private BigDecimal total_businessSuperMarch;
+    private BigDecimal sbSuperMarch;
+    private BigDecimal caSuperMarch;
+    private BigDecimal tdSuperMarch;
+    private BigDecimal casaSuperMarch;
+    private BigDecimal depositSuperMarch;
+    private BigDecimal advancesSuperMarch;
+
+
+    private BigDecimal total_retailSuperMarch;
+    private BigDecimal housingSuperMarch;
+    private BigDecimal vehicleSuperMarch;
+    private BigDecimal educationSuperMarch;
+    private BigDecimal agriSuperMarch;
+    private BigDecimal msmeSuperMarch;
+    private BigDecimal goldSuperMarch;
+    private BigDecimal shgSuperMarch;
+    private BigDecimal total_ramSuperMarch;
     private BigDecimal npaSuperMarch;
 
     //*********************************************disbursement*****************************

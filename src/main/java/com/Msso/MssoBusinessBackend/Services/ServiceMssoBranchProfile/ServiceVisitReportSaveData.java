@@ -503,8 +503,23 @@ public class ServiceVisitReportSaveData {
         else{mssoBranchProfileTargetDataDto = this.repoMssoBranchProfileTargetData.getSuperAchieverRO(roname, endDate);
         }
 
-        executiveVisitingData.setTotal_businessSuperMarch(mssoBranchProfileTargetDataDto.getTotal_business());
 
+        executiveVisitingData.setSbSuperMarch(mssoBranchProfileTargetDataDto.getSb());
+        executiveVisitingData.setCaSuperMarch(mssoBranchProfileTargetDataDto.getCa());
+        executiveVisitingData.setTdSuperMarch(mssoBranchProfileTargetDataDto.getTd());
+        executiveVisitingData.setTotal_businessSuperMarch(mssoBranchProfileTargetDataDto.getTotal_business());
+        executiveVisitingData.setAdvancesSuperMarch(mssoBranchProfileTargetDataDto.getAdvances());
+        executiveVisitingData.setDepositSuperMarch(mssoBranchProfileTargetDataDto.getDeposit());
+        executiveVisitingData.setCasaSuperMarch(mssoBranchProfileTargetDataDto.getCasa());
+        executiveVisitingData.setTotal_ramSuperMarch(mssoBranchProfileTargetDataDto.getTotal_ram());
+        executiveVisitingData.setTotal_retailSuperMarch(mssoBranchProfileTargetDataDto.getTotal_retail());
+        executiveVisitingData.setHousingSuperMarch(mssoBranchProfileTargetDataDto.getHousing());
+        executiveVisitingData.setVehicleSuperMarch(mssoBranchProfileTargetDataDto.getVehicle());
+        executiveVisitingData.setShgSuperMarch(mssoBranchProfileTargetDataDto.getShg());
+        executiveVisitingData.setGoldSuperMarch(mssoBranchProfileTargetDataDto.getGold());
+        executiveVisitingData.setEducationSuperMarch(mssoBranchProfileTargetDataDto.getEducation());
+        executiveVisitingData.setAgriSuperMarch(mssoBranchProfileTargetDataDto.getAgri());
+        executiveVisitingData.setMsmeSuperMarch(mssoBranchProfileTargetDataDto.getMsme());
         executiveVisitingData.setNpaSuperMarch(mssoBranchProfileTargetDataDto.getNpa());
         repoVisitReport.save(executiveVisitingData);
 
