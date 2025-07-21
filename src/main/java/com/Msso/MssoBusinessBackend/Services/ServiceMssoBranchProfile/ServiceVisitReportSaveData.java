@@ -36,6 +36,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -742,10 +743,16 @@ public class ServiceVisitReportSaveData {
         else {   mssoProfileTimebarred = this.repoMssoBranchProfileSma.getgetTimebarredRO(roname);}
 
 
-        executiveVisitingData.setTotal_countTimeBarred(mssoProfileTimebarred.getTotal_count());
-        executiveVisitingData.setTotal_amountTimeBarred(mssoProfileTimebarred.getTotal_amount());
+        if (mssoProfileTimebarred != null) {
+            executiveVisitingData.setTotal_countTimeBarred(mssoProfileTimebarred.getTotal_count());
+            executiveVisitingData.setTotal_amountTimeBarred(mssoProfileTimebarred.getTotal_amount());
 
+        }
+        else {
+            executiveVisitingData.setTotal_countTimeBarred(0L);
+            executiveVisitingData.setTotal_amountTimeBarred(BigDecimal.valueOf(0));
 
+        }
 
         repoVisitReport.save(executiveVisitingData);
 
