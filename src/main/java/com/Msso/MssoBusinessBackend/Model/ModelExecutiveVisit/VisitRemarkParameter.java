@@ -15,7 +15,7 @@ public class VisitRemarkParameter {
     private  String accountAndDigitalStatusRemark;
     private  String socialSecurityRemark;
     private  String otherRemark;
-
+    private String employeeDataRemark;
     private  String visitor_userid;
     private  String visitor_name;
     private  String visitor_designation;
@@ -29,6 +29,14 @@ public class VisitRemarkParameter {
     private  String branch_code;
     private BigDecimal perEmployeeBusiness;
     private BigDecimal total_staff;
+
+    public String getEmployeeDataRemark() {
+        return employeeDataRemark;
+    }
+
+    public void setEmployeeDataRemark(String employeeDataRemark) {
+        this.employeeDataRemark = employeeDataRemark;
+    }
 
     public String getParameterDetailRemark() {
         return parameterDetailRemark;

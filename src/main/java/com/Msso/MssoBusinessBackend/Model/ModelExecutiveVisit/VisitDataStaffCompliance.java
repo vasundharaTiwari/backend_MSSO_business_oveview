@@ -32,6 +32,10 @@ public class VisitDataStaffCompliance {
     private Long apyTarget;
 
 
+    @Column(columnDefinition = "DATE")
+    private Date  socialSecurityReportDate;
+    @Column(columnDefinition = "DATE")
+    private Date branchOpenDate;
     private Long pmjdyTarget;
 
     private Long internet_banking ;
@@ -63,7 +67,7 @@ public class VisitDataStaffCompliance {
     private Long rural;
     private Long metropolitan;
     private Long semiUrban;
-    private Date branchopendate;
+
 
 
     private String main_region;
@@ -114,6 +118,8 @@ public class VisitDataStaffCompliance {
     private String socialSecurityRemark;
     @Column(columnDefinition = "TEXT")
     private String otherRemark;
+    @Column(columnDefinition = "TEXT")
+    private String employeeDataRemark;
     private  String visitor_userid;
 
 
@@ -126,6 +132,30 @@ public class VisitDataStaffCompliance {
     private  BigDecimal  perEmployeeBusiness;
     private Long bcCount;
     private  String region;
+
+    public Date getSocialSecurityReportDate() {
+        return socialSecurityReportDate;
+    }
+
+    public void setSocialSecurityReportDate(Date socialSecurityReportDate) {
+        this.socialSecurityReportDate = socialSecurityReportDate;
+    }
+
+    public Date getBranchOpenDate() {
+        return branchOpenDate;
+    }
+
+    public void setBranchOpenDate(Date branchOpenDate) {
+        this.branchOpenDate = branchOpenDate;
+    }
+
+    public String getEmployeeDataRemark() {
+        return employeeDataRemark;
+    }
+
+    public void setEmployeeDataRemark(String employeeDataRemark) {
+        this.employeeDataRemark = employeeDataRemark;
+    }
 
     public String getRegion() {
         return region;
@@ -407,13 +437,7 @@ public class VisitDataStaffCompliance {
         this.semiUrban = semiUrban;
     }
 
-    public Date getBranchopendate() {
-        return branchopendate;
-    }
 
-    public void setBranchopendate(Date branchopendate) {
-        this.branchopendate = branchopendate;
-    }
 
     public String getMain_region() {
         return main_region;
