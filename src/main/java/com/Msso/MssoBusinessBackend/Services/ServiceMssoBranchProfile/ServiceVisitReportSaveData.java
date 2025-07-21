@@ -99,6 +99,7 @@ public class ServiceVisitReportSaveData {
         executiveVisitingData.setVisit_date(LocalDate.now());
         executiveVisitingData.setBranch_code(visitRemarkParameter.getBranch_code());
         executiveVisitingData.setRegion(visitRemarkParameter.getRegion());
+        executiveVisitingData.setBmBranchJoinDate(visitRemarkParameter.getBmBranchJoinDate());
 
         visitDataStaffCompliance.setBranch_code(visitRemarkParameter.getBranch_code());
         visitDataStaffCompliance.setVisit_date(LocalDate.now());
@@ -123,8 +124,8 @@ public class ServiceVisitReportSaveData {
         visitDataStaffCompliance.setNpaClassificationRemark(visitRemarkParameter.getNpaClassificationRemark());
         visitDataStaffCompliance.setAccountAndDigitalStatusRemark(visitRemarkParameter.getAccountAndDigitalStatusRemark());
         visitDataStaffCompliance.setPerEmployeeBusiness(visitRemarkParameter.getPerEmployeeBusiness());
-        visitDataStaffCompliance.setTotal_staff(visitRemarkParameter.getTotal_staff());
-        executiveVisitingData.setBmBranchJoinDate(visitRemarkParameter.getBmBranchJoinDate());
+        visitDataStaffCompliance.setTotal_staff_branch(visitRemarkParameter.getTotal_staff_branch());
+          visitDataStaffCompliance.setTotal_staff_region(visitRemarkParameter.getTotal_staff_region());
         reportStaffCompliance.save(visitDataStaffCompliance);
         repoVisitReport.save(executiveVisitingData);
         updateVisitReportSma(visitRemarkParameter.getBranch_code(),visitRemarkParameter.getU_loc(),visitRemarkParameter.getRegion() ,executiveVisitingData.getVisit_date());

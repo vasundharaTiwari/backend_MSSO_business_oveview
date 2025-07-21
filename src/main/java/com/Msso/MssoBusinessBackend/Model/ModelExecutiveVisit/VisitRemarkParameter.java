@@ -28,8 +28,25 @@ public class VisitRemarkParameter {
     private Date branchOpeningDate;
     private  String branch_code;
     private BigDecimal perEmployeeBusiness;
-    private BigDecimal total_staff;
 
+    public BigDecimal getTotal_staff_branch() {
+        return total_staff_branch;
+    }
+
+    public void setTotal_staff_branch(BigDecimal total_staff_branch) {
+        this.total_staff_branch = total_staff_branch;
+    }
+
+    public BigDecimal getTotal_staff_region() {
+        return total_staff_region;
+    }
+
+    public void setTotal_staff_region(BigDecimal total_staff_region) {
+        this.total_staff_region = total_staff_region;
+    }
+
+    private  BigDecimal total_staff_branch;
+    private  BigDecimal  total_staff_region;
     public Date getBranchOpeningDate() {
         return branchOpeningDate;
     }
@@ -190,11 +207,5 @@ public class VisitRemarkParameter {
         this.perEmployeeBusiness = perEmployeeBusiness;
     }
 
-    public BigDecimal getTotal_staff() {
-        return total_staff;
-    }
 
-    public void setTotal_staff(BigDecimal total_staff) {
-        this.total_staff = total_staff;
-    }
 }

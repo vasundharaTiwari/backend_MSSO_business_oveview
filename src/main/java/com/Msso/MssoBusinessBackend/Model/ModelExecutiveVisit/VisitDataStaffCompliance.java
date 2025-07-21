@@ -128,10 +128,28 @@ public class VisitDataStaffCompliance {
     private  String visitor_branch_code;
     private  String visitor_region;
 
-    private  BigDecimal total_staff;
+    private  BigDecimal total_staff_branch;
     private  BigDecimal  perEmployeeBusiness;
     private Long bcCount;
     private  String region;
+
+    private  BigDecimal  total_staff_region;
+
+    public BigDecimal getTotal_staff_branch() {
+        return total_staff_branch;
+    }
+
+    public void setTotal_staff_branch(BigDecimal total_staff_branch) {
+        this.total_staff_branch = total_staff_branch;
+    }
+
+    public BigDecimal getTotal_staff_region() {
+        return total_staff_region;
+    }
+
+    public void setTotal_staff_region(BigDecimal total_staff_region) {
+        this.total_staff_region = total_staff_region;
+    }
 
     public Date getSocialSecurityReportDate() {
         return socialSecurityReportDate;
@@ -743,13 +761,7 @@ public class VisitDataStaffCompliance {
         this.visitor_region = visitor_region;
     }
 
-    public BigDecimal getTotal_staff() {
-        return total_staff;
-    }
 
-    public void setTotal_staff(BigDecimal total_staff) {
-        this.total_staff = total_staff;
-    }
 
     public BigDecimal getPerEmployeeBusiness() {
         return perEmployeeBusiness;
