@@ -5,6 +5,7 @@ import com.Msso.MssoBusinessBackend.Model.MssoProfileSmaNpaClassification.MssoBr
 import com.Msso.MssoBusinessBackend.Model.MssoProfileSmaNpaClassification.MssoBranchProfileSmaDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileReviewRenewal.MssoProfileComplianceDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileSmaNpaClassification.MssoProfileNpaClassificationDto;
+import com.Msso.MssoBusinessBackend.Model.MssoProfileSmaNpaClassification.SectorwiseNpaDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -91,6 +92,42 @@ public interface RepoMssoBranchProfileSma extends JpaRepository<MssoBranchProfil
                                  ; 
              """, nativeQuery = true)
     public MssoProfileReviewRenewalDto getPendingRevieRenewalRO(@Param("roname") String roname);
+    //*******************************************************NPA SECTOR WISE ******************************************************
+
+    @Query(value = """
+            SELECT report_date,round(sum( total_os_amt::numeric), 2) as total_os_amt,sum( total_housing)as total_housing ,round(sum( housing_amt::numeric), 2) as housing_amt ,
+            sum(total_natl)as total_natl ,round(sum( natl_amt::numeric), 2) as natl_amt ,sum(total_shg)as total_shg,
+            round(sum( shg_amt::numeric), 2) as shg_amt ,
+                sum(kcc_atl)as kcc_atl,round(sum( kcc_atl_amt::numeric), 2) as kcc_atl_amt ,sum(other)as other ,round(sum( other_amt::numeric), 2) as other_amt ,
+                sum(nacc)as nacc ,round(sum( nacc_amt::numeric), 2) as nacc_amt \s
+                FROM msso_branch_profile.sectorwise_npa
+                 where  report_date=(select max(report_date) from msso_branch_profile.sectorwise_npa )  group by report_date   """, nativeQuery = true)
+    public SectorwiseNpaDto getNpaSectorWiseHo();
+
+
+    @Query(value = """
+            SELECT report_date,round(sum( total_os_amt::numeric)*100, 2) as total_os_amt,sum( total_housing)as total_housing ,round(sum( housing_amt::numeric)*100, 2) as housing_amt ,
+            sum(total_natl)as total_natl ,round(sum( natl_amt::numeric)*100, 2) as natl_amt ,sum(total_shg)as total_shg,
+            round(sum( shg_amt::numeric)*100, 2) as shg_amt ,
+            sum(kcc_atl)as kcc_atl,round(sum( kcc_atl_amt::numeric)*100, 2) as kcc_atl_amt ,sum(other)as other ,round(sum( other_amt::numeric)*100, 2) as other_amt ,
+            sum(nacc)as nacc ,round(sum( nacc_amt::numeric)*100, 2) as nacc_amt \s
+            FROM msso_branch_profile.sectorwise_npa
+             where  report_date=(select max(report_date) from msso_branch_profile.sectorwise_npa ) and branch_code=:branchCode group by report_date;
+             """, nativeQuery = true)
+    public SectorwiseNpaDto getNpaSectorWiseBranch(@Param("branchCode") String branchCode);
+
+    @Query(value = """
+             SELECT report_date,round(sum( total_os_amt::numeric), 2) as total_os_amt,sum( total_housing)as total_housing ,round(sum( housing_amt::numeric), 2) as housing_amt ,
+            sum(total_natl)as total_natl ,round(sum( natl_amt::numeric), 2) as natl_amt ,sum(total_shg)as total_shg,
+            round(sum( shg_amt::numeric), 2) as shg_amt ,
+                sum(kcc_atl)as kcc_atl,round(sum( kcc_atl_amt::numeric), 2) as kcc_atl_amt ,sum(other)as other ,round(sum( other_amt::numeric), 2) as other_amt ,
+                sum(nacc)as nacc ,round(sum( nacc_amt::numeric), 2) as nacc_amt \s
+                FROM msso_branch_profile.sectorwise_npa
+                 where  report_date=(select max(report_date) from msso_branch_profile.sectorwise_npa ) and region=:roname group by report_date;
+                                	
+                                 ; 
+             """, nativeQuery = true)
+    public SectorwiseNpaDto getNpaSectorWiseRO(@Param("roname") String roname);
 
     //*******************************************************timebarred ******************************************************
 

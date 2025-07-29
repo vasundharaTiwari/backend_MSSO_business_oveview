@@ -4,6 +4,7 @@ import com.Msso.MssoBusinessBackend.Model.MssoProfileReviewRenewal.MssoProfileRe
 import com.Msso.MssoBusinessBackend.Model.MssoProfileSmaNpaClassification.MssoBranchProfileSmaDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileReviewRenewal.MssoProfileComplianceDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileSmaNpaClassification.MssoProfileNpaClassificationDto;
+import com.Msso.MssoBusinessBackend.Model.MssoProfileSmaNpaClassification.SectorwiseNpaDto;
 import com.Msso.MssoBusinessBackend.Repository.RepoMssoBrachProfileSma.RepoMssoBranchProfileSma;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,6 +52,27 @@ public class ServiceMssoBranchProfileSma {
 
         }
         return mssoProfileNpaClassificationDto;
+
+    }
+
+    public SectorwiseNpaDto getNpaSectorwise(String branchCode,
+
+                                             String roname,
+                                             String u_loc) {
+
+
+        SectorwiseNpaDto sectorwiseNpaDto = null;
+        if (u_loc.equalsIgnoreCase("HO")) {
+            sectorwiseNpaDto = this.repoMssoBranchProfileSma.getNpaSectorWiseHo();
+
+        } else if (u_loc.equalsIgnoreCase("BR")) {
+            sectorwiseNpaDto = this.repoMssoBranchProfileSma.getNpaSectorWiseBranch(branchCode);
+
+        } else {
+            sectorwiseNpaDto = this.repoMssoBranchProfileSma.getNpaSectorWiseRO(roname);
+
+        }
+        return sectorwiseNpaDto;
 
     }
     public MssoProfileReviewRenewalDto getPendingReview(String branchCode,
