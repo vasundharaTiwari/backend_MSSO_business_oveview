@@ -8,6 +8,7 @@ import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileModel.MssoBranchProfi
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileModel.MssoBranchProfileTargetDataDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileAccountStatusDigitalProduct.MssoFiSchemeDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileReviewRenewal.MssoProfileReviewRenewalDto;
+import com.Msso.MssoBusinessBackend.Model.MssoProfileSmaNpaClassification.AmountwiseNpaDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileSmaNpaClassification.MssoBranchProfileSmaDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileReviewRenewal.MssoProfileComplianceDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileSmaNpaClassification.MssoProfileNpaClassificationDto;
@@ -230,6 +231,21 @@ public class MssoBranchProfileController {
         System.out.println("npa_sectorwise");
         return sectorwiseNpaDto;
     }
+    @GetMapping("/npa_amountwise")
+    public AmountwiseNpaDto getNpaAmountwise(
+
+
+            @RequestParam String roname,
+            @RequestParam String branchCode,
+            @RequestParam String u_loc) {
+
+        AmountwiseNpaDto amountwiseNpaDto = serviceMssoBranchProfileSma.getNpaAmountwise(branchCode, roname, u_loc);
+
+
+        System.out.println("npa_sectorwise");
+        return amountwiseNpaDto;
+    }
+
 
     @GetMapping("/account-status")
     public MssoBranchProfileAccountStatusDto getMssoAccountStatus(

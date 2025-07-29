@@ -1,6 +1,7 @@
 package com.Msso.MssoBusinessBackend.Services.ServiceMssoBranchProfile;
 
 import com.Msso.MssoBusinessBackend.Model.MssoProfileReviewRenewal.MssoProfileReviewRenewalDto;
+import com.Msso.MssoBusinessBackend.Model.MssoProfileSmaNpaClassification.AmountwiseNpaDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileSmaNpaClassification.MssoBranchProfileSmaDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileReviewRenewal.MssoProfileComplianceDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileSmaNpaClassification.MssoProfileNpaClassificationDto;
@@ -75,6 +76,28 @@ public class ServiceMssoBranchProfileSma {
         return sectorwiseNpaDto;
 
     }
+
+    public AmountwiseNpaDto getNpaAmountwise(String branchCode,
+
+                                             String roname,
+                                             String u_loc) {
+
+
+        AmountwiseNpaDto amountwiseNpaDto = null;
+        if (u_loc.equalsIgnoreCase("HO")) {
+            amountwiseNpaDto = this.repoMssoBranchProfileSma.getNpaAmountWiseHo();
+
+        } else if (u_loc.equalsIgnoreCase("BR")) {
+            amountwiseNpaDto = this.repoMssoBranchProfileSma.getNpaSAmountWiseBranch(branchCode);
+
+        } else {
+            amountwiseNpaDto = this.repoMssoBranchProfileSma.getAmountWiseRO(roname);
+
+        }
+        return amountwiseNpaDto;
+
+    }
+
     public MssoProfileReviewRenewalDto getPendingReview(String branchCode,
 
                                                         String roname,
