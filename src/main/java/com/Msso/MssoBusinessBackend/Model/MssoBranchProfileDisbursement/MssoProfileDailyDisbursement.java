@@ -45,5 +45,8 @@ public class MssoProfileDailyDisbursement {
     private int gold_count;
     private Double shg;
     private int shg_count;
-
+    private Double  pm_suryaghar ;
+    private int pm_suryaghar_count ;
+    private Double  pmvishvakarma;
+    private int pmvishvakarma_count;
 }

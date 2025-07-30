@@ -14,6 +14,58 @@ public class MssoBranchProfileSmaDto {
     private BigDecimal sma1_amount;
     private Long sma2_count;
     private BigDecimal sma2_amount;
+    private BigDecimal sma0Percentage;
+    private BigDecimal sma1Percentage;
+    private BigDecimal sma2Percentage;
+    private BigDecimal smaTotalPercentage;
+
+    public BigDecimal getSma0Percentage() {
+        return sma0Percentage;
+    }
+
+    public void setSma0Percentage(BigDecimal sma0Percentage) {
+        this.sma0Percentage = sma0Percentage;
+    }
+
+    public MssoBranchProfileSmaDto(Date report_date, Long total_count, BigDecimal total_amount, Long sma0_count, BigDecimal sma0_amount, Long sma1_count, BigDecimal sma1_amount, Long sma2_count, BigDecimal sma2_amount, BigDecimal sma0Percentage, BigDecimal sma1Percentage, BigDecimal sma2Percentage, BigDecimal smaTotalPercentage) {
+        this.report_date = report_date;
+        this.total_count = total_count;
+        this.total_amount = total_amount;
+        this.sma0_count = sma0_count;
+        this.sma0_amount = sma0_amount;
+        this.sma1_count = sma1_count;
+        this.sma1_amount = sma1_amount;
+        this.sma2_count = sma2_count;
+        this.sma2_amount = sma2_amount;
+        this.sma0Percentage = sma0Percentage;
+        this.sma1Percentage = sma1Percentage;
+        this.sma2Percentage = sma2Percentage;
+        this.smaTotalPercentage = smaTotalPercentage;
+    }
+
+    public BigDecimal getSma1Percentage() {
+        return sma1Percentage;
+    }
+
+    public void setSma1Percentage(BigDecimal sma1Percentage) {
+        this.sma1Percentage = sma1Percentage;
+    }
+
+    public BigDecimal getSma2Percentage() {
+        return sma2Percentage;
+    }
+
+    public void setSma2Percentage(BigDecimal sma2Percentage) {
+        this.sma2Percentage = sma2Percentage;
+    }
+
+    public BigDecimal getSmaTotalPercentage() {
+        return smaTotalPercentage;
+    }
+
+    public void setSmaTotalPercentage(BigDecimal smaTotalPercentage) {
+        this.smaTotalPercentage = smaTotalPercentage;
+    }
 
     public Date getReport_date() {
         return report_date;
