@@ -2028,6 +2028,70 @@ public class ExecutiveVisitingData {
         this.total_ramSuperMarch = total_ramSuperMarch;
     }
 
+    public BigDecimal getPm_suryaghar() {
+        return pm_suryaghar;
+    }
+
+    public void setPm_suryaghar(BigDecimal pm_suryaghar) {
+        this.pm_suryaghar = pm_suryaghar;
+    }
+
+    public int getPm_suryaghar_count() {
+        return pm_suryaghar_count;
+    }
+
+    public void setPm_suryaghar_count(int pm_suryaghar_count) {
+        this.pm_suryaghar_count = pm_suryaghar_count;
+    }
+
+    public BigDecimal getPmvishvakarma() {
+        return pmvishvakarma;
+    }
+
+    public void setPmvishvakarma(BigDecimal pmvishvakarma) {
+        this.pmvishvakarma = pmvishvakarma;
+    }
+
+    public int getPmvishvakarma_count() {
+        return pmvishvakarma_count;
+    }
+
+    public void setPmvishvakarma_count(int pmvishvakarma_count) {
+        this.pmvishvakarma_count = pmvishvakarma_count;
+    }
+
+    public BigDecimal getPm_suryagharTarget() {
+        return pm_suryagharTarget;
+    }
+
+    public void setPm_suryagharTarget(BigDecimal pm_suryagharTarget) {
+        this.pm_suryagharTarget = pm_suryagharTarget;
+    }
+
+    public int getPm_suryaghar_countTarget() {
+        return pm_suryaghar_countTarget;
+    }
+
+    public void setPm_suryaghar_countTarget(int pm_suryaghar_countTarget) {
+        this.pm_suryaghar_countTarget = pm_suryaghar_countTarget;
+    }
+
+    public BigDecimal getPmvishvakarmaTarget() {
+        return pmvishvakarmaTarget;
+    }
+
+    public void setPmvishvakarmaTarget(BigDecimal pmvishvakarmaTarget) {
+        this.pmvishvakarmaTarget = pmvishvakarmaTarget;
+    }
+
+    public int getPmvishvakarma_countTarget() {
+        return pmvishvakarma_countTarget;
+    }
+
+    public void setPmvishvakarma_countTarget(int pmvishvakarma_countTarget) {
+        this.pmvishvakarma_countTarget = pmvishvakarma_countTarget;
+    }
+
     //*****************************************************************************
     @Column(columnDefinition = "DATE")
     private LocalDate visit_date;
@@ -2284,7 +2348,10 @@ private BigDecimal total_businessSuperMarch;
     private int gold_countDisb;
     private BigDecimal shgDisb;
     private int shg_countDisb;
-
+    private BigDecimal  pm_suryaghar ;
+    private int pm_suryaghar_count ;
+    private BigDecimal  pmvishvakarma;
+    private int pmvishvakarma_count;
     //************************************************disb target**********************************************
 
     @Column(columnDefinition = "DATE")
@@ -2310,7 +2377,12 @@ private BigDecimal total_businessSuperMarch;
     private BigDecimal shgDisbTarget;
     private int shg_countDisbTarget;
 
+    private BigDecimal  pm_suryagharTarget ;
 
+    private int pm_suryaghar_countTarget ;
+    private BigDecimal  pmvishvakarmaTarget;
+
+    private int pmvishvakarma_countTarget;
     //***************************************************sma data****************************************************************
     @Column(columnDefinition = "DATE")
     private Date report_dateSma;

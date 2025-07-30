@@ -47,7 +47,7 @@ public class VisitReportController {
 
     @PostMapping("/visit-report-save")
     public ExecutiveVisitingData savevisitData(@RequestBody VisitRemarkParameter visitRemarkParameter) {
-        LocalDate visit_date = LocalDate.parse("2025-07-17");
+       // LocalDate visit_date = LocalDate.parse("2025-07-17");
 
         return serviceVisitReport.updateVisitReport(visitRemarkParameter);
     }

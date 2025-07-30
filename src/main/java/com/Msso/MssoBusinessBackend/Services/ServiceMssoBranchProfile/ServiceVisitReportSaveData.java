@@ -687,6 +687,10 @@ public class ServiceVisitReportSaveData {
         executiveVisitingData.setShg_countDisb(Math.toIntExact(mssoProfileDailyDisburseDto.getShg_count()));
         executiveVisitingData.setShgDisb(mssoProfileDailyDisburseDto.getShg());
 
+        executiveVisitingData.setPm_suryaghar_count(Math.toIntExact(mssoProfileDailyDisburseDto.getPm_suryaghar_count()));
+        executiveVisitingData.setPm_suryaghar(mssoProfileDailyDisburseDto.getPm_suryaghar());
+        executiveVisitingData.setPmvishvakarma_count(Math.toIntExact(mssoProfileDailyDisburseDto.getPmvishvakarma_count()));
+        executiveVisitingData.setPmvishvakarma(mssoProfileDailyDisburseDto.getPmvishvakarma());
 
 
         repoVisitReport.save(executiveVisitingData);
@@ -731,6 +735,10 @@ public class ServiceVisitReportSaveData {
         executiveVisitingData.setShg_countDisbTarget(Math.toIntExact(mssoProfileDailyDisburseDto.getShg_count()));
         executiveVisitingData.setShgDisbTarget(mssoProfileDailyDisburseDto.getShg());
 
+        executiveVisitingData.setPm_suryaghar_countTarget(Math.toIntExact(mssoProfileDailyDisburseDto.getPm_suryaghar_count()));
+        executiveVisitingData.setPm_suryagharTarget(mssoProfileDailyDisburseDto.getPm_suryaghar());
+        executiveVisitingData.setPmvishvakarma_countTarget(Math.toIntExact(mssoProfileDailyDisburseDto.getPmvishvakarma_count()));
+        executiveVisitingData.setPmvishvakarmaTarget(mssoProfileDailyDisburseDto.getPmvishvakarma());
 
 
         repoVisitReport.save(executiveVisitingData);
