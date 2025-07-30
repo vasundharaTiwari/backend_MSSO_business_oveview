@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Date;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,30 +26,30 @@ public class VisitDataStaffCompliance {
     private String branch_code;
     private Long pmjjby;
     private Long pmsby;
-    private Long apy ;
-    private Long pmjdy ;
+    private Long apy;
+    private Long pmjdy;
     private Long pmjjbyTarget;
     private Long pmsbyTarget;
     private Long apyTarget;
 
 
     @Column(columnDefinition = "DATE")
-    private Date  socialSecurityReportDate;
+    private Date socialSecurityReportDate;
     @Column(columnDefinition = "DATE")
     private Date branchOpenDate;
     private Long pmjdyTarget;
 
-    private Long internet_banking ;
-    private Long mobile_banking ;
-    private Long  atm_card ;
-    private Long internet_bankingTarget ;
-    private Long mobile_bankingTarget ;
-    private Long  atm_cardTarget ;
+    private Long internet_banking;
+    private Long mobile_banking;
+    private Long atm_card;
+    private Long internet_bankingTarget;
+    private Long mobile_bankingTarget;
+    private Long atm_cardTarget;
 
     private Long casa_count;
     private BigDecimal casa_amount;
-    private Long ckyc ;
-    private Long multiple_cif ;
+    private Long ckyc;
+    private Long multiple_cif;
 
     private Long sb_ac_count;
     private Long ca_ac_count;
@@ -58,8 +59,6 @@ public class VisitDataStaffCompliance {
     private Long ca_ac_countTarget;
 
 
-
-
     //********************************branch category *************************************
     private Long totalBranchCount;
 
@@ -67,7 +66,6 @@ public class VisitDataStaffCompliance {
     private Long rural;
     private Long metropolitan;
     private Long semiUrban;
-
 
 
     private String main_region;
@@ -120,20 +118,76 @@ public class VisitDataStaffCompliance {
     private String otherRemark;
     @Column(columnDefinition = "TEXT")
     private String employeeDataRemark;
-    private  String visitor_userid;
+    private String visitor_userid;
 
 
-    private  String visitor_name;
-    private  String visitor_designation;
-    private  String visitor_branch_code;
-    private  String visitor_region;
+    private String visitor_name;
+    private String visitor_designation;
+    private String visitor_branch_code;
+    private String visitor_region;
 
-    private  BigDecimal total_staff_branch;
-    private  BigDecimal  perEmployeeBusiness;
+    private BigDecimal total_staff_branch;
+    private BigDecimal perEmployeeBusiness;
     private Long bcCount;
-    private  String region;
+    private String region;
 
-    private  BigDecimal  total_staff_region;
+    private BigDecimal total_staff_region;
+
+    private BigDecimal sma0Percentage;
+    private BigDecimal sma1Percentage;
+    private BigDecimal sma2Percentage;
+    private BigDecimal smaTotalPercentage;
+
+
+    private Long total_count;
+    private BigDecimal total_os_amt;
+    private Long count_below_1lakh;
+    private BigDecimal below_1lakh_amt;
+    private Long count_below_3lakh;
+    private BigDecimal below_3lakh_amt;
+    private Long count_below_24lakh;
+    private BigDecimal below_24lakh_amt;
+    private Long count_above_25lakh;
+    private BigDecimal above_25lakh_amt;
+
+    private Long addition_count;
+    private BigDecimal addition_os_amt;
+    private Long upgrade_count;
+    private BigDecimal upgrade_os_amt;
+    private Long recovered_count;
+    private BigDecimal recovered_os_amt;
+
+    public BigDecimal getSma0Percentage() {
+        return sma0Percentage;
+    }
+
+    public void setSma0Percentage(BigDecimal sma0Percentage) {
+        this.sma0Percentage = sma0Percentage;
+    }
+
+    public BigDecimal getSma1Percentage() {
+        return sma1Percentage;
+    }
+
+    public void setSma1Percentage(BigDecimal sma1Percentage) {
+        this.sma1Percentage = sma1Percentage;
+    }
+
+    public BigDecimal getSma2Percentage() {
+        return sma2Percentage;
+    }
+
+    public void setSma2Percentage(BigDecimal sma2Percentage) {
+        this.sma2Percentage = sma2Percentage;
+    }
+
+    public BigDecimal getSmaTotalPercentage() {
+        return smaTotalPercentage;
+    }
+
+    public void setSmaTotalPercentage(BigDecimal smaTotalPercentage) {
+        this.smaTotalPercentage = smaTotalPercentage;
+    }
 
     public BigDecimal getTotal_staff_branch() {
         return total_staff_branch;
@@ -456,7 +510,6 @@ public class VisitDataStaffCompliance {
     }
 
 
-
     public String getMain_region() {
         return main_region;
     }
@@ -760,7 +813,6 @@ public class VisitDataStaffCompliance {
     public void setVisitor_region(String visitor_region) {
         this.visitor_region = visitor_region;
     }
-
 
 
     public BigDecimal getPerEmployeeBusiness() {

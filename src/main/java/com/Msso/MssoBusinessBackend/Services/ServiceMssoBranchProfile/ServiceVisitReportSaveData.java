@@ -109,7 +109,10 @@ public class ServiceVisitReportSaveData {
         visitDataStaffCompliance.setVisitor_designation(visitRemarkParameter.getVisitor_designation());
         visitDataStaffCompliance.setVisitor_branch_code(visitRemarkParameter.getVisitor_branch_code());
         visitDataStaffCompliance.setU_loc(visitRemarkParameter.getU_loc());
-
+        visitDataStaffCompliance.setSma0Percentage(visitRemarkParameter.getSma0Percentage());
+        visitDataStaffCompliance.setSma1Percentage(visitRemarkParameter.getSma1Percentage());
+        visitDataStaffCompliance.setSma2Percentage(visitRemarkParameter.getSma2Percentage());
+        visitDataStaffCompliance.setSmaTotalPercentage(visitRemarkParameter.getSmaTotalPercentage());
         visitDataStaffCompliance.setBranchOpenDate(visitRemarkParameter.getBranchOpeningDate());
         //////////////////////////******************remark****************************
         visitDataStaffCompliance.setRegion(visitRemarkParameter.getRegion());

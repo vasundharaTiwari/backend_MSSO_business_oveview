@@ -8,11 +8,8 @@ import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileModel.MssoBranchProfi
 import com.Msso.MssoBusinessBackend.Model.MssoBranchProfileModel.MssoBranchProfileTargetDataDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileAccountStatusDigitalProduct.MssoFiSchemeDto;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileReviewRenewal.MssoProfileReviewRenewalDto;
-import com.Msso.MssoBusinessBackend.Model.MssoProfileSmaNpaClassification.AmountwiseNpaDto;
-import com.Msso.MssoBusinessBackend.Model.MssoProfileSmaNpaClassification.MssoBranchProfileSmaDto;
+import com.Msso.MssoBusinessBackend.Model.MssoProfileSmaNpaClassification.*;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileReviewRenewal.MssoProfileComplianceDto;
-import com.Msso.MssoBusinessBackend.Model.MssoProfileSmaNpaClassification.MssoProfileNpaClassificationDto;
-import com.Msso.MssoBusinessBackend.Model.MssoProfileSmaNpaClassification.SectorwiseNpaDto;
 import com.Msso.MssoBusinessBackend.Repository.RepoMssoBranchProfile.RepoMssoBranchProfileActualData;
 import com.Msso.MssoBusinessBackend.Services.ServiceMssoBranchProfile.*;
 import lombok.RequiredArgsConstructor;
@@ -246,7 +243,36 @@ public class MssoBranchProfileController {
         return amountwiseNpaDto;
     }
 
+    @GetMapping("/npa-progress")
+    public NpaRecoveryProgressDto getNpaProgress(
 
+
+            @RequestParam String roname,
+            @RequestParam String branchCode,
+            @RequestParam String u_loc) {
+
+        NpaRecoveryProgressDto npaRecoveryProgressDto = serviceMssoBranchProfileSma.getNpaRegularProgress(branchCode, roname, u_loc);
+
+
+        System.out.println("npa-progress");
+        return npaRecoveryProgressDto;
+    }
+
+
+    @GetMapping("/npa-progress-march")
+    public NpaRecoveryProgressDto getNpaProgressMarch(
+
+
+            @RequestParam String roname,
+            @RequestParam String branchCode,
+            @RequestParam String u_loc) {
+
+        NpaRecoveryProgressDto npaRecoveryProgressDto = serviceMssoBranchProfileSma.getNpaMarchProgress(branchCode, roname, u_loc);
+
+
+        System.out.println("npa-progress");
+        return npaRecoveryProgressDto;
+    }
     @GetMapping("/account-status")
     public MssoBranchProfileAccountStatusDto getMssoAccountStatus(
 

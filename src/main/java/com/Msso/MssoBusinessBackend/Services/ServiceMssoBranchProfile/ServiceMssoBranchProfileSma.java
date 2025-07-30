@@ -1,11 +1,8 @@
 package com.Msso.MssoBusinessBackend.Services.ServiceMssoBranchProfile;
 
 import com.Msso.MssoBusinessBackend.Model.MssoProfileReviewRenewal.MssoProfileReviewRenewalDto;
-import com.Msso.MssoBusinessBackend.Model.MssoProfileSmaNpaClassification.AmountwiseNpaDto;
-import com.Msso.MssoBusinessBackend.Model.MssoProfileSmaNpaClassification.MssoBranchProfileSmaDto;
+import com.Msso.MssoBusinessBackend.Model.MssoProfileSmaNpaClassification.*;
 import com.Msso.MssoBusinessBackend.Model.MssoProfileReviewRenewal.MssoProfileComplianceDto;
-import com.Msso.MssoBusinessBackend.Model.MssoProfileSmaNpaClassification.MssoProfileNpaClassificationDto;
-import com.Msso.MssoBusinessBackend.Model.MssoProfileSmaNpaClassification.SectorwiseNpaDto;
 import com.Msso.MssoBusinessBackend.Repository.RepoMssoBrachProfileSma.RepoMssoBranchProfileSma;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -95,6 +92,48 @@ public class ServiceMssoBranchProfileSma {
 
         }
         return amountwiseNpaDto;
+
+    }
+
+    public NpaRecoveryProgressDto getNpaRegularProgress(String branchCode,
+
+                                                        String roname,
+                                                        String u_loc) {
+
+
+        NpaRecoveryProgressDto npaRecoveryProgressDto = null;
+        if (u_loc.equalsIgnoreCase("HO")) {
+            npaRecoveryProgressDto = this.repoMssoBranchProfileSma.getNpaProgressHo();
+
+        } else if (u_loc.equalsIgnoreCase("BR")) {
+            npaRecoveryProgressDto = this.repoMssoBranchProfileSma.getNpaProgressBranch(branchCode);
+
+        } else {
+            npaRecoveryProgressDto = this.repoMssoBranchProfileSma.getNpaProgressRO(roname);
+
+        }
+        return npaRecoveryProgressDto;
+
+    }
+
+    public NpaRecoveryProgressDto getNpaMarchProgress(String branchCode,
+
+                                                        String roname,
+                                                        String u_loc) {
+
+
+        NpaRecoveryProgressDto npaRecoveryProgressDto = null;
+        if (u_loc.equalsIgnoreCase("HO")) {
+            npaRecoveryProgressDto = this.repoMssoBranchProfileSma.getNpaProgressMarchHo();
+
+        } else if (u_loc.equalsIgnoreCase("BR")) {
+            npaRecoveryProgressDto = this.repoMssoBranchProfileSma.getNpaProgressMarchBranch(branchCode);
+
+        } else {
+            npaRecoveryProgressDto = this.repoMssoBranchProfileSma.getNpaProgressMarchRO(roname);
+
+        }
+        return npaRecoveryProgressDto;
 
     }
 

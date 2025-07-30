@@ -7,27 +7,63 @@ import java.util.Date;
 
 public class VisitRemarkParameter {
 
-    private  String parameterDetailRemark;
-    private  String sanctionDisbursedRemark;
-    private  String smaRemark;
-    private  String npaClassificationRemark;
-    private  String complianceRemark;
-    private  String accountAndDigitalStatusRemark;
-    private  String socialSecurityRemark;
-    private  String otherRemark;
+    private String parameterDetailRemark;
+    private String sanctionDisbursedRemark;
+    private String smaRemark;
+    private String npaClassificationRemark;
+    private String complianceRemark;
+    private String accountAndDigitalStatusRemark;
+    private String socialSecurityRemark;
+    private String otherRemark;
     private String employeeDataRemark;
-    private  String visitor_userid;
-    private  String visitor_name;
-    private  String visitor_designation;
-    private  String visitor_branch_code;
-    private  String visitor_region;
-    private  String region;
+    private String visitor_userid;
+    private String visitor_name;
+    private String visitor_designation;
+    private String visitor_branch_code;
+    private String visitor_region;
+    private String region;
     private String u_loc;
 
     private Date bmBranchJoinDate;
     private Date branchOpeningDate;
-    private  String branch_code;
+    private String branch_code;
     private BigDecimal perEmployeeBusiness;
+    private BigDecimal sma0Percentage;
+    private BigDecimal sma1Percentage;
+    private BigDecimal sma2Percentage;
+    private BigDecimal smaTotalPercentage;
+
+    public BigDecimal getSma0Percentage() {
+        return sma0Percentage;
+    }
+
+    public void setSma0Percentage(BigDecimal sma0Percentage) {
+        this.sma0Percentage = sma0Percentage;
+    }
+
+    public BigDecimal getSma1Percentage() {
+        return sma1Percentage;
+    }
+
+    public void setSma1Percentage(BigDecimal sma1Percentage) {
+        this.sma1Percentage = sma1Percentage;
+    }
+
+    public BigDecimal getSma2Percentage() {
+        return sma2Percentage;
+    }
+
+    public void setSma2Percentage(BigDecimal sma2Percentage) {
+        this.sma2Percentage = sma2Percentage;
+    }
+
+    public BigDecimal getSmaTotalPercentage() {
+        return smaTotalPercentage;
+    }
+
+    public void setSmaTotalPercentage(BigDecimal smaTotalPercentage) {
+        this.smaTotalPercentage = smaTotalPercentage;
+    }
 
     public BigDecimal getTotal_staff_branch() {
         return total_staff_branch;
@@ -45,8 +81,9 @@ public class VisitRemarkParameter {
         this.total_staff_region = total_staff_region;
     }
 
-    private  BigDecimal total_staff_branch;
-    private  BigDecimal  total_staff_region;
+    private BigDecimal total_staff_branch;
+    private BigDecimal total_staff_region;
+
     public Date getBranchOpeningDate() {
         return branchOpeningDate;
     }
