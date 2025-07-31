@@ -138,9 +138,23 @@ public class VisitDataStaffCompliance {
     private BigDecimal sma2Percentage;
     private BigDecimal smaTotalPercentage;
 
+    private Date report_date;
+    private BigDecimal total_os_amt;
+    private Long total_housing;
+    private BigDecimal housing_amt;
+    private Long total_natl;
+    private BigDecimal natl_amt;
+    private Long total_shg;
+    private BigDecimal shg_amt;
+    private Long kcc_atl;
+    private BigDecimal kcc_atl_amt;
+    private Long other;
+    private BigDecimal other_amt;
+    private Long nacc;
+    private BigDecimal nacc_amt;
 
     private Long total_count;
-    private BigDecimal total_os_amt;
+
     private Long count_below_1lakh;
     private BigDecimal below_1lakh_amt;
     private Long count_below_3lakh;
@@ -150,12 +164,256 @@ public class VisitDataStaffCompliance {
     private Long count_above_25lakh;
     private BigDecimal above_25lakh_amt;
 
-    private Long addition_count;
+
     private BigDecimal addition_os_amt;
-    private Long upgrade_count;
+
     private BigDecimal upgrade_os_amt;
-    private Long recovered_count;
+
     private BigDecimal recovered_os_amt;
+
+    private BigDecimal addition_os_amtMarch;
+
+    private BigDecimal upgrade_os_amtMarch;
+
+    private BigDecimal recovered_os_amtMarch;
+
+    public Date getReport_date() {
+        return report_date;
+    }
+
+    public void setReport_date(Date report_date) {
+        this.report_date = report_date;
+    }
+
+    public BigDecimal getTotal_os_amt() {
+        return total_os_amt;
+    }
+
+    public void setTotal_os_amt(BigDecimal total_os_amt) {
+        this.total_os_amt = total_os_amt;
+    }
+
+    public Long getTotal_housing() {
+        return total_housing;
+    }
+
+    public void setTotal_housing(Long total_housing) {
+        this.total_housing = total_housing;
+    }
+
+    public BigDecimal getHousing_amt() {
+        return housing_amt;
+    }
+
+    public void setHousing_amt(BigDecimal housing_amt) {
+        this.housing_amt = housing_amt;
+    }
+
+    public Long getTotal_natl() {
+        return total_natl;
+    }
+
+    public void setTotal_natl(Long total_natl) {
+        this.total_natl = total_natl;
+    }
+
+    public BigDecimal getNatl_amt() {
+        return natl_amt;
+    }
+
+    public void setNatl_amt(BigDecimal natl_amt) {
+        this.natl_amt = natl_amt;
+    }
+
+    public Long getTotal_shg() {
+        return total_shg;
+    }
+
+    public void setTotal_shg(Long total_shg) {
+        this.total_shg = total_shg;
+    }
+
+    public BigDecimal getShg_amt() {
+        return shg_amt;
+    }
+
+    public void setShg_amt(BigDecimal shg_amt) {
+        this.shg_amt = shg_amt;
+    }
+
+    public Long getKcc_atl() {
+        return kcc_atl;
+    }
+
+    public void setKcc_atl(Long kcc_atl) {
+        this.kcc_atl = kcc_atl;
+    }
+
+    public BigDecimal getKcc_atl_amt() {
+        return kcc_atl_amt;
+    }
+
+    public void setKcc_atl_amt(BigDecimal kcc_atl_amt) {
+        this.kcc_atl_amt = kcc_atl_amt;
+    }
+
+    public Long getOther() {
+        return other;
+    }
+
+    public void setOther(Long other) {
+        this.other = other;
+    }
+
+    public BigDecimal getOther_amt() {
+        return other_amt;
+    }
+
+    public void setOther_amt(BigDecimal other_amt) {
+        this.other_amt = other_amt;
+    }
+
+    public Long getNacc() {
+        return nacc;
+    }
+
+    public void setNacc(Long nacc) {
+        this.nacc = nacc;
+    }
+
+    public BigDecimal getNacc_amt() {
+        return nacc_amt;
+    }
+
+    public void setNacc_amt(BigDecimal nacc_amt) {
+        this.nacc_amt = nacc_amt;
+    }
+
+    public Long getTotal_count() {
+        return total_count;
+    }
+
+    public void setTotal_count(Long total_count) {
+        this.total_count = total_count;
+    }
+
+    public Long getCount_below_1lakh() {
+        return count_below_1lakh;
+    }
+
+    public void setCount_below_1lakh(Long count_below_1lakh) {
+        this.count_below_1lakh = count_below_1lakh;
+    }
+
+    public BigDecimal getBelow_1lakh_amt() {
+        return below_1lakh_amt;
+    }
+
+    public void setBelow_1lakh_amt(BigDecimal below_1lakh_amt) {
+        this.below_1lakh_amt = below_1lakh_amt;
+    }
+
+    public Long getCount_below_3lakh() {
+        return count_below_3lakh;
+    }
+
+    public void setCount_below_3lakh(Long count_below_3lakh) {
+        this.count_below_3lakh = count_below_3lakh;
+    }
+
+    public BigDecimal getBelow_3lakh_amt() {
+        return below_3lakh_amt;
+    }
+
+    public void setBelow_3lakh_amt(BigDecimal below_3lakh_amt) {
+        this.below_3lakh_amt = below_3lakh_amt;
+    }
+
+    public Long getCount_below_24lakh() {
+        return count_below_24lakh;
+    }
+
+    public void setCount_below_24lakh(Long count_below_24lakh) {
+        this.count_below_24lakh = count_below_24lakh;
+    }
+
+    public BigDecimal getBelow_24lakh_amt() {
+        return below_24lakh_amt;
+    }
+
+    public void setBelow_24lakh_amt(BigDecimal below_24lakh_amt) {
+        this.below_24lakh_amt = below_24lakh_amt;
+    }
+
+    public Long getCount_above_25lakh() {
+        return count_above_25lakh;
+    }
+
+    public void setCount_above_25lakh(Long count_above_25lakh) {
+        this.count_above_25lakh = count_above_25lakh;
+    }
+
+    public BigDecimal getAbove_25lakh_amt() {
+        return above_25lakh_amt;
+    }
+
+    public void setAbove_25lakh_amt(BigDecimal above_25lakh_amt) {
+        this.above_25lakh_amt = above_25lakh_amt;
+    }
+
+
+    public BigDecimal getAddition_os_amt() {
+        return addition_os_amt;
+    }
+
+    public void setAddition_os_amt(BigDecimal addition_os_amt) {
+        this.addition_os_amt = addition_os_amt;
+    }
+
+
+    public BigDecimal getUpgrade_os_amt() {
+        return upgrade_os_amt;
+    }
+
+    public void setUpgrade_os_amt(BigDecimal upgrade_os_amt) {
+        this.upgrade_os_amt = upgrade_os_amt;
+    }
+
+
+    public BigDecimal getRecovered_os_amt() {
+        return recovered_os_amt;
+    }
+
+    public void setRecovered_os_amt(BigDecimal recovered_os_amt) {
+        this.recovered_os_amt = recovered_os_amt;
+    }
+
+
+    public BigDecimal getAddition_os_amtMarch() {
+        return addition_os_amtMarch;
+    }
+
+    public void setAddition_os_amtMarch(BigDecimal addition_os_amtMarch) {
+        this.addition_os_amtMarch = addition_os_amtMarch;
+    }
+
+
+    public BigDecimal getUpgrade_os_amtMarch() {
+        return upgrade_os_amtMarch;
+    }
+
+    public void setUpgrade_os_amtMarch(BigDecimal upgrade_os_amtMarch) {
+        this.upgrade_os_amtMarch = upgrade_os_amtMarch;
+    }
+
+
+    public BigDecimal getRecovered_os_amtMarch() {
+        return recovered_os_amtMarch;
+    }
+
+    public void setRecovered_os_amtMarch(BigDecimal recovered_os_amtMarch) {
+        this.recovered_os_amtMarch = recovered_os_amtMarch;
+    }
 
     public BigDecimal getSma0Percentage() {
         return sma0Percentage;
