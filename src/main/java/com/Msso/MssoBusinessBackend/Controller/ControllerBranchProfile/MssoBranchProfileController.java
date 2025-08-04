@@ -61,6 +61,7 @@ public class MssoBranchProfileController {
 
         return mssoBranchProfileDto;
     }
+    //*********************************************************************************
 
     @GetMapping("/dep-adv-npa-march")
 
@@ -75,6 +76,8 @@ public class MssoBranchProfileController {
         System.out.println("inside dep-adv-npa-march");
         return mssoBranchProfileMarchData;
     }
+    //*********************************************************************************
+
 
     @GetMapping("/dep-adv-npa-target")
     public MssoBranchProfileTargetDataDto getBranchProfileQuaterTarget(
@@ -88,6 +91,8 @@ public class MssoBranchProfileController {
         System.out.println("inside dep-adv-npa-target");
         return mssoBranchProfileTargetData;
     }
+    //*********************************************************************************
+
 
     @GetMapping("/dep-adv-npa-target-march")
     public MssoBranchProfileTargetDataDto getBranchProfilemarchTarget(
@@ -101,6 +106,8 @@ public class MssoBranchProfileController {
         System.out.println("inside dep-adv-npa-target");
         return mssoBranchProfileTargetData;
     }
+    //*********************************************************************************
+
 
     @GetMapping("/super-achiever-march")
     public MssoBranchProfileTargetDataDto getSuperAchieverMarch(
@@ -114,6 +121,8 @@ public class MssoBranchProfileController {
         System.out.println("inside dep-adv-npa-target");
         return mssoBranchProfileTargetData;
     }
+    //*********************************************************************************
+
 
     @GetMapping("/dep-adv-npa-mar-gap")
     public MssoBranchProfileActualDataDto getBranchProfilemarchGap(
@@ -127,6 +136,8 @@ public class MssoBranchProfileController {
         System.out.println("inside dep-adv-npa-mar-gap");
         return mssoBranchProfileActualDataDto;
     }
+    //*********************************************************************************
+
 
     @GetMapping("/mar-gap-percentage")
     public MssoBranchProfileActualDataDto getBranchProfilemarchGapPercentage(
@@ -140,6 +151,8 @@ public class MssoBranchProfileController {
         System.out.println("inside mar-gap-percentage");
         return mssoBranchProfileActualDataDto;
     }
+    //*********************************************************************************
+
 
     @GetMapping("/dep-adv-npa-quarter-gap")
     public MssoBranchProfileTargetDataDto getBranchProfileQuarterGap(
@@ -153,6 +166,8 @@ public class MssoBranchProfileController {
         System.out.println("inside dep-adv-npa-quarter-gap");
         return mssoBranchProfileTargetDataDto;
     }
+    //*********************************************************************************
+
 
     @GetMapping("/daily-disbursement")
     public MssoProfileDailyDisburseDto getDailyDisbursement(
@@ -168,6 +183,10 @@ public class MssoBranchProfileController {
         System.out.println("inside daily-disbursement");
         return mssoProfileDailyDisburseDto;
     }
+
+    //*********************************************************************************
+
+
     @GetMapping("/disbursement-target")
     public MssoProfileDailyDisburseDto getDisbursementTarget(
 
@@ -182,6 +201,9 @@ public class MssoBranchProfileController {
         System.out.println("disbursement-target");
         return mssoProfileDailyDisburseDto;
     }
+    //*********************************************************************************
+
+
     @GetMapping("/daily-sma")
     public MssoBranchProfileSmaDto getMssoDailySma(
 
@@ -196,6 +218,8 @@ public class MssoBranchProfileController {
         System.out.println("inside daily-sma");
         return mssoBranchProfileSmaDto;
     }
+
+    //*********************************************************************************
 
 
     @GetMapping("/npa_classification")
@@ -213,6 +237,8 @@ public class MssoBranchProfileController {
         return mssoNpaClassification;
     }
 
+    //*********************************************************************************
+
 
     @GetMapping("/npa_sectorwise")
     public SectorwiseNpaDto getNpaSectorwise(
@@ -228,6 +254,7 @@ public class MssoBranchProfileController {
         System.out.println("npa_sectorwise");
         return sectorwiseNpaDto;
     }
+    //*********************************************************************************
     @GetMapping("/npa_amountwise")
     public AmountwiseNpaDto getNpaAmountwise(
 
@@ -239,10 +266,10 @@ public class MssoBranchProfileController {
         AmountwiseNpaDto amountwiseNpaDto = serviceMssoBranchProfileSma.getNpaAmountwise(branchCode, roname, u_loc);
 
 
-        System.out.println("npa_sectorwise");
+        System.out.println("npa_amountwise");
         return amountwiseNpaDto;
     }
-
+    //*********************************************************************************
     @GetMapping("/npa-progress")
     public NpaRecoveryProgressDto getNpaProgress(
 
@@ -257,7 +284,7 @@ public class MssoBranchProfileController {
         System.out.println("npa-progress");
         return npaRecoveryProgressDto;
     }
-
+    //*********************************************************************************
 
     @GetMapping("/npa-progress-march")
     public NpaRecoveryProgressDto getNpaProgressMarch(
@@ -273,6 +300,8 @@ public class MssoBranchProfileController {
         System.out.println("npa-progress");
         return npaRecoveryProgressDto;
     }
+
+    //*********************************************************************************
     @GetMapping("/account-status")
     public MssoBranchProfileAccountStatusDto getMssoAccountStatus(
 
@@ -287,7 +316,7 @@ public class MssoBranchProfileController {
         System.out.println("inside account-status");
         return mssoBranchProfileAccountStatusDto;
     }
-
+    //*********************************************************************************
     @GetMapping("/account-status-march")
     public MssoBranchProfileAccountStatusDto getMssoAccountStatusMarch(
 
@@ -302,7 +331,7 @@ public class MssoBranchProfileController {
         System.out.println("inside account-status-march");
         return mssoBranchProfileAccountStatusDto;
     }
-
+    //*********************************************************************************
     @GetMapping("/digital-product")
     public MssoBranchProfileDigitalProductDto getMssoDigitalProduct(
 
@@ -317,7 +346,7 @@ public class MssoBranchProfileController {
         System.out.println("inside digital-product");
         return mssoBranchProfileDigitalProductDto;
     }
-
+    //*********************************************************************************
     @GetMapping("/account-digital-target")
     public MssoAccountStatusDigitalTargetDto getMssoAccountDigitalProductTarget(
 
@@ -332,6 +361,8 @@ public class MssoBranchProfileController {
         System.out.println("inside digital-product");
         return mssoAccountStatusDigitalTargetDto;
     }
+
+    //*********************************************************************************
     @GetMapping("/fi-scheme-target")
     public MssoFiSchemeDto getMssoFiSchemeTarget(
 
@@ -346,7 +377,7 @@ public class MssoBranchProfileController {
         System.out.println("fi-scheme-target");
         return mssoFiSchemeDto;
     }
-
+    //*********************************************************************************
     @GetMapping("/fi-scheme")
     public MssoFiSchemeDto getFiSchemeData(
 
@@ -361,7 +392,7 @@ public class MssoBranchProfileController {
         System.out.println("fi-scheme");
         return mssoFiSchemeDto;
     }
-
+    //*********************************************************************************
     @GetMapping("/review-renewal-pending")
     public MssoProfileReviewRenewalDto getPendingReview(
 
@@ -376,7 +407,7 @@ public class MssoBranchProfileController {
         System.out.println("inside review renewal pending");
         return mssoProfileReviewRenewalPending;
     }
-
+    //*********************************************************************************
     @GetMapping("/timebarred")
     public MssoProfileComplianceDto getTimebarred(
 

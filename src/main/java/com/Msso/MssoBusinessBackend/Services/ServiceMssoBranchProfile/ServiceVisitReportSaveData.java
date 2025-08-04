@@ -619,6 +619,7 @@ public class ServiceVisitReportSaveData {
         executiveVisitingData.setNacc_amt(sectorwiseNpaDto.getNacc_amt());
         executiveVisitingData.setNacc(sectorwiseNpaDto.getNacc());
         executiveVisitingData.setNatl_amt(sectorwiseNpaDto.getNatl_amt());
+        executiveVisitingData.setTotal_natl(sectorwiseNpaDto.getTotal_natl());
         executiveVisitingData.setTotal_housing(sectorwiseNpaDto.getTotal_natl());
         executiveVisitingData.setOther_amt(sectorwiseNpaDto.getOther_amt());
         executiveVisitingData.setOther(sectorwiseNpaDto.getOther());
@@ -769,7 +770,7 @@ public class ServiceVisitReportSaveData {
 
         executiveVisitingData.setTotal_advancesDisb(mssoProfileDailyDisburseDto.getTotal_advances());
         executiveVisitingData.setTotal_osDisb(mssoProfileDailyDisburseDto.getTotal_os());
-
+        executiveVisitingData.setTotal_countDisb(Math.toIntExact(mssoProfileDailyDisburseDto.getTotal_count()));
         executiveVisitingData.setHousing_countDisb(Math.toIntExact(mssoProfileDailyDisburseDto.getHousing_count()));
         executiveVisitingData.setHousingDisb(mssoProfileDailyDisburseDto.getHousing());
 

@@ -33,7 +33,7 @@ public class VisitReportController {
         System.out.println("visit-report");
         return executiveVisitingData;
     }
-
+    //*********************************************************************************
     @GetMapping("/visit-report_compliance")
     public VisitDataStaffCompliance getVisitStaffCompliance(@RequestParam String branchCode, @RequestParam LocalDate visit_date) {
 
@@ -41,16 +41,17 @@ public class VisitReportController {
         executiveVisitingData = serviceVisitReportGetData.getVisitStaffComplianceData(branchCode,visit_date);
 
 
-        System.out.println("visit-report");
+        System.out.println("visit-report_compliance");
         return executiveVisitingData;
     }
-
+    //*********************************************************************************
     @PostMapping("/visit-report-save")
     public VisitDataStaffCompliance savevisitData(@RequestBody VisitRemarkParameter visitRemarkParameter) {
        // LocalDate visit_date = LocalDate.parse("2025-07-17");
 
         return serviceVisitReport.updateVisitReport(visitRemarkParameter);
     }
+    //*********************************************************************************
     @GetMapping("/visit-summery")
     public List<VisitingDataStaffDto> getBranchProfileLastMarch(
             @RequestParam String branchCode,
@@ -60,7 +61,7 @@ public class VisitReportController {
 
         List<VisitingDataStaffDto> visitReportSummryDto = serviceVisitReportGetData.getVisitSummery(branchCode, roname, u_loc);
 
-        System.out.println("inside dep-adv-npa-march");
+        System.out.println("/visit-summery");
         return visitReportSummryDto;
     }
 }

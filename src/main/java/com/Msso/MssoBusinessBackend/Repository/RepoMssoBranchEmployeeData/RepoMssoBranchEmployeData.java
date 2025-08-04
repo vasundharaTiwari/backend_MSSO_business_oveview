@@ -22,7 +22,7 @@ public interface RepoMssoBranchEmployeData extends JpaRepository<MssoBranchEmplo
     List<ForRoBranchDto> getRegion();
 
     @Query(value = """
-            SELECT REGION,BRANCH_CODE,branch_name FROM MASTER_DATA.BRANCH_MASTER WHERE REGION=:roname ORDER BY BRANCH_CODE""", nativeQuery = true)
+            SELECT REGION,BRANCH_CODE,branch_name FROM MASTER_DATA.BRANCH_MASTER WHERE REGION=:roname AND BRANCH_CODE<>:branch_code ORDER BY BRANCH_CODE""", nativeQuery = true)
     List<ForRoBranchDto> getBranch(@Param("roname") String roname,@Param("branch_code") String branch_code);
 
 

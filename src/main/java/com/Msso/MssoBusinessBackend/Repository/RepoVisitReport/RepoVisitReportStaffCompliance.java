@@ -31,7 +31,7 @@ public interface RepoVisitReportStaffCompliance extends JpaRepository<VisitDataS
 
     @Query(value = """
             select visit_date,branch_code,branch_name,region,visitor_name,visitor_region,visitor_branch_code,
-            visitor_designation from msso_branch_profile.visit_data_staff_compliance where region=:roname ORDER BY BRANCH_CODE
+            visitor_designation from msso_branch_profile.visit_data_staff_compliance where region=:roname ORDER BY visit_date desc
             """, nativeQuery = true)
     public List<VisitingDataStaffDto> getVisitSummeryRO(@Param("roname") String roname);
 }
