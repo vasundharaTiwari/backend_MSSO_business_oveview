@@ -747,8 +747,8 @@ public class ServiceVisitReportSaveData {
         return executiveVisitingData;
     }
 
-    public ExecutiveVisitingData updateVisitReportDisbursement(String branchCode, String uLoc, String roname, LocalDate visit_date) {
-        ExecutiveVisitingData executiveVisitingData = repoVisitReport.getVisitData(branchCode, visit_date);
+    public VisitDataStaffCompliance updateVisitReportDisbursement(String branchCode, String uLoc, String roname, LocalDate visit_date) {
+        VisitDataStaffCompliance executiveVisitingData = reportStaffCompliance.getVisitStaffComplianceData(branchCode, visit_date);
 
 
         MssoProfileDailyDisburseDto mssoProfileDailyDisburseDto = null;
@@ -792,13 +792,13 @@ public class ServiceVisitReportSaveData {
         executiveVisitingData.setPmvishvakarma(mssoProfileDailyDisburseDto.getPmvishvakarma());
 
 
-        repoVisitReport.save(executiveVisitingData);
+        reportStaffCompliance.save(executiveVisitingData);
 
         return executiveVisitingData;
     }
 
-    public ExecutiveVisitingData updateVisitReportDisbursementTarget(String branchCode, String uLoc, String roname, LocalDate visit_date) {
-        ExecutiveVisitingData executiveVisitingData = repoVisitReport.getVisitData(branchCode, visit_date);
+    public VisitDataStaffCompliance updateVisitReportDisbursementTarget(String branchCode, String uLoc, String roname, LocalDate visit_date) {
+        VisitDataStaffCompliance executiveVisitingData = reportStaffCompliance.getVisitStaffComplianceData(branchCode, visit_date);
 
 
         MssoProfileDailyDisburseDto mssoProfileDailyDisburseDto = null;
@@ -843,8 +843,7 @@ public class ServiceVisitReportSaveData {
         executiveVisitingData.setPmvishvakarmaTarget(mssoProfileDailyDisburseDto.getPmvishvakarma());
 
 
-        repoVisitReport.save(executiveVisitingData);
-
+        reportStaffCompliance.save(executiveVisitingData);
         return executiveVisitingData;
     }
 
