@@ -229,10 +229,11 @@ public class ServiceVisitReportSaveData {
         } else {
             mssoProfileReviewRenewalPending = this.repoMssoBranchProfileSma.getPendingRevieRenewalRO(roname);
         }
-        modelMapper.map(mssoProfileReviewRenewalPending, executiveVisitingData);
+
         executiveVisitingData.setKcc_amount(mssoProfileReviewRenewalPending.getTotal_amount());
         executiveVisitingData.setKcc_count(mssoProfileReviewRenewalPending.getTotal_count());
-
+        executiveVisitingData.setNacc_amount(mssoProfileReviewRenewalPending.getNacc_amount());
+        executiveVisitingData.setNacc_count(mssoProfileReviewRenewalPending.getNacc_count());
         repoVisitReport.save(executiveVisitingData);
 
         return executiveVisitingData;
