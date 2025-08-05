@@ -36,6 +36,8 @@ public class VisitDataStaffCompliance {
     @Column(columnDefinition = "DATE")
     private Date socialSecurityReportDate;
     @Column(columnDefinition = "DATE")
+    private Date socialSecurityReportDateTarget;
+    @Column(columnDefinition = "DATE")
     private Date branchOpenDate;
     private Long pmjdyTarget;
 
@@ -235,6 +237,14 @@ public class VisitDataStaffCompliance {
     private BigDecimal  pmvishvakarmaTarget;
 
     private int pmvishvakarma_countTarget;
+
+    public Date getSocialSecurityReportDateTarget() {
+        return socialSecurityReportDateTarget;
+    }
+
+    public void setSocialSecurityReportDateTarget(Date socialSecurityReportDateTarget) {
+        this.socialSecurityReportDateTarget = socialSecurityReportDateTarget;
+    }
 
     public Date getReport_dateDisb() {
         return report_dateDisb;

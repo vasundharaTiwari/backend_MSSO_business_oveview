@@ -176,8 +176,18 @@ public class ServiceVisitReportSaveData {
 
         }
 
-        modelMapper.map(mssoBranchProfileSmaDto, executiveVisitingData);
+
         executiveVisitingData.setReport_dateSma(mssoBranchProfileSmaDto.getReport_date());
+        executiveVisitingData.setSma0_amount(mssoBranchProfileSmaDto.getSma0_amount());
+        executiveVisitingData.setSma0_count(Math.toIntExact(mssoBranchProfileSmaDto.getSma0_count()));
+        executiveVisitingData.setSma1_amount(mssoBranchProfileSmaDto.getSma1_amount());
+        executiveVisitingData.setSma1_count(Math.toIntExact(mssoBranchProfileSmaDto.getSma1_count()));
+        executiveVisitingData.setSma2_amount(mssoBranchProfileSmaDto.getSma2_amount());
+        executiveVisitingData.setSma2_count(Math.toIntExact(mssoBranchProfileSmaDto.getSma2_count()));
+
+        executiveVisitingData.setTotal_count(Math.toIntExact(mssoBranchProfileSmaDto.getTotal_count()));
+        executiveVisitingData.setTotal_amount((mssoBranchProfileSmaDto.getTotal_amount()));
+
 
         repoVisitReport.save(executiveVisitingData);
 
@@ -570,6 +580,7 @@ public class ServiceVisitReportSaveData {
         executiveVisitingData.setPmsbyTarget(mssoFiSchemeDto.getPmsby());
         executiveVisitingData.setApyTarget(mssoFiSchemeDto.getApy());
         executiveVisitingData.setPmjdyTarget(mssoFiSchemeDto.getPmjdy());
+        executiveVisitingData.setSocialSecurityReportDateTarget(mssoFiSchemeDto.getReport_date());
         reportStaffCompliance.save(executiveVisitingData);
 
 
