@@ -167,7 +167,7 @@ public class MssoBranchDataEmployeeController {
         BranchCategoryDto branchCategoryDto = null;
         if (uLoc.equalsIgnoreCase("HO")) {
             branchCategoryDto = this.repoEmployeData.getBCCountHO();
-            System.out.println("getBCCountHO");
+            System.out.println("getBCCountHO"+branchCategoryDto);
 
         } else if (uLoc.equalsIgnoreCase("RO")) {
             branchCategoryDto = this.repoEmployeData.getBCCountRo(roname);

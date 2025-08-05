@@ -49,6 +49,17 @@ public class BranchCategoryDto {
         this.semiUrban = semiUrban;
     }
 
+    @Override
+    public String toString() {
+        return "BranchCategoryDto{" +
+                "totalCount=" + totalCount +
+                ", urban=" + urban +
+                ", rural=" + rural +
+                ", metropolitan=" + metropolitan +
+                ", semiUrban=" + semiUrban +
+                '}';
+    }
+
     public BranchCategoryDto(Long totalCount, Long urban, Long rural, Long metropolitan, Long semiUrban) {
         this.totalCount = totalCount;
         this.urban = urban;

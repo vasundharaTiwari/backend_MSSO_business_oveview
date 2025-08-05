@@ -147,4 +147,7 @@ public class SectorwiseNpaDto {
     public void setNacc_amt(BigDecimal nacc_amt) {
         this.nacc_amt = nacc_amt;
     }
+
+    public SectorwiseNpaDto() {
+    }
 }

@@ -117,4 +117,7 @@ public class AmountwiseNpaDto {
     public void setAbove_25lakh_amt(BigDecimal above_25lakh_amt) {
         this.above_25lakh_amt = above_25lakh_amt;
     }
+
+    public AmountwiseNpaDto() {
+    }
 }
