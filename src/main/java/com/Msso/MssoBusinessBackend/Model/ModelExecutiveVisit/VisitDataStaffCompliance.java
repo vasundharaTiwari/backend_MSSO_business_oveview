@@ -120,6 +120,8 @@ public class VisitDataStaffCompliance {
     private String otherRemark;
     @Column(columnDefinition = "TEXT")
     private String employeeDataRemark;
+    @Column(columnDefinition = "TEXT")
+    private String  governmentRemark;
     private String visitor_userid;
 
 
@@ -237,13 +239,22 @@ public class VisitDataStaffCompliance {
     private BigDecimal  pmvishvakarmaTarget;
 
     private int pmvishvakarma_countTarget;
-    private String agreement_end_date;
+    @Column(columnDefinition = "DATE")
+    private Date agreement_end_date;
 
-    public String getAgreement_end_date() {
+    public String getGovernmentRemark() {
+        return governmentRemark;
+    }
+
+    public void setGovernmentRemark(String governmentRemark) {
+        this.governmentRemark = governmentRemark;
+    }
+
+    public Date getAgreement_end_date() {
         return agreement_end_date;
     }
 
-    public void setAgreement_end_date(String agreement_end_date) {
+    public void setAgreement_end_date(Date agreement_end_date) {
         this.agreement_end_date = agreement_end_date;
     }
 

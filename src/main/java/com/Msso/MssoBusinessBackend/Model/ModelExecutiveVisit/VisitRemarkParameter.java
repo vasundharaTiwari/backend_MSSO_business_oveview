@@ -32,16 +32,25 @@ public class VisitRemarkParameter {
     private BigDecimal sma1Percentage;
     private BigDecimal sma2Percentage;
     private BigDecimal smaTotalPercentage;
+    private Date agreement_end_date;
+    private String  governmentRemark;
 
-    public String getAgreement_end_date() {
+    public Date getAgreement_end_date() {
         return agreement_end_date;
     }
 
-    public void setAgreement_end_date(String agreement_end_date) {
+    public void setAgreement_end_date(Date agreement_end_date) {
         this.agreement_end_date = agreement_end_date;
     }
 
-    private String agreement_end_date;
+    public String getGovernmentRemark() {
+        return governmentRemark;
+    }
+
+    public void setGovernmentRemark(String governmentRemark) {
+        this.governmentRemark = governmentRemark;
+    }
+
     public BigDecimal getSma0Percentage() {
         return sma0Percentage;
     }
