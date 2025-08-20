@@ -4,6 +4,7 @@ import com.Msso.MssoBusinessBackend.Model.MssoBranchEmployeModel.*;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.List;
 
 @Transactional
@@ -29,5 +30,5 @@ public interface MssoBranchDataService {
      BranchOpeningDateDto getBranchOpenDate(String branchCode , String uLoc, String roname);
 
     BmBranchJoinDateDto getBmBranchJoinDate(String branchCode , String u_id);
-
+    public Date getBranchAgreementDate(String branchCode , String uLoc, String roname);
 }

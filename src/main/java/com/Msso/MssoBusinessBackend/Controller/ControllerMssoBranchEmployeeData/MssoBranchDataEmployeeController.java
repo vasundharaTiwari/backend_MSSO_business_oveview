@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.List;
 
 @AllArgsConstructor
@@ -20,6 +21,8 @@ public class MssoBranchDataEmployeeController {
     private MssoBranchDataService mssoBranchDataService;
     @Autowired
     RepoMssoBranchEmployeData repoEmployeData;
+
+    //*************************************************************************************************************
 
 
     @GetMapping("employee-data")
@@ -35,6 +38,8 @@ public class MssoBranchDataEmployeeController {
 
 
     }
+    //*************************************************************************************************************
+
 
     @GetMapping("ro-data")
     public List<ForRoBranchDto> getDistinctRo() {
@@ -43,40 +48,44 @@ public class MssoBranchDataEmployeeController {
 
         List<ForRoBranchDto> forRoBranchDto = mssoBranchDataService.getDistinctRo();
 
-        System.out.println("ro-data..."+forRoBranchDto);
+        System.out.println("ro-data..." + forRoBranchDto);
 
 
         return forRoBranchDto;
     }
+    //*************************************************************************************************************
+
 
     @GetMapping("branch-data")
     public List<ForRoBranchDto> getDistinctBranch(@RequestParam String branchCode,
 
                                                   @RequestParam String roname,
-                                                  @RequestParam String u_loc)  {
+                                                  @RequestParam String u_loc) {
 
         System.out.println("branch-data...");
 
-        List<ForRoBranchDto> forRoBranchDto = mssoBranchDataService.getDistinctbranch(branchCode,roname,u_loc);
+        List<ForRoBranchDto> forRoBranchDto = mssoBranchDataService.getDistinctbranch(branchCode, roname, u_loc);
 
-        System.out.println("branch-data... "+forRoBranchDto);
+        System.out.println("branch-data... " + forRoBranchDto);
 
         return forRoBranchDto;
     }
+    //*************************************************************************************************************
+
 
     @GetMapping("employee-count")
-    public MssoProfileComplianceDto getStaffCount( @RequestParam String branchCode,
+    public MssoProfileComplianceDto getStaffCount(@RequestParam String branchCode,
 
-                                                   @RequestParam String roname,
-                                                   @RequestParam String u_loc)  {
+                                                  @RequestParam String roname,
+                                                  @RequestParam String u_loc) {
 
         MssoProfileComplianceDto mssoProfileComplianceDto = null;
         System.out.println("ro-data...");
         if (u_loc.equals("RO")) {
-             mssoProfileComplianceDto = repoEmployeData.getROStaffCount(roname);
+            mssoProfileComplianceDto = repoEmployeData.getROStaffCount(roname);
 
         } else if (u_loc.equals("HO")) {
-             mssoProfileComplianceDto = repoEmployeData.getHoStaffCount(branchCode);
+            mssoProfileComplianceDto = repoEmployeData.getHoStaffCount(branchCode);
 
 
         }
@@ -84,97 +93,127 @@ public class MssoBranchDataEmployeeController {
 
         return mssoProfileComplianceDto;
     }
+    //*************************************************************************************************************
 
-        @GetMapping("branch-category")
-    public String getBranchCategory(@RequestParam String uLoc, @RequestParam String branchCode, @RequestParam String roname){
 
-        System.out.println("this.branch_code, this.region, this.u_loc..."+uLoc+" "+branchCode+" "+roname);
+    @GetMapping("branch-category")
+    public String getBranchCategory(@RequestParam String uLoc, @RequestParam String branchCode, @RequestParam String roname) {
 
-        String branchCategory= mssoBranchDataService.getBranchCategory(branchCode,uLoc, roname);
+        System.out.println("this.branch_code, this.region, this.u_loc..." + uLoc + " " + branchCode + " " + roname);
+
+        String branchCategory = mssoBranchDataService.getBranchCategory(branchCode, uLoc, roname);
 //        List<MssoBranchEmployeeDataDto> branchDataList= mssoBranchDataService.getMssoBranchData(branchCode,uLoc, uId,roname);
 
 
-        System.out.println("Location:- "+uLoc);
+        System.out.println("Location:- " + uLoc);
         return branchCategory;
 
 
     }
+    //*************************************************************************************************************
 
+    @GetMapping("branch-agreement")
+    public Date getBranchAgreementDate(@RequestParam String uLoc, @RequestParam String branchCode, @RequestParam String roname) {
 
-    @GetMapping("employee-data-summary")
-    public MssoEmployeeSummaryDto getEmployeeSummary(@RequestParam String uLoc, @RequestParam String branchCode, @RequestParam String roname){
+        System.out.println("this.branch_code, this.region, this.u_loc..." + uLoc + " " + branchCode + " " + roname);
 
-        System.out.println(" getEmployeeSummary this.branch_code, this.region, this.u_loc..."+uLoc+" "+branchCode+" "+roname);
-
-        MssoEmployeeSummaryDto mssoEmployeeSummaryDto = mssoBranchDataService.getMssoRegionEmployeeSummary(branchCode,uLoc, roname);
+        Date agreementDate = mssoBranchDataService.getBranchAgreementDate(branchCode, uLoc, roname);
 //        List<MssoBranchEmployeeDataDto> branchDataList= mssoBranchDataService.getMssoBranchData(branchCode,uLoc, uId,roname);
 
 
-        System.out.println("Location:- "+uLoc);
+        System.out.println("Location:- " + uLoc);
+        return agreementDate;
+
+
+    }
+    //*************************************************************************************************************
+
+
+    @GetMapping("employee-data-summary")
+    public MssoEmployeeSummaryDto getEmployeeSummary(@RequestParam String uLoc, @RequestParam String branchCode, @RequestParam String roname) {
+
+        System.out.println(" getEmployeeSummary this.branch_code, this.region, this.u_loc..." + uLoc + " " + branchCode + " " + roname);
+
+        MssoEmployeeSummaryDto mssoEmployeeSummaryDto = mssoBranchDataService.getMssoRegionEmployeeSummary(branchCode, uLoc, roname);
+//        List<MssoBranchEmployeeDataDto> branchDataList= mssoBranchDataService.getMssoBranchData(branchCode,uLoc, uId,roname);
+
+
+        System.out.println("Location:- " + uLoc);
         return mssoEmployeeSummaryDto;
 
 
     }
+    //*************************************************************************************************************
+
+
     @GetMapping("branch-category-count")
-    public BranchCategoryDto getBranchCategoryCount(@RequestParam String uLoc, @RequestParam String branchCode, @RequestParam String roname){
+    public BranchCategoryDto getBranchCategoryCount(@RequestParam String uLoc, @RequestParam String branchCode, @RequestParam String roname) {
 
-        System.out.println("this.branch_code, this.region, this.u_loc..."+uLoc+" "+branchCode+" "+roname);
+        System.out.println("this.branch_code, this.region, this.u_loc..." + uLoc + " " + branchCode + " " + roname);
 
-        BranchCategoryDto branchCategoryDto = mssoBranchDataService.getBranchCategoryCount(branchCode,uLoc, roname);
+        BranchCategoryDto branchCategoryDto = mssoBranchDataService.getBranchCategoryCount(branchCode, uLoc, roname);
 //        List<MssoBranchEmployeeDataDto> branchDataList= mssoBranchDataService.getMssoBranchData(branchCode,uLoc, uId,roname);
 
 
-        System.out.println("branch-category-count:- "+branchCategoryDto);
+        System.out.println("branch-category-count:- " + branchCategoryDto);
         return branchCategoryDto;
 
 
     }
+    //*************************************************************************************************************
+
+
     @GetMapping("branch-open-date")
-    public BranchOpeningDateDto getBranchOpeningDate(@RequestParam String uLoc, @RequestParam String branchCode, @RequestParam String roname){
+    public BranchOpeningDateDto getBranchOpeningDate(@RequestParam String uLoc, @RequestParam String branchCode, @RequestParam String roname) {
 
-        System.out.println("this.branch_code, this.region, this.u_loc..."+uLoc+" "+branchCode+" "+roname);
+        System.out.println("this.branch_code, this.region, this.u_loc..." + uLoc + " " + branchCode + " " + roname);
 
-        BranchOpeningDateDto branchOpeningDateDto = mssoBranchDataService.getBranchOpenDate(branchCode,uLoc, roname);
+        BranchOpeningDateDto branchOpeningDateDto = mssoBranchDataService.getBranchOpenDate(branchCode, uLoc, roname);
 //        List<MssoBranchEmployeeDataDto> branchDataList= mssoBranchDataService.getMssoBranchData(branchCode,uLoc, uId,roname);
 
 
-        System.out.println("branch-open-date:- "+branchOpeningDateDto);
+        System.out.println("branch-open-date:- " + branchOpeningDateDto);
         return branchOpeningDateDto;
 
 
     }
 
 
+    //*************************************************************************************************************
+
 
     @GetMapping("bm-branch-join-date")
-    public BmBranchJoinDateDto getBmBranchJoinDate( @RequestParam String branchCode, @RequestParam String u_id){
+    public BmBranchJoinDateDto getBmBranchJoinDate(@RequestParam String branchCode, @RequestParam String u_id) {
 
-        System.out.println("this.branch_code, ..." +branchCode+" "+u_id);
+        System.out.println("this.branch_code, ..." + branchCode + " " + u_id);
 
-        BmBranchJoinDateDto bmBranchJoinDate = mssoBranchDataService.getBmBranchJoinDate(branchCode,u_id);
+        BmBranchJoinDateDto bmBranchJoinDate = mssoBranchDataService.getBmBranchJoinDate(branchCode, u_id);
 //        List<MssoBranchEmployeeDataDto> branchDataList= mssoBranchDataService.getMssoBranchData(branchCode,uLoc, uId,roname);
 
 
-        System.out.println("bm-branch-join-date:- "+bmBranchJoinDate);
+        System.out.println("bm-branch-join-date:- " + bmBranchJoinDate);
         return bmBranchJoinDate;
 
 
     }
+    //*************************************************************************************************************
+
 
     @GetMapping("bc-data")
-    public BranchCategoryDto getBCData(@RequestParam String uLoc, @RequestParam String branchCode, @RequestParam String roname){
+    public BranchCategoryDto getBCData(@RequestParam String uLoc, @RequestParam String branchCode, @RequestParam String roname) {
 
         BranchCategoryDto branchCategoryDto = null;
         if (uLoc.equalsIgnoreCase("HO")) {
             branchCategoryDto = this.repoEmployeData.getBCCountHO();
-            System.out.println("getBCCountHO"+branchCategoryDto);
+            System.out.println("getBCCountHO" + branchCategoryDto);
 
         } else if (uLoc.equalsIgnoreCase("RO")) {
             branchCategoryDto = this.repoEmployeData.getBCCountRo(roname);
-            System.out.println("branchCategoryDto"+branchCategoryDto);
+            System.out.println("branchCategoryDto" + branchCategoryDto);
 
+        } else if (uLoc.equalsIgnoreCase("BR")) {
+            branchCategoryDto = this.repoEmployeData.getBCCountBranch(branchCode);
         }
-else if (uLoc.equalsIgnoreCase("BR")){ branchCategoryDto = this.repoEmployeData.getBCCountBranch(branchCode);}
         return branchCategoryDto;
 
 

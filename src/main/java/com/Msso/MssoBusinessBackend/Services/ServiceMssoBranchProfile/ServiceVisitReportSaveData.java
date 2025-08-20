@@ -127,6 +127,7 @@ public class ServiceVisitReportSaveData {
         visitDataStaffCompliance.setPerEmployeeBusiness(visitRemarkParameter.getPerEmployeeBusiness());
         visitDataStaffCompliance.setTotal_staff_branch(visitRemarkParameter.getTotal_staff_branch());
         visitDataStaffCompliance.setTotal_staff_region(visitRemarkParameter.getTotal_staff_region());
+        visitDataStaffCompliance.setAgreement_end_date(visitRemarkParameter.getAgreement_end_date());
         reportStaffCompliance.save(visitDataStaffCompliance);
         repoVisitReport.save(executiveVisitingData);
         updateVisitReportSma(visitRemarkParameter.getBranch_code(), visitRemarkParameter.getU_loc(), visitRemarkParameter.getRegion(), executiveVisitingData.getVisit_date());

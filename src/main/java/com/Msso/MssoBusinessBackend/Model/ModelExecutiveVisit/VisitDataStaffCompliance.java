@@ -237,6 +237,15 @@ public class VisitDataStaffCompliance {
     private BigDecimal  pmvishvakarmaTarget;
 
     private int pmvishvakarma_countTarget;
+    private String agreement_end_date;
+
+    public String getAgreement_end_date() {
+        return agreement_end_date;
+    }
+
+    public void setAgreement_end_date(String agreement_end_date) {
+        this.agreement_end_date = agreement_end_date;
+    }
 
     public Date getSocialSecurityReportDateTarget() {
         return socialSecurityReportDateTarget;

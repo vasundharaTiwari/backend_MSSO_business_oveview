@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.sql.Date;
 import java.util.List;
 
 public interface RepoMssoBranchEmployeData extends JpaRepository<MssoBranchEmployeeData, Long> {
@@ -42,6 +43,11 @@ public interface RepoMssoBranchEmployeData extends JpaRepository<MssoBranchEmplo
               SELECT population_group_name FROM master_data.branch_master WHERE branch_code=:branchCode ;
             """, nativeQuery=true)
     String getBranchCategory(@Param("branchCode") String branchCode);
+
+    @Query(value= """
+             SELECT agreement_end_date	FROM branch_premises_lease.premises_list_model l where branch_code=:branchCode and   premises_type<>'Additional Premises';                                                                                            
+            """, nativeQuery=true)
+    Date getBranchAgreementEnddate(@Param("branchCode") String branchCode);
 
     @Query(value = """
         WITH abc AS (
