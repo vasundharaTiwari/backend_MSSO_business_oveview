@@ -1,9 +1,8 @@
 package com.Msso.MssoBusinessBackend.Model.ModelExecutiveVisit;
 
-import jakarta.persistence.Column;
-
 import java.math.BigDecimal;
-import java.util.Date;
+import java.sql.Date;
+
 
 public class VisitRemarkParameter {
 
@@ -21,6 +20,7 @@ public class VisitRemarkParameter {
     private String visitor_designation;
     private String visitor_branch_code;
     private String visitor_region;
+    private Date visit_date;
     private String region;
     private String u_loc;
 
@@ -34,6 +34,14 @@ public class VisitRemarkParameter {
     private BigDecimal smaTotalPercentage;
     private Date agreement_end_date;
     private String  governmentRemark;
+
+    public Date getVisit_date() {
+        return visit_date;
+    }
+
+    public void setVisit_date(Date visit_date) {
+        this.visit_date = visit_date;
+    }
 
     public Date getAgreement_end_date() {
         return agreement_end_date;

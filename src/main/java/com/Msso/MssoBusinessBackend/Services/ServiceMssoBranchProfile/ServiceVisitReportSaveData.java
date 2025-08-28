@@ -36,7 +36,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.time.LocalDate;
+import java.time.Month;
+import java.time.YearMonth;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -77,30 +81,30 @@ public class ServiceVisitReportSaveData {
 
 
     @Transactional
-    public VisitDataStaffCompliance updateVisitReport(VisitRemarkParameter visitRemarkParameter) {
+    public ExecutiveVisitingData updateVisitReport(VisitRemarkParameter visitRemarkParameter) {
 
 
-        // Retrieve the RefNoVarification data by referenceId
+        System.out.println("inside saving");
         MssoBranchProfileActualDataDto mssoBranchProfileDto = new MssoBranchProfileActualDataDto();
 
         if (visitRemarkParameter.getU_loc().equalsIgnoreCase("BR")) {
-            mssoBranchProfileDto = this.repoMssoBranchProfile.getBranchProfileBranch(visitRemarkParameter.getBranch_code());
+            mssoBranchProfileDto = this.repoVisitReport.getBranchProfileVisitReportBranch(visitRemarkParameter.getBranch_code(), visitRemarkParameter.getVisit_date());
 
         } else {
             System.out.println("inside");
-            mssoBranchProfileDto = this.repoMssoBranchProfile.getBranchProfileRO(visitRemarkParameter.getRegion());
+            mssoBranchProfileDto = this.repoVisitReport.getBranchProfileVisitReportRO(visitRemarkParameter.getRegion(), visitRemarkParameter.getVisit_date());
             System.out.println(mssoBranchProfileDto);
         }
         ExecutiveVisitingData executiveVisitingData = modelMapper.map(mssoBranchProfileDto, ExecutiveVisitingData.class);
         VisitDataStaffCompliance visitDataStaffCompliance = new VisitDataStaffCompliance();
         executiveVisitingData.setReport_date_actual(mssoBranchProfileDto.getReport_date());
-        executiveVisitingData.setVisit_date(LocalDate.now());
+        executiveVisitingData.setVisit_date(visitRemarkParameter.getVisit_date().toLocalDate());
         executiveVisitingData.setBranch_code(visitRemarkParameter.getBranch_code());
         executiveVisitingData.setRegion(visitRemarkParameter.getRegion());
         executiveVisitingData.setBmBranchJoinDate(visitRemarkParameter.getBmBranchJoinDate());
 
         visitDataStaffCompliance.setBranch_code(visitRemarkParameter.getBranch_code());
-        visitDataStaffCompliance.setVisit_date(LocalDate.now());
+        visitDataStaffCompliance.setVisit_date(visitRemarkParameter.getVisit_date().toLocalDate());
         visitDataStaffCompliance.setVisitor_userid(visitRemarkParameter.getVisitor_userid());
         visitDataStaffCompliance.setVisitor_name(visitRemarkParameter.getVisitor_name());
         visitDataStaffCompliance.setVisitor_region(visitRemarkParameter.getVisitor_region());
@@ -130,7 +134,7 @@ public class ServiceVisitReportSaveData {
         visitDataStaffCompliance.setAgreement_end_date(visitRemarkParameter.getAgreement_end_date());
         visitDataStaffCompliance.setGovernmentRemark(visitRemarkParameter.getGovernmentRemark());
 
-
+        System.out.println(visitDataStaffCompliance.getVisit_date());
         reportStaffCompliance.save(visitDataStaffCompliance);
         repoVisitReport.save(executiveVisitingData);
         updateVisitReportSma(visitRemarkParameter.getBranch_code(), visitRemarkParameter.getU_loc(), visitRemarkParameter.getRegion(), executiveVisitingData.getVisit_date());
@@ -138,7 +142,7 @@ public class ServiceVisitReportSaveData {
         updateVisitReportReviewRenewal(visitRemarkParameter.getBranch_code(), visitRemarkParameter.getU_loc(), visitRemarkParameter.getRegion(), executiveVisitingData.getVisit_date());
         updateVisitReportMarchPast(visitRemarkParameter.getBranch_code(), visitRemarkParameter.getU_loc(), visitRemarkParameter.getRegion(), executiveVisitingData.getVisit_date());
         updateVisitReportMarchPast(visitRemarkParameter.getBranch_code(), visitRemarkParameter.getU_loc(), visitRemarkParameter.getRegion(), executiveVisitingData.getVisit_date());
-
+//
         updateVisitReportMarchGap(visitRemarkParameter.getBranch_code(), visitRemarkParameter.getU_loc(), visitRemarkParameter.getRegion(), executiveVisitingData.getVisit_date());
         updateVisitReportGapPercent(visitRemarkParameter.getBranch_code(), visitRemarkParameter.getU_loc(), visitRemarkParameter.getRegion(), executiveVisitingData.getVisit_date());
         updateVisitReportTargetData(visitRemarkParameter.getBranch_code(), visitRemarkParameter.getU_loc(), visitRemarkParameter.getRegion(), executiveVisitingData.getVisit_date());
@@ -160,7 +164,7 @@ public class ServiceVisitReportSaveData {
         updateVisitReportNpaprogress(visitRemarkParameter.getBranch_code(), visitRemarkParameter.getU_loc(), visitRemarkParameter.getRegion(), executiveVisitingData.getVisit_date());
 
 
-        return visitDataStaffCompliance;
+        return executiveVisitingData;
     }
 
     public ExecutiveVisitingData updateVisitReportSma(String branchCode, String uLoc, String roname, LocalDate visit_date) {
@@ -173,10 +177,10 @@ public class ServiceVisitReportSaveData {
 
 
         if (uLoc.equalsIgnoreCase("BR")) {
-            mssoBranchProfileSmaDto = this.repoMssoBranchProfileSma.getDailySmaBranch(branchCode);
+            mssoBranchProfileSmaDto = this.repoVisitReport.getVisitReportSmaBranch(branchCode, Date.valueOf(visit_date));
 
         } else {
-            mssoBranchProfileSmaDto = this.repoMssoBranchProfileSma.getDailySmaRO(roname);
+            mssoBranchProfileSmaDto = this.repoVisitReport.getVisitReportSmaRO(roname, Date.valueOf(visit_date));
 
         }
 
@@ -207,9 +211,9 @@ public class ServiceVisitReportSaveData {
         MssoProfileNpaClassificationDto mssoProfileNpaClassificationDto = null;
 
         if (uLoc.equalsIgnoreCase("BR")) {
-            mssoProfileNpaClassificationDto = this.repoMssoBranchProfileSma.getNpaClassificationBranch(branchCode);
+            mssoProfileNpaClassificationDto = this.repoVisitReport.getVisitReportNpaClassificationBranch(branchCode, Date.valueOf(visit_date));
         } else {
-            mssoProfileNpaClassificationDto = this.repoMssoBranchProfileSma.getNpaClassificationRO(roname);
+            mssoProfileNpaClassificationDto = this.repoVisitReport.getVisitReportNpaClassificationRO(roname, Date.valueOf(visit_date));
         }
 
         modelMapper.map(mssoProfileNpaClassificationDto, executiveVisitingData);
@@ -228,10 +232,10 @@ public class ServiceVisitReportSaveData {
 
         MssoProfileReviewRenewalDto mssoProfileReviewRenewalPending = null;
         if (uLoc.equalsIgnoreCase("BR")) {
-            mssoProfileReviewRenewalPending = this.repoMssoBranchProfileSma.getPendingRevieRenewalBranch(branchCode);
+            mssoProfileReviewRenewalPending = this.repoVisitReport.getVisitReportRevieRenewalBranch(branchCode, Date.valueOf(visit_date));
 
         } else {
-            mssoProfileReviewRenewalPending = this.repoMssoBranchProfileSma.getPendingRevieRenewalRO(roname);
+            mssoProfileReviewRenewalPending = this.repoVisitReport.getVisitReportRevieRenewalRO(roname, Date.valueOf(visit_date));
         }
 
         executiveVisitingData.setKcc_amount(mssoProfileReviewRenewalPending.getTotal_amount());
@@ -249,7 +253,7 @@ public class ServiceVisitReportSaveData {
         System.out.println(executiveVisitingData.getVisit_date());
 
 
-        List<LocalDate> marchEndDates = serviceBranchProfileLast3Year.getLastThreeMarchEndDates();
+        List<LocalDate> marchEndDates = getLastThreeMarchEndDates(visit_date);
         marchEndDates.forEach(System.out::println);
         List<MssoBranchProfileActualDataDto> mssoBranchProfileActualDataDto = null;
         if (uLoc.equalsIgnoreCase("BR")) {
@@ -330,12 +334,12 @@ public class ServiceVisitReportSaveData {
         System.out.println(executiveVisitingData.getVisit_date());
 
 
-        LocalDate marchEndDates = serviceBranchProfileLast3Year.getLastMarchEndDates();
+        LocalDate marchEndDates = getLastMarchEndDates(visit_date);
         MssoBranchProfileActualDataDto mssoBranchProfileActualDataDto = null;
         if (uLoc.equalsIgnoreCase("BR")) {
-            mssoBranchProfileActualDataDto = this.repoMssoBranchProfilePreviousData.getBranchProfileBranchGap(branchCode, marchEndDates);
+            mssoBranchProfileActualDataDto = this.repoVisitReport.getVisitReportMarchBranchGap(branchCode, marchEndDates, Date.valueOf(visit_date));
         } else {
-            mssoBranchProfileActualDataDto = this.repoMssoBranchProfilePreviousData.getBranchProfileRoGap(roname, marchEndDates);
+            mssoBranchProfileActualDataDto = this.repoVisitReport.getVisitReportMarchRoGap(roname, marchEndDates, Date.valueOf(visit_date));
         }
 
         executiveVisitingData.setReport_dateMarchGap(mssoBranchProfileActualDataDto.getReport_date());
@@ -368,12 +372,12 @@ public class ServiceVisitReportSaveData {
         System.out.println(executiveVisitingData.getVisit_date());
 
 
-        LocalDate marchEndDates = serviceBranchProfileLast3Year.getLastMarchEndDates();
+        LocalDate marchEndDates = getLastMarchEndDates(visit_date);
         MssoBranchProfileActualDataDto mssoBranchProfileActualDataDto = null;
         if (uLoc.equalsIgnoreCase("BR")) {
-            mssoBranchProfileActualDataDto = this.repoMssoBranchProfilePreviousData.getBranchProfileBranchGapPercentage(branchCode, marchEndDates);
+            mssoBranchProfileActualDataDto = this.repoVisitReport.getVisitReportMarchBranchGapPercentage(branchCode, marchEndDates, Date.valueOf(visit_date));
         } else {
-            mssoBranchProfileActualDataDto = this.repoMssoBranchProfilePreviousData.getBranchProfileRoGapPercentage(roname, marchEndDates);
+            mssoBranchProfileActualDataDto = this.repoVisitReport.getVisitReportMarchRoGapPercentage(roname, marchEndDates, Date.valueOf(visit_date));
 
 
         }
@@ -407,7 +411,7 @@ public class ServiceVisitReportSaveData {
         System.out.println(executiveVisitingData.getVisit_date());
 
 
-        LocalDate quarterEndDate = serviceMssoBranchProfileTargetData.getCurrentquarterEndDateDate();
+        LocalDate quarterEndDate = getCurrentquarterEndDateDate(visit_date);
         MssoBranchProfileTargetDataDto mssoBranchProfileTargetDataDto = null;
         if (uLoc.equalsIgnoreCase("BR")) {
             mssoBranchProfileTargetDataDto = this.repoMssoBranchProfileTargetData.getBranchTargetBranch(branchCode, quarterEndDate);
@@ -445,12 +449,12 @@ public class ServiceVisitReportSaveData {
         System.out.println(executiveVisitingData.getVisit_date());
 
 
-        LocalDate quarterEndDate = serviceMssoBranchProfileTargetData.getCurrentquarterEndDateDate();
+        LocalDate quarterEndDate = getCurrentquarterEndDateDate(visit_date);
         MssoBranchProfileTargetDataDto mssoBranchProfileTargetDataDto = null;
         if (uLoc.equalsIgnoreCase("BR")) {
-            mssoBranchProfileTargetDataDto = this.repoMssoBranchProfileTargetData.getBranchProfileBranchGap(branchCode, quarterEndDate);
+            mssoBranchProfileTargetDataDto = this.repoVisitReport.getVisitReportQuarterBranchGap(branchCode, quarterEndDate, Date.valueOf(visit_date));
         } else {
-            mssoBranchProfileTargetDataDto = this.repoMssoBranchProfileTargetData.getBranchProfileRoGap(roname, quarterEndDate);
+            mssoBranchProfileTargetDataDto = this.repoVisitReport.getVisitReportQuarterRoGap(roname, quarterEndDate, Date.valueOf(visit_date));
         }
         executiveVisitingData.setReport_dateTargetgap(mssoBranchProfileTargetDataDto.getReport_date());
         executiveVisitingData.setSbTargetgap(mssoBranchProfileTargetDataDto.getSb());
@@ -483,7 +487,8 @@ public class ServiceVisitReportSaveData {
         System.out.println(executiveVisitingData.getVisit_date());
 
 
-        LocalDate endDate = serviceMssoBranchProfileTargetData.getFinancialYearEndDate();
+        LocalDate endDate = getFinancialYearEndDate(visit_date);
+        System.out.println("getFinancialYearEndDate  " + endDate);
         MssoBranchProfileTargetDataDto mssoBranchProfileTargetDataDto = null;
         if (uLoc.equalsIgnoreCase("BR")) {
             mssoBranchProfileTargetDataDto = this.repoMssoBranchProfileTargetData.getBranchTargetBranch(branchCode, endDate);
@@ -520,7 +525,7 @@ public class ServiceVisitReportSaveData {
         System.out.println(executiveVisitingData.getVisit_date());
 
 
-        LocalDate endDate = serviceMssoBranchProfileTargetData.getFinancialYearEndDate();
+        LocalDate endDate = getFinancialYearEndDate(visit_date);
         MssoBranchProfileTargetDataDto mssoBranchProfileTargetDataDto = null;
 
         if (uLoc.equalsIgnoreCase("BR")) {
@@ -558,10 +563,12 @@ public class ServiceVisitReportSaveData {
 
         MssoFiSchemeDto mssoFiSchemeDto = null;
         if (uLoc.equalsIgnoreCase("BR")) {
-            mssoFiSchemeDto = this.repoBranchProfileDigitalProduct.getFiSchemeBranch(branchCode);
+
+            mssoFiSchemeDto = this.repoVisitReport.getVisitReportFiSchemeBranch(branchCode, Date.valueOf(visit_date));
         } else {
-            mssoFiSchemeDto = this.repoBranchProfileDigitalProduct.getFiSchemeRO(roname);
+            mssoFiSchemeDto = this.repoVisitReport.getVisitReportFiSchemeRO(roname, Date.valueOf(visit_date));
         }
+        System.out.println(" mssoFiSchemeDto  " + mssoFiSchemeDto.getPmjjby());
         executiveVisitingData.setSocialSecurityReportDate(mssoFiSchemeDto.getReport_date());
         executiveVisitingData.setPmjjby(mssoFiSchemeDto.getPmjjby());
         executiveVisitingData.setPmsby(mssoFiSchemeDto.getPmsby());
@@ -575,11 +582,12 @@ public class ServiceVisitReportSaveData {
         VisitDataStaffCompliance executiveVisitingData = reportStaffCompliance.getVisitStaffComplianceData(branchCode, visit_date);
 
         MssoFiSchemeDto mssoFiSchemeDto = null;
-
+        LocalDate endDate = getFinancialYearEndDate(visit_date);
+        System.out.println("updateVisitReportSSSTarget  "+endDate);
         if (uLoc.equalsIgnoreCase("BR")) {
-            mssoFiSchemeDto = this.repoAccountDigitalTarget.getFiSchemeTargetBranch(branchCode);
+            mssoFiSchemeDto = this.repoVisitReport.getVisitReportFiSchemeTargetBranch(branchCode, Date.valueOf(endDate));
         } else {
-            mssoFiSchemeDto = this.repoAccountDigitalTarget.getFiSchemeTargetRO(roname);
+            mssoFiSchemeDto = this.repoVisitReport.getVisitReportFiSchemeTargetRO(roname, Date.valueOf(endDate));
         }
         executiveVisitingData.setPmjjbyTarget(mssoFiSchemeDto.getPmjjby());
         executiveVisitingData.setPmsbyTarget(mssoFiSchemeDto.getPmsby());
@@ -598,10 +606,10 @@ public class ServiceVisitReportSaveData {
         AmountwiseNpaDto amountwiseNpaDto = null;
 
         if (uLoc.equalsIgnoreCase("BR")) {
-            amountwiseNpaDto = this.repoMssoBranchProfileSma.getNpaSAmountWiseBranch(branchCode);
+            amountwiseNpaDto = this.repoVisitReport.getNpaAmountVisitReportBranch(branchCode, Date.valueOf(visit_date));
 
         } else {
-            amountwiseNpaDto = this.repoMssoBranchProfileSma.getAmountWiseRO(roname);
+            amountwiseNpaDto = this.repoVisitReport.getNpaAmountVisitReportRO(roname, Date.valueOf(visit_date));
 
         }
         executiveVisitingData.setBelow_1lakh_amt(amountwiseNpaDto.getBelow_1lakh_amt());
@@ -624,10 +632,10 @@ public class ServiceVisitReportSaveData {
         SectorwiseNpaDto sectorwiseNpaDto = null;
 
         if (uLoc.equalsIgnoreCase("BR")) {
-            sectorwiseNpaDto = this.repoMssoBranchProfileSma.getNpaSectorWiseBranch(branchCode);
+            sectorwiseNpaDto = this.repoVisitReport.getNpaSectorVisitReportBranch(branchCode, Date.valueOf(visit_date));
 
         } else {
-            sectorwiseNpaDto = this.repoMssoBranchProfileSma.getNpaSectorWiseRO(roname);
+            sectorwiseNpaDto = this.repoVisitReport.getNpaSectorVisitReportRO(roname, Date.valueOf(visit_date));
 
         }
         executiveVisitingData.setHousing_amt(sectorwiseNpaDto.getHousing_amt());
@@ -656,11 +664,11 @@ public class ServiceVisitReportSaveData {
         NpaRecoveryProgressDto npaRecoveryProgressDto = null;
         NpaRecoveryProgressDto npaRecoveryProgressDtoMarch = null;
         if (uLoc.equalsIgnoreCase("BR")) {
-            npaRecoveryProgressDto = this.repoMssoBranchProfileSma.getNpaProgressBranch(branchCode);
-            npaRecoveryProgressDtoMarch = this.repoMssoBranchProfileSma.getNpaProgressMarchBranch(branchCode);
+            npaRecoveryProgressDto = this.repoVisitReport.getNpaProgressVisitReportBranch(branchCode, Date.valueOf(visit_date));
+            npaRecoveryProgressDtoMarch = this.repoVisitReport.getNpaProgressMarchVisitReportBranch(branchCode, Date.valueOf(visit_date));
         } else {
-            npaRecoveryProgressDto = this.repoMssoBranchProfileSma.getNpaProgressRO(roname);
-            npaRecoveryProgressDtoMarch = this.repoMssoBranchProfileSma.getNpaProgressMarchRO(roname);
+            npaRecoveryProgressDto = this.repoVisitReport.getNpaProgressVisitReportRO(roname, Date.valueOf(visit_date));
+            npaRecoveryProgressDtoMarch = this.repoVisitReport.getNpaProgressMarchVisitReportRO(roname, Date.valueOf(visit_date));
         }
         executiveVisitingData.setAddition_os_amt(npaRecoveryProgressDto.getAddition_os_amt());
         executiveVisitingData.setRecovered_os_amt(npaRecoveryProgressDto.getRecovered_os_amt());
@@ -682,9 +690,9 @@ public class ServiceVisitReportSaveData {
 
         MssoBranchProfileAccountStatusDto mssoBranchProfileAccountStatusDto = null;
         if (uLoc.equalsIgnoreCase("BR")) {
-            mssoBranchProfileAccountStatusDto = this.repoBranchprofileAccountStatus.getAccountStatusBranch(branchCode);
+            mssoBranchProfileAccountStatusDto = this.repoVisitReport.getVisitReportAccountStatusBranch(branchCode, Date.valueOf(visit_date));
         } else {
-            mssoBranchProfileAccountStatusDto = this.repoBranchprofileAccountStatus.getAccountStatusRO(roname);
+            mssoBranchProfileAccountStatusDto = this.repoVisitReport.getVisitReportAccountStatusRO(roname, Date.valueOf(visit_date));
         }
 
         executiveVisitingData.setSb_ac_count(mssoBranchProfileAccountStatusDto.getSb_ac_count());
@@ -722,10 +730,11 @@ public class ServiceVisitReportSaveData {
         VisitDataStaffCompliance executiveVisitingData = reportStaffCompliance.getVisitStaffComplianceData(branchCode, visit_date);
 
         MssoAccountStatusDigitalTargetDto mssoAccountStatusDigitalTargetDto = null;
+        LocalDate quarterDate=getCurrentquarterEndDateDate(visit_date);
         if (uLoc.equalsIgnoreCase("BR")) {
-            mssoAccountStatusDigitalTargetDto = this.repoAccountDigitalTarget.getAccountDigitalTargetBranch(branchCode);
+            mssoAccountStatusDigitalTargetDto = this.repoVisitReport.getVisitReportAccountDigitalTargetBranch(branchCode, Date.valueOf(quarterDate));
         } else {
-            mssoAccountStatusDigitalTargetDto = this.repoAccountDigitalTarget.getAccountDigitalTargetRO(roname);
+            mssoAccountStatusDigitalTargetDto = this.repoVisitReport.getVisitReportAccountDigitalTargetRO(roname, Date.valueOf(quarterDate));
         }
 
         executiveVisitingData.setSb_ac_countTarget(mssoAccountStatusDigitalTargetDto.getSb_ac_count());
@@ -745,9 +754,9 @@ public class ServiceVisitReportSaveData {
 
         MssoBranchProfileDigitalProductDto mssoBranchProfileDigitalProductDto = null;
         if (uLoc.equalsIgnoreCase("BR")) {
-            mssoBranchProfileDigitalProductDto = this.repoBranchProfileDigitalProduct.getDigitalproductBranch(branchCode);
+            mssoBranchProfileDigitalProductDto = this.repoVisitReport.getVisitReportDigitalproductBranch(branchCode, Date.valueOf(visit_date));
         } else {
-            mssoBranchProfileDigitalProductDto = this.repoBranchProfileDigitalProduct.getDigitalproductRO(roname);
+            mssoBranchProfileDigitalProductDto = this.repoVisitReport.getVisitReportDigitalproductRO(roname, Date.valueOf(visit_date));
         }
 
 
@@ -769,9 +778,9 @@ public class ServiceVisitReportSaveData {
 
         MssoProfileDailyDisburseDto mssoProfileDailyDisburseDto = null;
         if (uLoc.equalsIgnoreCase("BR")) {
-            mssoProfileDailyDisburseDto = this.repoMssoDailyDisbursement.getDailyDisbursementBranch(branchCode);
+            mssoProfileDailyDisburseDto = this.repoVisitReport.getVisitReportDailyDisbursementBranch(branchCode, Date.valueOf(visit_date));
         } else {
-            mssoProfileDailyDisburseDto = this.repoMssoDailyDisbursement.getDailyDisbursementRO(roname);
+            mssoProfileDailyDisburseDto = this.repoVisitReport.getVisitReportDailyDisbursementRO(roname, Date.valueOf(visit_date));
         }
 
         executiveVisitingData.setReport_dateDisb(mssoProfileDailyDisburseDto.getReport_date());
@@ -816,12 +825,12 @@ public class ServiceVisitReportSaveData {
     public VisitDataStaffCompliance updateVisitReportDisbursementTarget(String branchCode, String uLoc, String roname, LocalDate visit_date) {
         VisitDataStaffCompliance executiveVisitingData = reportStaffCompliance.getVisitStaffComplianceData(branchCode, visit_date);
 
-
+        LocalDate quarterDate=getCurrentquarterEndDateDate(visit_date);
         MssoProfileDailyDisburseDto mssoProfileDailyDisburseDto = null;
         if (uLoc.equalsIgnoreCase("BR")) {
-            mssoProfileDailyDisburseDto = this.repoMssoDailyDisbursement.getDailyDisbursementTargetBranch(branchCode);
+            mssoProfileDailyDisburseDto = this.repoVisitReport.getVisitReportDailyDisbursementTargetBranch(branchCode, Date.valueOf(quarterDate));
         } else {
-            mssoProfileDailyDisburseDto = this.repoMssoDailyDisbursement.getDailyDisbursementTargetRO(roname);
+            mssoProfileDailyDisburseDto = this.repoVisitReport.getVisitReportDailyDisbursementTargetRO(roname, Date.valueOf(quarterDate));
         }
 
 
@@ -869,9 +878,9 @@ public class ServiceVisitReportSaveData {
 
         MssoProfileComplianceDto mssoProfileTimebarred = null;
         if (uLoc.equalsIgnoreCase("BR")) {
-            mssoProfileTimebarred = this.repoMssoBranchProfileSma.getgetTimebarredBranch(branchCode);
+            mssoProfileTimebarred = this.repoVisitReport.getgetTimebarredVisitReportBranch(branchCode, Date.valueOf(visit_date));
         } else {
-            mssoProfileTimebarred = this.repoMssoBranchProfileSma.getgetTimebarredRO(roname);
+            mssoProfileTimebarred = this.repoVisitReport.getgetTimebarredVisitReportRO(roname, Date.valueOf(visit_date));
         }
 
 
@@ -978,5 +987,59 @@ public class ServiceVisitReportSaveData {
         return executiveVisitingData;
     }
 
+    public LocalDate getFinancialYearEndDate(LocalDate visit_Date) {
+        LocalDate today = visit_Date;
+        int year = today.getYear();
 
+        if (today.isBefore(LocalDate.of(year, Month.APRIL, 1))) {
+            // Jan 1 - Mar 31 : financial year ends this year on Mar 31
+            return LocalDate.of(year, Month.MARCH, 31);
+        } else {
+            // Apr 1 - Dec 31 : financial year ends next year on Mar 31
+            return LocalDate.of(year + 1, Month.MARCH, 31);
+        }
+
+    }
+
+    public static LocalDate getLastMarchEndDates(LocalDate visit_Date) {
+        int currentYear = visit_Date.getYear();
+
+        LocalDate marchEndLatest = LocalDate.of(currentYear - 0, Month.MARCH, 31);
+
+
+        return marchEndLatest;
+    }
+
+    public static List<LocalDate> getLastThreeMarchEndDates(LocalDate visit_Date) {
+        int currentYear = visit_Date.getYear();
+        List<LocalDate> marchEnds = new ArrayList<>();
+
+
+        for (int i = 0; i < 3; i++) {
+            LocalDate marchEnd = LocalDate.of(currentYear - i, Month.MARCH, 31);
+            marchEnds.add(marchEnd);
+        }
+        return marchEnds;
+    }
+
+    public static LocalDate getCurrentquarterEndDateDate(LocalDate visit_Date) {
+        LocalDate today = visit_Date;
+        int year = today.getYear();
+        int currentMonth = today.getMonthValue();
+
+        int quarterEndDateMonth;
+
+        if (currentMonth <= 3) {
+            quarterEndDateMonth = 3;   // Q1 ends in March
+        } else if (currentMonth <= 6) {
+            quarterEndDateMonth = 6;   // Q2 ends in June
+        } else if (currentMonth <= 9) {
+            quarterEndDateMonth = 9;   // Q3 ends in September
+        } else {
+            quarterEndDateMonth = 12;  // Q4 ends in December
+        }
+
+        YearMonth ym = YearMonth.of(year, quarterEndDateMonth);
+        return ym.atEndOfMonth();
+    }
 }

@@ -16,28 +16,30 @@ public class MssoBusinessBackendApplication {
 
 		SpringApplication.run(MssoBusinessBackendApplication.class, args);
 		System.out.println("MSSO APPLICATION STARTED....");
-		List<LocalDate> marchEndDates = getLastThreeMarchEndDates();
-		marchEndDates.forEach(System.out::println);
+		LocalDate marchEndDates = getFinancialYearEndDate(LocalDate.parse("2024-08-25"));
+		//System.out.println(marchEndDates);
 		LocalDate quarterEnd = getCurrentQuarterEndDate();
-		System.out.println("Current Quarter End Date: " + quarterEnd);
+	//	System.out.println("Current Quarter End Date: " + quarterEnd);
 		int currentYear = LocalDate.now().getYear();
 
 		LocalDate marchEndLatest = LocalDate.of(currentYear - 0, Month.MARCH, 31);
-		System.out.println("last march date :-"+marchEndLatest);
+		//System.out.println("last march date :-"+marchEndLatest);
 	}
-	public static List<LocalDate> getLastThreeMarchEndDates() {
-		int currentYear = LocalDate.now().getYear();
-		List<LocalDate> marchEnds = new ArrayList<>();
+	public static LocalDate getFinancialYearEndDate(LocalDate visit_Date) {
+		LocalDate today = visit_Date;
+		int year = today.getYear();
 
-		for (int i = 0; i < 3; i++) {
-			LocalDate marchEnd = LocalDate.of(currentYear - i, Month.MARCH, 31);
-			marchEnds.add(marchEnd);
+		if (today.isBefore(LocalDate.of(year, Month.APRIL, 1))) {
+			// Jan 1 - Mar 31 : financial year ends this year on Mar 31
+			return LocalDate.of(year, Month.MARCH, 31);
+		} else {
+			// Apr 1 - Dec 31 : financial year ends next year on Mar 31
+			return LocalDate.of(year + 1, Month.MARCH, 31);
 		}
 
-		return marchEnds;
 	}
 	public static LocalDate getCurrentQuarterEndDate() {
-		LocalDate today = LocalDate.now();
+		LocalDate today = LocalDate.parse("2025-03-01");
 		int year = today.getYear();
 		int currentMonth = today.getMonthValue();
 

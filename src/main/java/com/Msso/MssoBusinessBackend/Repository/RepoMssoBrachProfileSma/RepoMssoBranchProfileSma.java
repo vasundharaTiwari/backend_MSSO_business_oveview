@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.sql.Date;
+
 public interface RepoMssoBranchProfileSma extends JpaRepository<MssoBranchProfileSma, Long> {
 
     //*******************************************************Daily sma data ******************************************************
@@ -248,4 +250,4 @@ public interface RepoMssoBranchProfileSma extends JpaRepository<MssoBranchProfil
                                  ; 
              """, nativeQuery = true)
     public MssoProfileComplianceDto getgetTimebarredRO(@Param("roname") String roname);
-}
+   }
