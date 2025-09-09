@@ -85,6 +85,7 @@ public class ServiceVisitReportSaveData {
 
 
         System.out.println("inside saving");
+        System.out.println("visitRemarkParameter**************"+visitRemarkParameter.getComplianceRemark());
         MssoBranchProfileActualDataDto mssoBranchProfileDto = new MssoBranchProfileActualDataDto();
 
         if (visitRemarkParameter.getU_loc().equalsIgnoreCase("BR")) {
@@ -686,7 +687,7 @@ public class ServiceVisitReportSaveData {
 
     public VisitDataStaffCompliance updateVisitReportAccout(String branchCode, String uLoc, String roname, LocalDate visit_date) {
         VisitDataStaffCompliance executiveVisitingData = reportStaffCompliance.getVisitStaffComplianceData(branchCode, visit_date);
-
+        System.out.println("updateVisitReportAccout");
 
         MssoBranchProfileAccountStatusDto mssoBranchProfileAccountStatusDto = null;
         if (uLoc.equalsIgnoreCase("BR")) {
@@ -710,7 +711,7 @@ public class ServiceVisitReportSaveData {
     public VisitDataStaffCompliance updateVisitReportAccoutMarch(String branchCode, String uLoc, String roname, LocalDate visit_date) {
         VisitDataStaffCompliance executiveVisitingData = reportStaffCompliance.getVisitStaffComplianceData(branchCode, visit_date);
 
-
+        System.out.println("updateVisitReportAccoutMarch");
         MssoBranchProfileAccountStatusDto mssoBranchProfileAccountStatusDto = null;
         if (uLoc.equalsIgnoreCase("BR")) {
             mssoBranchProfileAccountStatusDto = this.repoBranchprofileAccountStatus.getAccountStatusMarchBranch(branchCode);
@@ -728,7 +729,7 @@ public class ServiceVisitReportSaveData {
 
     public VisitDataStaffCompliance updateVisitReportAccoutTarget(String branchCode, String uLoc, String roname, LocalDate visit_date) {
         VisitDataStaffCompliance executiveVisitingData = reportStaffCompliance.getVisitStaffComplianceData(branchCode, visit_date);
-
+        System.out.println("updateVisitReportAccoutTarget");
         MssoAccountStatusDigitalTargetDto mssoAccountStatusDigitalTargetDto = null;
         LocalDate quarterDate=getCurrentquarterEndDateDate(visit_date);
         if (uLoc.equalsIgnoreCase("BR")) {
@@ -751,7 +752,7 @@ public class ServiceVisitReportSaveData {
 
     public VisitDataStaffCompliance updateVisitReportDigital(String branchCode, String uLoc, String roname, LocalDate visit_date) {
         VisitDataStaffCompliance executiveVisitingData = reportStaffCompliance.getVisitStaffComplianceData(branchCode, visit_date);
-
+        System.out.println("updateVisitReportDigital");
         MssoBranchProfileDigitalProductDto mssoBranchProfileDigitalProductDto = null;
         if (uLoc.equalsIgnoreCase("BR")) {
             mssoBranchProfileDigitalProductDto = this.repoVisitReport.getVisitReportDigitalproductBranch(branchCode, Date.valueOf(visit_date));
@@ -774,7 +775,7 @@ public class ServiceVisitReportSaveData {
 
     public VisitDataStaffCompliance updateVisitReportDisbursement(String branchCode, String uLoc, String roname, LocalDate visit_date) {
         VisitDataStaffCompliance executiveVisitingData = reportStaffCompliance.getVisitStaffComplianceData(branchCode, visit_date);
-
+        System.out.println("updateVisitReportDisbursement");
 
         MssoProfileDailyDisburseDto mssoProfileDailyDisburseDto = null;
         if (uLoc.equalsIgnoreCase("BR")) {
@@ -824,7 +825,7 @@ public class ServiceVisitReportSaveData {
 
     public VisitDataStaffCompliance updateVisitReportDisbursementTarget(String branchCode, String uLoc, String roname, LocalDate visit_date) {
         VisitDataStaffCompliance executiveVisitingData = reportStaffCompliance.getVisitStaffComplianceData(branchCode, visit_date);
-
+        System.out.println("updateVisitReportDisbursementTarget");
         LocalDate quarterDate=getCurrentquarterEndDateDate(visit_date);
         MssoProfileDailyDisburseDto mssoProfileDailyDisburseDto = null;
         if (uLoc.equalsIgnoreCase("BR")) {
@@ -873,9 +874,11 @@ public class ServiceVisitReportSaveData {
     }
 
     public ExecutiveVisitingData updateVisitReportTimeBarred(String branchCode, String uLoc, String roname, LocalDate visit_date) {
+        System.out.println("updateVisitReportTimeBarred ******"+visit_date );
+
         ExecutiveVisitingData executiveVisitingData = repoVisitReport.getVisitData(branchCode, visit_date);
 
-
+        System.out.println("updateVisitReportTimeBarred ******" +executiveVisitingData);
         MssoProfileComplianceDto mssoProfileTimebarred = null;
         if (uLoc.equalsIgnoreCase("BR")) {
             mssoProfileTimebarred = this.repoVisitReport.getgetTimebarredVisitReportBranch(branchCode, Date.valueOf(visit_date));

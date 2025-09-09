@@ -18,7 +18,7 @@ public interface RepoMssoBranchEmployeData extends JpaRepository<MssoBranchEmplo
     MssoBranchEmployeeDataDto getBranchSummary(@Param("u_type") String u_type, @Param("branchCode") String branchCode, @Param("roname") String roname);
 
     @Query(value = """
-            SELECT DISTINCT b.REGION,b.BRANCH_CODE,branch_name FROM MASTER_DATA.BRANCH_MASTER b ,HRMS.hrmsuser h\s
+            SELECT DISTINCT b.REGION,b.BRANCH_CODE,branch_name FROM MASTER_DATA.BRANCH_MASTER b ,HRMS.hrmsuser h
             WHERE h.u_loc='RO' and b.branch_code=h.branch_code ORDER BY b.BRANCH_CODE """, nativeQuery = true)
     List<ForRoBranchDto> getRegion();
 
@@ -85,24 +85,24 @@ public interface RepoMssoBranchEmployeData extends JpaRepository<MssoBranchEmplo
     @Query(value = """
 
             WITH abc AS (
-                                         SELECT\s
+                                         SELECT
                                              employee_details.branch_code,
                                              employee_details.region,
                                              COUNT(CASE WHEN employee_details.designation_code = 'AGM' THEN employee_details.emp_number END) AS desg_agm,
-                                             COUNT(CASE WHEN (employee_details.designation_code = 'CM')\s
+                                             COUNT(CASE WHEN (employee_details.designation_code = 'CM')
                                                          OR (employee_details.designation_code = 'BM' AND grade_code = 'SM-IV') THEN employee_details.emp_number END) AS desg_cm,
-                                             COUNT(CASE WHEN (employee_details.designation_code = 'SM')\s
+                                             COUNT(CASE WHEN (employee_details.designation_code = 'SM')
                                                          OR (employee_details.designation_code = 'BM' AND grade_code = 'MM-III') THEN employee_details.emp_number END) AS desg_srmanager,
-                                             COUNT(CASE WHEN (employee_details.designation_code = 'MN')\s
+                                             COUNT(CASE WHEN (employee_details.designation_code = 'MN')
                                                          OR (employee_details.designation_code = 'BM' AND grade_code = 'MM-II') THEN employee_details.emp_number END) AS desg_manager,
-                                             COUNT(CASE WHEN (employee_details.designation_code = 'AM')\s
+                                             COUNT(CASE WHEN (employee_details.designation_code = 'AM')
                                                          OR (employee_details.designation_code = 'BM' AND grade_code = 'JM') THEN employee_details.emp_number END) AS desg_dymanager,
                                              COUNT(CASE WHEN employee_details.designation_code = 'CL' THEN employee_details.emp_number END) AS desg_clerk,
                                              COUNT(CASE WHEN employee_details.designation_code = 'SS' THEN employee_details.emp_number END) AS substaff
                                          FROM hrms.employee_details
                                          GROUP BY employee_details.branch_code, employee_details.region
                                      )
-                                     SELECT\s
+                                     SELECT
                                          SUM(desg_agm) AS desg_agm,
                                          SUM(desg_cm) AS desg_cm,
                                          SUM(desg_srmanager) AS desg_srmanager,
