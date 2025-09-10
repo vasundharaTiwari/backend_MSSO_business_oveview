@@ -43,7 +43,7 @@ public class VisitReportController {
         executiveVisitingData = serviceVisitReportGetData.getVisitDataByBranch(branchCode,visit_date);
 
 
-        System.out.println("visit-report");
+        System.out.println("visit-report   "+executiveVisitingData.getVisit_date());
         return executiveVisitingData;
     }
     //*********************************************************************************
