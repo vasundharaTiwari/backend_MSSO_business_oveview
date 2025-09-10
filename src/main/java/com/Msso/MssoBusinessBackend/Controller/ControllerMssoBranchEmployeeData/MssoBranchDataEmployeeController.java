@@ -121,7 +121,7 @@ public class MssoBranchDataEmployeeController {
 //        List<MssoBranchEmployeeDataDto> branchDataList= mssoBranchDataService.getMssoBranchData(branchCode,uLoc, uId,roname);
 
 
-        System.out.println("Location:- " + uLoc);
+        System.out.println("Location:- " + uLoc+"agreementDate "+agreementDate);
         return agreementDate;
 
 

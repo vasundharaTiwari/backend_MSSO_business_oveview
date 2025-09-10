@@ -113,6 +113,7 @@ public class BranchProfileReport {
             MssoBranchProfileActualDataDto mssoBranchProfileActualDataDtoMarchGapPer = serviceBranchProfileLast3Year.getMssoBranchProfileGapMarchPercentage(branch_code, region, u_loc);
             MssoBranchProfileActualDataDto mssoBranchProfileCurrentData = null;
             String category;
+            String category1;
             String designation = "";
             String desig = "";
             System.out.println("inside dep-adv-npa");
@@ -123,12 +124,15 @@ public class BranchProfileReport {
                 branchCategoryDto1 = this.repoEmployeData.getBCCountHO();
 
                 category = "HO Staff";
+                category1 = "Total Staff";
 
             } else if (u_loc.equalsIgnoreCase("BR")) {
                 mssoBranchProfileCurrentData = this.repoMssoBranchProfile.getBranchProfileBranch(branch_code);
                 branchCategoryDto1 = this.repoEmployeData.getBCCountBranch(branch_code);
 
                 category = "Branch Staff";
+                category1 = "Total Staff";
+
                 designation="Branch";
                 desig="BM";
 
@@ -137,7 +141,9 @@ public class BranchProfileReport {
                 mssoBranchProfileCurrentData = this.repoMssoBranchProfile.getBranchProfileRO(region);
                 branchCategoryDto1 = this.repoEmployeData.getBCCountRo(region);
 
-                category = "RO Staff";
+                category = "Total Staff";
+                category1 = "RO Staff";
+
                 designation="Regional";
                 desig="RM";
 
@@ -509,14 +515,22 @@ public class BranchProfileReport {
             Map<String, Object> parameters = new HashMap<>();
 
 //*********************************************** TABLE MAPPING **********************************************************************************
-
-            parameters.put("employeeData", new JRBeanCollectionDataSource(mssoBranchEmployeeDataDtoList));
-            parameters.put("employeeDataSummary", new JRBeanCollectionDataSource(mssoEmployeeSummaryDtoList));
+if(u_loc.equalsIgnoreCase("RO")) {
+    parameters.put("employeeData", new JRBeanCollectionDataSource(mssoEmployeeSummaryDtoList));
+    parameters.put("employeeDataSummary", new JRBeanCollectionDataSource(mssoBranchEmployeeDataDtoList));
+}else {
+    parameters.put("employeeData", new JRBeanCollectionDataSource(mssoBranchEmployeeDataDtoList));
+    parameters.put("employeeDataSummary", new JRBeanCollectionDataSource(mssoBranchEmployeeDataDtoList));
+}
             parameters.put("paramterDetails", new JRBeanCollectionDataSource(parameterDetailsList));
             parameters.put("newLoanSanctioned", new JRBeanCollectionDataSource(mssoProfileDailyDisburseDtoList));
             parameters.put("newLoanSanctionedTarget", new JRBeanCollectionDataSource(mssoProfileDailyDisburseTargetList));
             parameters.put("newLoanSanctionedProductWise", new JRBeanCollectionDataSource(mssoProfileDailyDisburseDtoList));
+
             parameters.put("newLoanSanctionedProductWiseTarget", new JRBeanCollectionDataSource(mssoProfileDailyDisburseTargetList));
+            parameters.put("governmentSchema", new JRBeanCollectionDataSource(mssoProfileDailyDisburseDtoList));
+            parameters.put("governmentSchemaTarget", new JRBeanCollectionDataSource(mssoProfileDailyDisburseTargetList));
+
             parameters.put("stressData", new JRBeanCollectionDataSource(mssoBranchProfileSmaDtoList));
             parameters.put("npaClassification", new JRBeanCollectionDataSource( mssoNpaClassificationList));
             parameters.put("sectorwiseNpa", new JRBeanCollectionDataSource( sectorwiseNpaList));
@@ -540,12 +554,22 @@ public class BranchProfileReport {
 
             parameters.put("branchCode",mssoBranchEmployeeDataDto.getBranch_code());
             String branchOpenDate=dateConverter(branchOpeningDateDto.getBranchopendate());
+
+//            java.sql.Date agreementDate = mssoBranchDataService.getBranchAgreementDate(branch_code, u_loc, region);
+//
+//
+//            String leaseDate=dateConverter(agreementDate);
+
             String bmBranchJoinDate="";
 
             if(bmBranchJoinDateDto!=null) {
                 bmBranchJoinDate = dateConverter(bmBranchJoinDateDto.getBmBranchJoinDate());
             }
             parameters.put("sinceDate", branchOpenDate!=null?branchOpenDate:"");
+            parameters.put("leaseDate", branchOpenDate!=null?branchOpenDate:"");
+
+
+
             parameters.put("bmBranchJoinDate", bmBranchJoinDate!=null?bmBranchJoinDate:"");
             parameters.put("designation", designation!=null?designation:"");
             parameters.put("design", desig!=null?desig:"");
@@ -580,9 +604,16 @@ public class BranchProfileReport {
             String sma_report_date=dateConverter(mssoBranchProfileSmaDto.getReport_date());
 
             parameters.put("sma_report_date",sma_report_date);
-            parameters.put("total_staff",total_staff);
-            parameters.put("total_staff_bank",branch_total_staff);
+            if(u_loc.equalsIgnoreCase("RO")) {
+                parameters.put("total_staff", branch_total_staff);
+                parameters.put("total_staff_bank", total_staff);
+            }
+            else{
+                parameters.put("total_staff", total_staff);
+                parameters.put("total_staff_bank", branch_total_staff);
+            }
             parameters.put("category",category);
+            parameters.put("category1",category1);
 
 //************************************************** NPA PROGRESS **************************************************************
             parameters.put("recovered_os_amt",npaRecoveryProgressDto.getRecovered_os_amt()!=null?npaRecoveryProgressDto.getRecovered_os_amt(): 0L);
@@ -656,6 +687,7 @@ public class BranchProfileReport {
             parameters.put("financialYear",total_staff);
             parameters.put("timebarredReportDate",mssoProfileTimebarred.getReport_date());
 
+            parameters.put("socialSecurityTargetMonth",dateConverterUtil(mssoFiSchemeDtoTarget.getReport_date()));
 
             //******************************** FILL THE MAIN REPORT ***********************************************************8
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());
@@ -1325,9 +1357,22 @@ public class BranchProfileReport {
             parameters.put("newLoanSanctioned", new JRBeanCollectionDataSource(mssoProfileDailyDisburseDtoList));
             parameters.put("newLoanSanctionedTarget", new JRBeanCollectionDataSource(mssoProfileDailyDisburseDtoTargetList));
             parameters.put("newLoanSanctionedProductWise", new JRBeanCollectionDataSource(mssoProfileDailyDisburseDtoList));
+            parameters.put("governmentSchema", new JRBeanCollectionDataSource(mssoProfileDailyDisburseDtoList));
+            parameters.put("governmentSchemaTarget", new JRBeanCollectionDataSource(mssoProfileDailyDisburseDtoTargetList));
+
             parameters.put("newLoanSanctionedProductWiseTarget", new JRBeanCollectionDataSource(mssoProfileDailyDisburseDtoTargetList));
-            parameters.put("employeeData", new JRBeanCollectionDataSource(mssoBranchEmployeeDataDtoList));
-            parameters.put("employeeDataSummary", new JRBeanCollectionDataSource(mssoEmployeeSummaryDtoList));
+
+//            parameters.put("employeeData", new JRBeanCollectionDataSource(mssoBranchEmployeeDataDtoList));
+//            parameters.put("employeeDataSummary", new JRBeanCollectionDataSource(mssoEmployeeSummaryDtoList));
+
+            if(reportCompliance.getU_loc().equalsIgnoreCase("RO")) {
+                parameters.put("employeeData", new JRBeanCollectionDataSource(mssoEmployeeSummaryDtoList));
+                parameters.put("employeeDataSummary", new JRBeanCollectionDataSource(mssoBranchEmployeeDataDtoList));
+            }else {
+                parameters.put("employeeData", new JRBeanCollectionDataSource(mssoBranchEmployeeDataDtoList));
+                parameters.put("employeeDataSummary", new JRBeanCollectionDataSource(mssoBranchEmployeeDataDtoList));
+            }
+
             parameters.put("npaClassification", new JRBeanCollectionDataSource( mssoNpaClassificationList));
             parameters.put("perEmployeeBusiness",reportCompliance.getPerEmployeeBusiness());
             parameters.put("sectorwiseNpa", new JRBeanCollectionDataSource(sectorwiseNpaList));
@@ -1348,10 +1393,15 @@ public class BranchProfileReport {
             }
 
             String branchOpenDate=dateConverter(reportCompliance.getBranchOpenDate());
+//            String leaseDate=dateConverter(reportCompliance.getAgreement_end_date());
+
+
             String bmBranchJoinDate=dateConverter(report.getBmBranchJoinDate());
             String visitorDate=dateConverterLocalDate(reportCompliance.getVisit_date());
 
             parameters.put("sinceDate", branchOpenDate!=null?branchOpenDate:"");
+            parameters.put("leaseDate", branchOpenDate!=null?branchOpenDate:"");
+
             parameters.put("bmBranchJoinDate", bmBranchJoinDate!=null?bmBranchJoinDate:"");
             parameters.put("visitorName", reportCompliance.getVisitor_name()!=null?reportCompliance.getVisitor_name():"");
             parameters.put("visitorDesignation", reportCompliance.getVisitor_designation()!=null?reportCompliance.getVisitor_designation():"");
@@ -1402,17 +1452,24 @@ public class BranchProfileReport {
 
             String  amountIn="";
             String category = "";
+            String category1 = "";
             parameters.put("paramterDetails", new JRBeanCollectionDataSource(parameterDetailsList));
             if(reportCompliance.getU_loc().equalsIgnoreCase("HO")||reportCompliance.getU_loc().equalsIgnoreCase("RO")) {
 
-                parameters.put("total_staff_bank", reportCompliance.getTotal_staff_region().intValue());
-                parameters.put("total_staff", reportCompliance.getTotal_staff_branch().intValue());
+//                parameters.put("total_staff_bank", reportCompliance.getTotal_staff_region().intValue());
+//                parameters.put("total_staff", reportCompliance.getTotal_staff_branch().intValue());
+
+
+                parameters.put("total_staff_bank", reportCompliance.getTotal_staff_branch().intValue());
+                parameters.put("total_staff",reportCompliance.getTotal_staff_region().intValue());
+
 
                 amountIn="Crore";
                 isPerEmployeeBusiness=false;
                 isBcCount = false;
                 isHoRoEmployeeSummary = true;
-                category = "RO Staff";
+                category1 = "RO Staff";
+                category = "Total Staff";
 
             }else {
                 parameters.put("total_staff", reportCompliance.getTotal_staff_branch().intValue());
@@ -1434,6 +1491,10 @@ public class BranchProfileReport {
             parameters.put("branchCategory",reportCompliance.getBranch_category());
             parameters.put("amountIn",amountIn);
             parameters.put("category",category);
+            parameters.put("category1",category1);
+
+
+
 
             parameters.put("recovered_os_amt",reportCompliance.getRecovered_os_amt()!=null?reportCompliance.getRecovered_os_amt():BigDecimal.ZERO);
             parameters.put("recovered_os_amt_march",reportCompliance.getRecovered_os_amtMarch()!=null?reportCompliance.getRecovered_os_amtMarch():BigDecimal.ZERO);
@@ -1491,6 +1552,9 @@ public class BranchProfileReport {
             parameters.put("totalAson",dateConverter(year3.getReportDate()));
 
 
+            parameters.put("socialSecurityTargetMonth",dateConverterUtil(reportCompliance.getSocialSecurityReportDateTarget()));
+
+
             parameters.put("parameterDetailRemark",reportCompliance.getParameterDetailRemark());
             parameters.put("sanctionDisbursedRemark",reportCompliance.getSanctionDisbursedRemark());
             parameters.put("smaRemark",reportCompliance.getSmaRemark());
@@ -1498,9 +1562,26 @@ public class BranchProfileReport {
             parameters.put("complianceRemark",reportCompliance.getComplianceRemark());
             parameters.put("accountAndDigitalStatusRemark",reportCompliance.getAccountAndDigitalStatusRemark());
             parameters.put("socialSecurityRemark",reportCompliance.getSocialSecurityRemark());
+
+            parameters.put("governmentRemark",reportCompliance.getGovernmentRemark());
+
+//
+//            Boolean isOtherRemark = reportCompliance.getOtherRemark() != null;
+//            System.out.println("isOtherRemark "+isOtherRemark);
+            Boolean isOtherRemark=false;
+
+            if (reportCompliance.getOtherRemark() != null && !reportCompliance.getOtherRemark().trim().isEmpty()) {
+                // remark is not null, not empty, and not just whitespace
+
+                isOtherRemark = true;
+            }
+            System.out.println("isOtherRemark "+isOtherRemark);
+
+            parameters.put("isOtherRemark",isOtherRemark);
+
             parameters.put("otherRemark",reportCompliance.getOtherRemark());
+
             parameters.put("employeeDataRemark",reportCompliance.getEmployeeDataRemark());
-            parameters.put("socialSecurityTargetMonth","");
 
             //******************************** FILL THE MAIN REPORT ***********************************************************8
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());

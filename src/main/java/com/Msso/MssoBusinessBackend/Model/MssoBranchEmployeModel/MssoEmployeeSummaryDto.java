@@ -50,6 +50,20 @@ public class MssoEmployeeSummaryDto {
     public void setDesg_clerk(int desg_clerk) { this.desg_clerk = desg_clerk; }
 
     public int getSubstaff() { return substaff; }
+
+    @Override
+    public String toString() {
+        return "MssoEmployeeSummaryDto{" +
+                "desg_agm=" + desg_agm +
+                ", desg_cm=" + desg_cm +
+                ", desg_srmanager=" + desg_srmanager +
+                ", desg_manager=" + desg_manager +
+                ", desg_dymanager=" + desg_dymanager +
+                ", desg_clerk=" + desg_clerk +
+                ", substaff=" + substaff +
+                '}';
+    }
+
     public void setSubstaff(int substaff) { this.substaff = substaff; }
 
     public MssoEmployeeSummaryDto() {
