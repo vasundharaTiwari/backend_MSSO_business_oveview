@@ -22,16 +22,23 @@ import com.Msso.MssoBusinessBackend.Services.ServiceMssoBranchProfile.*;
 import lombok.RequiredArgsConstructor;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+import net.sf.jasperreports.export.SimpleXlsxReportConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -61,7 +68,7 @@ public class BranchProfileReport {
     @Autowired
     ServiceVisitReportGetData serviceVisitReport;
 
-    public ResponseEntity<ByteArrayResource> exportBranchProfileReport(String branch_code,  String region, String u_loc) throws JRException {
+    public ResponseEntity<ByteArrayResource> exportBranchProfileReport(String branch_code,  String region, String u_loc,String file_type) throws JRException {
 
         try {
             //********************************************** Load main JRXML file ************************************************************************************
@@ -149,53 +156,40 @@ public class BranchProfileReport {
 
             }
 
-
-//            if (u_loc.equalsIgnoreCase("HO")) {
-//                branchCategoryDto1 = this.repoEmployeData.getBCCountHO();
-//                System.out.println("getBCCountHO");
-//
-//            } else if (u_loc.equalsIgnoreCase("RO")) {
-//                branchCategoryDto1 = this.repoEmployeData.getBCCountRo(region);
-//                System.out.println("branchCategoryDto" + branchCategoryDto);
-//
-//            } else if (u_loc.equalsIgnoreCase("BR")) {
-//                branchCategoryDto1 = this.repoEmployeData.getBCCountBranch(branch_code);
-//            }
-
             Boolean isBcCount;
+            Boolean isBcCount1;
+
             Boolean isPerEmployeeBusiness;
+            Boolean isPerEmployeeBusiness1;
+            long BcCount1=0;
+            BigDecimal perEmployeeBusiness1= BigDecimal.valueOf(0.0);
             String amountIn;
 
             if (u_loc.equalsIgnoreCase("HO")||u_loc.equalsIgnoreCase("RO")) {
-                isBcCount = false;
-                isPerEmployeeBusiness=false;
+
                 amountIn="Crore";
             } else {
-                isBcCount = true;
-                isPerEmployeeBusiness=true;
+
                 amountIn="Lakh";
 
             }
+            if (u_loc.equalsIgnoreCase("RO")||u_loc.equalsIgnoreCase("BR")) {
+                isBcCount = true;
+                isBcCount1 = true;
 
-//
-//            List<String> branchProfileParameter = Arrays.asList(
-//                    "Total Business",
-//                    "Total Deposit",
-//                    "Current Deposit",
-//                    "Saving Deposit",
-//                    "CASA Deposit",
-//                    "Term Deposit",
-//                    "Gross Advances",
-//                    "Housing",
-//                    "Vehicle",
-//                    "Education",
-//                    "Agriculture",
-//                    "MSME",
-//                    "Gold",
-//                    "SHG",
-//                    "Total RAM"
-//            );
-
+                isPerEmployeeBusiness=true;
+                isPerEmployeeBusiness1=true;
+                BcCount1=0;
+                perEmployeeBusiness1=BigDecimal.ZERO;
+//                amountIn="Crore";
+            } else {
+                isBcCount = false;
+                isBcCount1 = true;
+                BcCount1= Long.parseLong(String.valueOf(branchCategoryDto1.getTotalCount()));
+                isPerEmployeeBusiness=false;
+                isPerEmployeeBusiness1=true;
+//                amountIn="Lakh";
+            }
 
             List<ParameterDetails> parameterDetailsList = new ArrayList<>();
 
@@ -520,7 +514,7 @@ if(u_loc.equalsIgnoreCase("RO")) {
     parameters.put("employeeDataSummary", new JRBeanCollectionDataSource(mssoBranchEmployeeDataDtoList));
 }else {
     parameters.put("employeeData", new JRBeanCollectionDataSource(mssoBranchEmployeeDataDtoList));
-    parameters.put("employeeDataSummary", new JRBeanCollectionDataSource(mssoBranchEmployeeDataDtoList));
+    parameters.put("employeeDataSummary", new JRBeanCollectionDataSource(mssoEmployeeSummaryDtoList));
 }
             parameters.put("paramterDetails", new JRBeanCollectionDataSource(parameterDetailsList));
             parameters.put("newLoanSanctioned", new JRBeanCollectionDataSource(mssoProfileDailyDisburseDtoList));
@@ -536,7 +530,7 @@ if(u_loc.equalsIgnoreCase("RO")) {
             parameters.put("sectorwiseNpa", new JRBeanCollectionDataSource( sectorwiseNpaList));
             parameters.put("amountwiseNpa", new JRBeanCollectionDataSource( amountwiseNpaList));
 
-            parameters.put("perEmployeeBusiness",perEmployeeBusiness);
+
             if(mssoBranchEmployeeDataDto.getBranch_code().equalsIgnoreCase("4000")) {
                 parameters.put("region", "Head Office");
                 parameters.put("branchName","-");
@@ -555,11 +549,6 @@ if(u_loc.equalsIgnoreCase("RO")) {
             parameters.put("branchCode",mssoBranchEmployeeDataDto.getBranch_code());
             String branchOpenDate=dateConverter(branchOpeningDateDto.getBranchopendate());
 
-//            java.sql.Date agreementDate = mssoBranchDataService.getBranchAgreementDate(branch_code, u_loc, region);
-//
-//
-//            String leaseDate=dateConverter(agreementDate);
-
             String bmBranchJoinDate="";
 
             if(bmBranchJoinDateDto!=null) {
@@ -573,12 +562,33 @@ if(u_loc.equalsIgnoreCase("RO")) {
             parameters.put("bmBranchJoinDate", bmBranchJoinDate!=null?bmBranchJoinDate:"");
             parameters.put("designation", designation!=null?designation:"");
             parameters.put("design", desig!=null?desig:"");
-            parameters.put("bcCount",branchCategoryDto1.getTotalCount());
+
+            if (u_loc.equalsIgnoreCase("RO")||u_loc.equalsIgnoreCase("BR")) {
+                parameters.put("bcCount",branchCategoryDto1.getTotalCount());
+                parameters.put("BcCount1",BcCount1);
+                parameters.put("perEmployeeBusiness",perEmployeeBusiness);
+                parameters.put("PerEmployeeBusiness1",perEmployeeBusiness1);
+            } else {
+                parameters.put("bcCount","-");
+
+                parameters.put("BcCount1",branchCategoryDto1.getTotalCount());
+                parameters.put("perEmployeeBusiness","-");
+                System.out.println("perEmployeeBusiness1 perEmployeeBusiness1"+perEmployeeBusiness1);
+                parameters.put("PerEmployeeBusiness1",perEmployeeBusiness);
+            }
+
+
+
+
             parameters.put("branchOrRegionHead",mssoBranchEmployeeDataDto.getEmployee_name());
             parameters.put("grade",mssoBranchEmployeeDataDto.getGrade_code());
             parameters.put("isHeadName",isHeadName);
             parameters.put("isBcCount",isBcCount);
+            parameters.put("isBcCount1",isBcCount1);
+
             parameters.put("isPerEmployeeBusiness",isPerEmployeeBusiness);
+            parameters.put("isPerEmployeeBusiness1",isPerEmployeeBusiness1);
+
             parameters.put("isHoRoEmployeeSummary",isHoRoEmployeeSummary);
             parameters.put("branchCategory",branchCategory);
             parameters.put("amountIn",amountIn);
@@ -636,12 +646,7 @@ if(u_loc.equalsIgnoreCase("RO")) {
             parameters.put("pendingCkyc",mssoBranchProfileDigitalProductDto != null && mssoBranchProfileDigitalProductDto.getCkyc()!=null?mssoBranchProfileDigitalProductDto.getCkyc(): 0L);
             parameters.put("inoperativeCasaCount",mssoBranchProfileAccountStatusDto != null &&  mssoBranchProfileAccountStatusDto.getCasa_count()!=null?mssoBranchProfileAccountStatusDto.getCasa_count(): 0L);
             parameters.put("inoperativeCasaAmount",mssoBranchProfileAccountStatusDto != null && mssoBranchProfileAccountStatusDto.getCasa_amount()!=null?mssoBranchProfileAccountStatusDto.getCasa_amount(): BigDecimal.ZERO);
-//            if(u_loc.equalsIgnoreCase("HO")) {
-//                parameters.put("pendingMultipleCif", mssoBranchProfileDigitalProductDto.getMultiple_cif()!=null?mssoBranchProfileDigitalProductDto.getMultiple_cif(): 0L);
-//            }else{
-            //parameters.put("pendingMultipleCif",mssoBranchProfileDigitalProductDto.getMultiple_cif()!=null?mssoBranchProfileDigitalProductDto.getMultiple_cif(): 0L);
 
-            // }
 //************************************************** Accounts Status and Digital Products details **************************************************************
 
             parameters.put("quarterTargetSB",mssoAccountStatusDigitalTargetDto!=null && mssoAccountStatusDigitalTargetDto.getSb_ac_count()!=null?mssoAccountStatusDigitalTargetDto.getSb_ac_count():0L);
@@ -693,17 +698,61 @@ if(u_loc.equalsIgnoreCase("RO")) {
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());
 
             //******************************** Export to PDF ********************************************************************
-            byte[] pdfBytes = JasperExportManager.exportReportToPdf(jasperPrint);
+           if(file_type.equalsIgnoreCase("pdf")){
 
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_PDF);
-            headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=AppraisalNote" + branch_code + ".pdf");
+                byte[] pdfBytes = JasperExportManager.exportReportToPdf(jasperPrint);
 
-            return ResponseEntity
-                    .ok()
-                    .headers(headers)
-                    .contentType(MediaType.APPLICATION_PDF)
-                    .body(new ByteArrayResource(pdfBytes));
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(MediaType.APPLICATION_PDF);
+                headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=Branch_profile" + branch_code + ".pdf");
+
+                return ResponseEntity
+                        .ok()
+                        .headers(headers)
+                        .contentType(MediaType.APPLICATION_PDF)
+                        .body(new ByteArrayResource(pdfBytes));
+            }
+
+else{
+                ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+
+                JRXlsxExporter exporter = new JRXlsxExporter();
+                exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
+                exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outStream));
+
+                SimpleXlsxReportConfiguration configuration = new SimpleXlsxReportConfiguration();
+                configuration.setDetectCellType(true);
+                configuration.setOnePagePerSheet(false);
+                configuration.setWhitePageBackground(false);
+                configuration.setRemoveEmptySpaceBetweenRows(true);
+                exporter.setConfiguration(configuration);
+
+                exporter.exportReport();
+
+                byte[] excelBytes = outStream.toByteArray();
+
+                HttpHeaders headers = new HttpHeaders();
+//                headers.setContentType(MediaType.parseMediaType(
+//                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
+//                headers.setContentDisposition(ContentDisposition
+//                        .attachment()
+//                        .filename("Branch_profile.xlsx")
+//                        .build());
+//
+//                return ResponseEntity.ok()
+//                        .headers(headers)
+//                        .body(new ByteArrayResource(excelBytes));
+
+
+               return ResponseEntity.ok()
+                       .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=Branch_profile_" + branch_code +".xlsx")
+                       .header(HttpHeaders.CONTENT_TYPE, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+                       .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                       .body(new ByteArrayResource(excelBytes));
+
+
+           }
+
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(500).body(null);
@@ -1359,18 +1408,14 @@ if(u_loc.equalsIgnoreCase("RO")) {
             parameters.put("newLoanSanctionedProductWise", new JRBeanCollectionDataSource(mssoProfileDailyDisburseDtoList));
             parameters.put("governmentSchema", new JRBeanCollectionDataSource(mssoProfileDailyDisburseDtoList));
             parameters.put("governmentSchemaTarget", new JRBeanCollectionDataSource(mssoProfileDailyDisburseDtoTargetList));
-
             parameters.put("newLoanSanctionedProductWiseTarget", new JRBeanCollectionDataSource(mssoProfileDailyDisburseDtoTargetList));
-
-//            parameters.put("employeeData", new JRBeanCollectionDataSource(mssoBranchEmployeeDataDtoList));
-//            parameters.put("employeeDataSummary", new JRBeanCollectionDataSource(mssoEmployeeSummaryDtoList));
 
             if(reportCompliance.getU_loc().equalsIgnoreCase("RO")) {
                 parameters.put("employeeData", new JRBeanCollectionDataSource(mssoEmployeeSummaryDtoList));
                 parameters.put("employeeDataSummary", new JRBeanCollectionDataSource(mssoBranchEmployeeDataDtoList));
             }else {
                 parameters.put("employeeData", new JRBeanCollectionDataSource(mssoBranchEmployeeDataDtoList));
-                parameters.put("employeeDataSummary", new JRBeanCollectionDataSource(mssoBranchEmployeeDataDtoList));
+                parameters.put("employeeDataSummary", new JRBeanCollectionDataSource(mssoEmployeeSummaryDtoList));
             }
 
             parameters.put("npaClassification", new JRBeanCollectionDataSource( mssoNpaClassificationList));
@@ -1394,7 +1439,6 @@ if(u_loc.equalsIgnoreCase("RO")) {
 
             String branchOpenDate=dateConverter(reportCompliance.getBranchOpenDate());
 //            String leaseDate=dateConverter(reportCompliance.getAgreement_end_date());
-
 
             String bmBranchJoinDate=dateConverter(report.getBmBranchJoinDate());
             String visitorDate=dateConverterLocalDate(reportCompliance.getVisit_date());
@@ -1425,7 +1469,7 @@ if(u_loc.equalsIgnoreCase("RO")) {
 
             parameters.put("designation", designation!=null?designation:"");
             parameters.put("design", desig!=null?desig:"");
-            parameters.put("bcCount",reportCompliance.getBcCount());
+
                 parameters.put("totalBranch", reportCompliance.getTotalBranchCount()!=null?reportCompliance.getTotalBranchCount():0);
                 parameters.put("urban", reportCompliance.getUrban()!=null?reportCompliance.getUrban():0);
                 parameters.put("semiUrban", reportCompliance.getSemiUrban()!=null?reportCompliance.getSemiUrban():0);
@@ -1446,8 +1490,10 @@ if(u_loc.equalsIgnoreCase("RO")) {
 
             System.out.println("reportCompliance.getPerEmployeeBusiness() ---------"+reportCompliance.getPerEmployeeBusiness());
 
-            Boolean isPerEmployeeBusiness;
+            Boolean isPerEmployeeBusiness=true;
             Boolean isBcCount;
+            Boolean isBcCount1;
+
             Boolean isHoRoEmployeeSummary = true;
 
             String  amountIn="";
@@ -1456,37 +1502,76 @@ if(u_loc.equalsIgnoreCase("RO")) {
             parameters.put("paramterDetails", new JRBeanCollectionDataSource(parameterDetailsList));
             if(reportCompliance.getU_loc().equalsIgnoreCase("HO")||reportCompliance.getU_loc().equalsIgnoreCase("RO")) {
 
-//                parameters.put("total_staff_bank", reportCompliance.getTotal_staff_region().intValue());
-//                parameters.put("total_staff", reportCompliance.getTotal_staff_branch().intValue());
-
-
                 parameters.put("total_staff_bank", reportCompliance.getTotal_staff_branch().intValue());
                 parameters.put("total_staff",reportCompliance.getTotal_staff_region().intValue());
 
 
                 amountIn="Crore";
-                isPerEmployeeBusiness=false;
-                isBcCount = false;
+
                 isHoRoEmployeeSummary = true;
                 category1 = "RO Staff";
                 category = "Total Staff";
 
             }else {
                 parameters.put("total_staff", reportCompliance.getTotal_staff_branch().intValue());
-                isPerEmployeeBusiness=true;
+//                isPerEmployeeBusiness=true;
                 amountIn="Lakh";
-                isBcCount = true;
+//                isBcCount = true;
                 isHoRoEmployeeSummary = false;
                 category = "Branch Staff";
             }
+
+            Boolean isPerEmployeeBusiness1=true;
+
+            BigDecimal perEmployeeBusiness1=BigDecimal.ZERO;
+            Long BcCount1;
+            if (reportCompliance.getU_loc().equalsIgnoreCase("BR")||reportCompliance.getU_loc().equalsIgnoreCase("RO")) {
+                isBcCount =true;
+                isBcCount1 = false;
+
+                isPerEmployeeBusiness=true;
+                isPerEmployeeBusiness1=false;
+                BcCount1= 0L;
+                perEmployeeBusiness1=BigDecimal.ZERO;
+//                amountIn="Crore";
+            } else {
+                isBcCount = false;
+                isBcCount1 = true;
+                BcCount1=reportCompliance.getBcCount();
+                isPerEmployeeBusiness=false;
+                isPerEmployeeBusiness1=true;
+//                amountIn="Lakh";
+            }
+            parameters.put("bcCount",reportCompliance.getBcCount());
+
+            if (reportCompliance.getU_loc().equalsIgnoreCase("RO")||reportCompliance.getU_loc().equalsIgnoreCase("BR")) {
+                parameters.put("bcCount",reportCompliance.getBcCount());
+                parameters.put("BcCount1",BcCount1);
+                parameters.put("perEmployeeBusiness",reportCompliance.getPerEmployeeBusiness());
+                parameters.put("PerEmployeeBusiness1",perEmployeeBusiness1);
+            } else {
+                parameters.put("bcCount","-");
+
+                parameters.put("BcCount1",reportCompliance.getBcCount());
+                parameters.put("perEmployeeBusiness","-");
+                System.out.println("perEmployeeBusiness1 perEmployeeBusiness1"+perEmployeeBusiness1);
+                parameters.put("PerEmployeeBusiness1",reportCompliance.getPerEmployeeBusiness());
+            }
+
+
+            if (reportCompliance.getU_loc().equalsIgnoreCase("RO")||reportCompliance.getU_loc().equalsIgnoreCase("BR")) {
+                              amountIn="Crore";
+            } else {
+                amountIn="Lakh";
+            }
+
 
             Boolean isHeadName;
             isHeadName = !reportCompliance.getU_loc().equalsIgnoreCase("HO");
             parameters.put("branchOrRegionHead",reportCompliance.getEmployee_name());
             parameters.put("grade",reportCompliance.getGrade_code());
             parameters.put("isHeadName",isHeadName);
-            parameters.put("isBcCount",isBcCount);
-            parameters.put("isPerEmployeeBusiness",isPerEmployeeBusiness);
+
             parameters.put("isHoRoEmployeeSummary",isHoRoEmployeeSummary);
             parameters.put("branchCategory",reportCompliance.getBranch_category());
             parameters.put("amountIn",amountIn);
@@ -1494,7 +1579,8 @@ if(u_loc.equalsIgnoreCase("RO")) {
             parameters.put("category1",category1);
 
 
-
+            parameters.put("isBcCount",isBcCount);
+            parameters.put("isBcCount1",isBcCount1);
 
             parameters.put("recovered_os_amt",reportCompliance.getRecovered_os_amt()!=null?reportCompliance.getRecovered_os_amt():BigDecimal.ZERO);
             parameters.put("recovered_os_amt_march",reportCompliance.getRecovered_os_amtMarch()!=null?reportCompliance.getRecovered_os_amtMarch():BigDecimal.ZERO);
@@ -1506,6 +1592,10 @@ if(u_loc.equalsIgnoreCase("RO")) {
 
 
             System.out.println(isPerEmployeeBusiness+"isPerEmployeeBusinessisPerEmployeeBusinessisPerEmployeeBusiness");
+            parameters.put("isPerEmployeeBusiness",isPerEmployeeBusiness);
+            parameters.put("isPerEmployeeBusiness1",isPerEmployeeBusiness1);
+
+
             parameters.put("naccReviewRenewalCount",report.getNacc_count()!=null?report.getNacc_count():0L);
             parameters.put("naccReviewRenewalAmount",report.getNacc_amount()!=null?report.getNacc_amount():BigDecimal.ZERO);
             parameters.put("timebarredCount",report.getTotal_countTimeBarred()!=null?report.getTotal_countTimeBarred():0L);
@@ -1562,12 +1652,8 @@ if(u_loc.equalsIgnoreCase("RO")) {
             parameters.put("complianceRemark",reportCompliance.getComplianceRemark());
             parameters.put("accountAndDigitalStatusRemark",reportCompliance.getAccountAndDigitalStatusRemark());
             parameters.put("socialSecurityRemark",reportCompliance.getSocialSecurityRemark());
-
             parameters.put("governmentRemark",reportCompliance.getGovernmentRemark());
 
-//
-//            Boolean isOtherRemark = reportCompliance.getOtherRemark() != null;
-//            System.out.println("isOtherRemark "+isOtherRemark);
             Boolean isOtherRemark=false;
 
             if (reportCompliance.getOtherRemark() != null && !reportCompliance.getOtherRemark().trim().isEmpty()) {

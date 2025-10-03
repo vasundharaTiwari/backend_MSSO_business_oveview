@@ -29,12 +29,13 @@ public class ReportDownloadController {
     @GetMapping("/branch-profile")
     public ResponseEntity<ByteArrayResource> exportAppraisalNoteReport(@RequestParam String branch_code,
                                                                        @RequestParam String region,
-                                                                       @RequestParam String u_loc) throws JRException, FileNotFoundException, NoSuchFileException {
+                                                                       @RequestParam String u_loc,
+                                                                       @RequestParam String file_type ) throws JRException, FileNotFoundException, NoSuchFileException {
 
 
         System.out.println("Data for BranchProfileReport"+branch_code+region+u_loc);
 
-        return branchProfileReport.exportBranchProfileReport(branch_code,region,u_loc);
+        return branchProfileReport.exportBranchProfileReport(branch_code,region,u_loc,file_type);
 
     }
     @GetMapping("/visit-report")
