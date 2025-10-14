@@ -991,7 +991,11 @@ public class ServiceVisitReportSaveData {
     }
 
     public LocalDate getFinancialYearEndDate(LocalDate visit_Date) {
-        LocalDate today = visit_Date;
+        LocalDate today ;
+        if (visit_Date.getDayOfMonth() == 1) {
+            today= visit_Date.minusDays(1);
+        }
+        else{today = visit_Date;}
         int year = today.getYear();
 
         if (today.isBefore(LocalDate.of(year, Month.APRIL, 1))) {
@@ -1005,6 +1009,12 @@ public class ServiceVisitReportSaveData {
     }
 
     public static LocalDate getLastMarchEndDates(LocalDate visit_Date) {
+
+
+        if (visit_Date.getDayOfMonth() == 1) {
+            visit_Date= visit_Date.minusDays(1);
+        }
+
         int currentYear = visit_Date.getYear();
 
         LocalDate marchEndLatest = LocalDate.of(currentYear - 0, Month.MARCH, 31);
@@ -1014,19 +1024,38 @@ public class ServiceVisitReportSaveData {
     }
 
     public static List<LocalDate> getLastThreeMarchEndDates(LocalDate visit_Date) {
-        int currentYear = visit_Date.getYear();
-        List<LocalDate> marchEnds = new ArrayList<>();
+        // If visit_Date is the first day of any month, use the day before
+        if (visit_Date.getDayOfMonth() == 1) {
+            visit_Date = visit_Date.minusDays(1);
+        }
 
+        int currentYear = visit_Date.getYear();
+        LocalDate marchEndCurrentYear = LocalDate.of(currentYear, Month.MARCH, 31);
+
+        // If visit_Date is before or on March 31, start from previous year
+        if (!visit_Date.isAfter(marchEndCurrentYear)) {
+            currentYear -= 1;
+        }
+
+        List<LocalDate> marchEnds = new ArrayList<>();
 
         for (int i = 0; i < 3; i++) {
             LocalDate marchEnd = LocalDate.of(currentYear - i, Month.MARCH, 31);
             marchEnds.add(marchEnd);
         }
+
         return marchEnds;
     }
 
     public static LocalDate getCurrentquarterEndDateDate(LocalDate visit_Date) {
-        LocalDate today = visit_Date;
+
+        LocalDate today ;
+        if (visit_Date.getDayOfMonth() == 1) {
+            today= visit_Date.minusDays(1);
+        }
+        else{today = visit_Date;}
+
+
         int year = today.getYear();
         int currentMonth = today.getMonthValue();
 

@@ -83,14 +83,39 @@ public class ServiceBranchProfileLast3Year {
 
 
     public static List<LocalDate> getLastThreeMarchEndDates() {
-        int currentYear = LocalDate.now().getYear();
-        List<LocalDate> marchEnds = new ArrayList<>();
+        int currentYear;
+//        int currentYear = LocalDate.now().getYear();
+//        List<LocalDate> marchEnds = new ArrayList<>();
+//
+//
+//        for (int i = 0; i < 3; i++) {
+//            LocalDate marchEnd = LocalDate.of(currentYear - i, Month.MARCH, 31);
+//            marchEnds.add(marchEnd);
+//        }
+//        return marchEnds;
 
+        if (LocalDate.now().getDayOfMonth() == 1) {
+            currentYear = LocalDate.now().minusDays(1).getYear();
+        }
+else{
+            currentYear = LocalDate.now().getYear();
+
+        }
+
+        LocalDate marchEndCurrentYear = LocalDate.of(currentYear, Month.MARCH, 31);
+
+        // If visit_Date is before or on March 31, start from previous year
+        if (!LocalDate.now().isAfter(marchEndCurrentYear)) {
+            currentYear -= 1;
+        }
+
+        List<LocalDate> marchEnds = new ArrayList<>();
 
         for (int i = 0; i < 3; i++) {
             LocalDate marchEnd = LocalDate.of(currentYear - i, Month.MARCH, 31);
             marchEnds.add(marchEnd);
         }
+
         return marchEnds;
     }
     public static LocalDate getLastMarchEndDates() {
@@ -100,5 +125,7 @@ public class ServiceBranchProfileLast3Year {
 
 
         return marchEndLatest;
+
+
     }
 }

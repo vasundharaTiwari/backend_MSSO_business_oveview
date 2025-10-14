@@ -20,6 +20,8 @@ import com.Msso.MssoBusinessBackend.Repository.RepoVisitReport.RepoVisitReportSt
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
@@ -100,7 +102,28 @@ public class ServiceVisitReportGetData {
             mssoBranchProfileSmaDto = this.repoVisitReport.getVisitReportSmaRO(roname, (visit_date));
 
         }
+
+
+        MssoBranchProfileActualDataDto mssoBranchProfileDto=getVisitReportBranchProfile(branchCode, roname, u_loc,visit_date);
+        BigDecimal netAdvances=mssoBranchProfileDto.getAdvances().subtract(mssoBranchProfileDto.getNpa());
+        BigDecimal sma0Percent = mssoBranchProfileSmaDto.getSma0_amount()
+                .multiply(BigDecimal.valueOf(100))
+                .divide(netAdvances, 2, RoundingMode.HALF_UP);
+        BigDecimal sma1Percent =  mssoBranchProfileSmaDto.getSma1_amount()
+                .multiply(BigDecimal.valueOf(100))
+                .divide(netAdvances, 2, RoundingMode.HALF_UP);
+        BigDecimal sma2Percent =  mssoBranchProfileSmaDto.getSma2_amount()
+                .multiply(BigDecimal.valueOf(100))
+                .divide(netAdvances, 2, RoundingMode.HALF_UP);
+        BigDecimal smaTotalPercent =  mssoBranchProfileSmaDto.getTotal_amount()
+                .multiply(BigDecimal.valueOf(100))
+                .divide(netAdvances, 2, RoundingMode.HALF_UP);
+        mssoBranchProfileSmaDto.setSma0Percentage(sma0Percent);
+        mssoBranchProfileSmaDto.setSma1Percentage(sma1Percent);
+        mssoBranchProfileSmaDto.setSma2Percentage(sma2Percent);
+        mssoBranchProfileSmaDto.setSmaTotalPercentage(smaTotalPercent);
         return mssoBranchProfileSmaDto;
+
     }
 
     public MssoProfileNpaClassificationDto getVisitReportNpaClassification(String branchCode,

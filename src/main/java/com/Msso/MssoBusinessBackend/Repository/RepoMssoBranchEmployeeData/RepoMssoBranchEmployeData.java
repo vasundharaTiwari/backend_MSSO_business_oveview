@@ -123,7 +123,7 @@ public interface RepoMssoBranchEmployeData extends JpaRepository<MssoBranchEmplo
         count(CASE when population_group_name='RURAL' then branch_code  ELSE null  END  ) as RURAL,
         count(CASE when population_group_name='METROPOLITAN' then branch_code  ELSE null  END  ) as METROPOLITAN,
         count(CASE when population_group_name='SEMI-URBAN' then branch_code  ELSE null  END  ) as SEMI_URBAN
-        FROM master_data.branch_master_catagory   """, nativeQuery=true)
+        FROM master_data.branch_master WHERE branch_name not LIKE '%RO %'  """, nativeQuery=true)
 BranchCategoryDto getCategoryCountHO();
 
 

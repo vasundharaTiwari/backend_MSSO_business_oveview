@@ -107,7 +107,13 @@ public class ServiceMssoBranchProfileTargetData {
     }
 
     public static LocalDate getCurrentquarterEndDateDate() {
-        LocalDate today = LocalDate.now();
+
+        LocalDate today ;
+        if (LocalDate.now().getDayOfMonth() == 1) {
+            today= LocalDate.now().minusDays(1);
+        }
+        else{today = LocalDate.now();}
+
         int year = today.getYear();
         int currentMonth = today.getMonthValue();
 
@@ -127,9 +133,13 @@ public class ServiceMssoBranchProfileTargetData {
         return ym.atEndOfMonth();
     }
     public LocalDate getFinancialYearEndDate() {
-        LocalDate today = LocalDate.now();
-        int year = today.getYear();
+        LocalDate today ;
 
+        if (LocalDate.now().getDayOfMonth() == 1) {
+            today= LocalDate.now().minusDays(1);
+        }
+        else{ today = LocalDate.now();}
+        int year = today.getYear();
         if (today.isBefore(LocalDate.of(year, Month.APRIL, 1))) {
             // Jan 1 - Mar 31 : financial year ends this year on Mar 31
             return LocalDate.of(year, Month.MARCH, 31);
