@@ -40,7 +40,7 @@ public interface RepoMssoDeposit extends JpaRepository<MssoDeposit, Long> {
 
        @Query(value = """
              Select REGION,report_date, round(sum(sb)::numeric,2) as sb,round(sum(Ca)::numeric,2) as Ca,round(sum(td)::numeric,2) as td, round(sum(deposit)::numeric,2) as deposit\s
-              from advances.MSSO_DEPOSIT where report_date= (select max(report_date) from advances.MSSO_DEPOSIT) GROUP BY report_date,REGION ORDER BY REGION
+              from advances.MSSO_DEPOSIT where report_date= (select max(report_date) from advances.MSSO_DEPOSIT) and region <>'HEAD OFFICE' GROUP BY report_date,REGION ORDER BY REGION
             """, nativeQuery = true)
        public List<DtoMssoDepositRegionwise> getDepositHORegionwise();
 }

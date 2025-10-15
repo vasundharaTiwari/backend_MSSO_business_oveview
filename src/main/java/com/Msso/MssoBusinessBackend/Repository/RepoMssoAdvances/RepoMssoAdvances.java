@@ -40,7 +40,7 @@ public interface RepoMssoAdvances extends JpaRepository<MssoAdvances, Long> {
     List<DtoMssoAdvancesBranchwise> getAdvancesHOBranchwise(@Param("roname") String roname);
 
     @Query(
-            value = " Select region, report_date,round(sum(advances)::numeric,2)as advances,round(sum(advances - total_npa)::numeric,2) as Reg_Adv,round(sum(total_npa)::numeric,2)as total_npa,\n round(sum(freez_npa)::numeric,2)as freez_npa from advances.MSSO_ADVANCES where report_date =(select max(report_date) from  advances.MSSO_ADVANCES)  GROUP BY region, report_date order by region\n",
+            value = " Select region, report_date,round(sum(advances)::numeric,2)as advances,round(sum(advances - total_npa)::numeric,2) as Reg_Adv,round(sum(total_npa)::numeric,2)as total_npa,\n round(sum(freez_npa)::numeric,2)as freez_npa from advances.MSSO_ADVANCES where report_date =(select max(report_date) from  advances.MSSO_ADVANCES) and region <>'HEAD OFFICE' GROUP BY region, report_date order by region\n",
             nativeQuery = true
     )
     List<DtoMssoAdvancesRegionwise> getAdvancesHORegionwise();

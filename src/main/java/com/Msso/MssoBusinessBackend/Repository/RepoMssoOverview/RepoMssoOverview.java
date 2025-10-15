@@ -73,7 +73,7 @@ public interface RepoMssoOverview extends JpaRepository<MssoOverview, Long> {
              WITH mno AS (SELECT region,o.report_date ,ROUND(SUM( o.deposit)::numeric, 2) AS dep, ROUND(SUM( o.advances)::numeric, 2) AS adv,
                                                             ROUND(SUM((o.ca + o.sb))::numeric, 2) AS casa FROM advances.msso_overview o where o.report_date = (select max(report_date) from advances.msso_overview)  GROUP BY o.report_date,region)
                                                             SELECT report_date,region,  mno.dep AS deposit,mno.adv AS advances, (mno.dep + mno.adv) AS totalBusiness,
-                                                            ROUND((mno.casa / NULLIF(mno.dep, 0)) * 100::numeric, 2) AS casaPercent FROM mno order by region
+                                                            ROUND((mno.casa / NULLIF(mno.dep, 0)) * 100::numeric, 2) AS casaPercent FROM mno where region <>'HEAD OFFICE' order by region
             """, nativeQuery = true)
     public List<DtoMssoBusinessRegionwise> getBusinesssHORegionwise();
 
