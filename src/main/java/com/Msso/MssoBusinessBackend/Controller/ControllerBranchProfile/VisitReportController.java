@@ -385,7 +385,7 @@ public class VisitReportController {
             @RequestParam String branchCode,
              @RequestParam String u_loc, @RequestParam Date visit_date) {
 
-        MssoFiSchemeDto mssoFiSchemeDto = serviceVisitReportGetData.getVisitReportFiScheme(branchCode, roname, u_loc,visit_date);
+        MssoFiSchemeDto mssoFiSchemeDto = serviceVisitReportGetData.getVisitReportFiSchemeTarget(branchCode, roname, u_loc,visit_date);
 
 
         System.out.println("fi-scheme-target");
@@ -400,7 +400,7 @@ public class VisitReportController {
             @RequestParam String branchCode,
              @RequestParam String u_loc, @RequestParam Date visit_date) {
 
-        MssoFiSchemeDto mssoFiSchemeDto = serviceVisitReportGetData.getVisitReportFiSchemeTarget(branchCode, roname, u_loc,visit_date);
+        MssoFiSchemeDto mssoFiSchemeDto = serviceVisitReportGetData.getVisitReportFiScheme(branchCode, roname, u_loc,visit_date);
 
 
         System.out.println("fi-scheme");
